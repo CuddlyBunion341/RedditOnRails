@@ -1,3 +1,11 @@
 :root {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
+
+.post {
+  border-radius: 2px;
+  margin-bottom: 10px;
+  border: 1px solid #bfbfbf;
+  background-color: white;
+  width: 500px;
+}
