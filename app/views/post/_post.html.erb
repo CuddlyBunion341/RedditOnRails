@@ -1,6 +1,6 @@
 <article class="post">
   <section class="post-head">
-    <p>{COMMUNITY} posted by {USER} <%= post.created_at %></p>
+    posted by <%= post.user.username %> <%= time_ago_in_words post.created_at %> ago
   </section>
   <h3><%= post.title %></h3>
   <p><%= post.body %></p>
