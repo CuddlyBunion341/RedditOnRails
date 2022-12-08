@@ -1,0 +1,22 @@
+<h1>SignUp</h1>
+<%= form_with model: @user, data: {turbo:false}, url: signup_path do |f| %>
+  <p>
+    <%= f.label "username:" %><br>
+    <%= f.text_field :username, id: "username" %>
+  </p>
+  <p>
+    <%= f.label "email:" %><br>
+    <%= f.text_field :email, id: "email" %>
+  </p>
+  <p>
+    <%= f.label "password:" %><br>
+    <%= f.password_field :password, id: "password" %>
+  </p>
+  <p>
+    <%= f.label "verify password:" %><br>
+    <%= f.password_field :verify, id: "verify" %>
+  </p>
+  <p>
+    <%= f.submit "Signup" %>
+  </p>
+<% end %>
