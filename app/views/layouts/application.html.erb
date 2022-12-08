@@ -9,6 +9,18 @@
     <%= javascript_importmap_tags %>
   </head>
   <body>
+    <nav>
+      <ul>
+        <%= nav_link "Home", root_path %>
+        <% if Current.user %>
+          <li><%= button_to 'Logout', logout_path, method: :delete%></li>
+          <li>Logged in as <%= Current.user.username %></li>
+        <% else %>
+          <%= nav_link "SignUp", signup_path %>
+          <%= nav_link "LogIn", login_path %>
+        <% end %>
+      </ul>
+    </nav>
     <main>
       <%= yield %>
     </main>
