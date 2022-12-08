@@ -1,0 +1,14 @@
+<h1>Create Post</h1>
+<%= form_with model: @post, url: post_path do |form| %>
+  <div>
+    <%= form.label :title %><br>
+    <%= form.text_field :title %>
+  </div>
+  <div>
+    <%= form.label :body %><br>
+    <%= form.text_area :body %>
+  </div>
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

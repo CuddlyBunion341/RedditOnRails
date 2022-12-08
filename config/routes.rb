@@ -5,4 +5,6 @@ Rails.application.routes.draw do
   get "signup", to: "registrations#new"
   post "signup", to: "registrations#create"
   delete "logout", to: "sessions#destroy"
+  get "post", to: "post#new"
+  post "post", to: "post#create"
 end
