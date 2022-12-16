@@ -21,6 +21,7 @@ class PostsController < ApplicationController
     render json: { error: "You must be logged in to vote" }, status: :unauthorized and return unless Current.user
 
     @post = Post.find(params[:id])
+    @post.score = @post.vote(Current.user, upvote)
 
     render json: { html: render_to_string(partial: "post", locals: { post: @post }) }
   end

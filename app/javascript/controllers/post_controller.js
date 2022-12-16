@@ -4,11 +4,12 @@ export default class extends Controller {
 	static targets = ["wrapper", "score", "upvote", "downvote"];
 
 	connect() {
-		console.log("Hello, Stimulus!", this.scoreTarget);
+		this.postID = this.wrapperTarget.dataset.id;
 	}
 
-	upvote() {
-		fetch("/upvote/1", {
+	vote(upvote) {
+		const root = upvote ? `upvote` : `downvote`;
+		fetch(`/${root}_post/${this.postID}`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -24,5 +25,11 @@ export default class extends Controller {
 			});
 	}
 
-	downvote() {}
+	upvote() {
+		this.vote(true);
+	}
+
+	downvote() {
+		this.vote(false);
+	}
 }
