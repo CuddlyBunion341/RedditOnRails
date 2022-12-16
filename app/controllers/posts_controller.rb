@@ -22,6 +22,7 @@ class PostsController < ApplicationController
 
     @post = Post.find(params[:id])
     @post.score = @post.vote(Current.user, upvote)
+    @post.save
 
     render json: { html: render_to_string(partial: "post", locals: { post: @post }) }
   end
