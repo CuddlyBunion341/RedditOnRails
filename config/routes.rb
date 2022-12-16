@@ -8,6 +8,6 @@ Rails.application.routes.draw do
   get "post", to: "posts#new"
   post "post", to: "posts#create"
 
-  get "upvote/:id", to: "posts#upvote"
-  get "downvote/:id", to: "posts#downvote"
+  post "upvote/:id", to: "posts#upvote"
+  post "downvote/:id", to: "posts#downvote"
 end
