@@ -1,4 +1,4 @@
-class PostController < ApplicationController
+class PostsController < ApplicationController
   def index
     @posts = Post.all
   end
@@ -15,6 +15,20 @@ class PostController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def vote(upvote = true)
+    render json: { error: "You must be logged in to vote" }, status: :unauthorized and return unless Current.user
+
+    @post = Post.find(params[:id])
+
+    render json: { html: render_to_string(partial: "post", locals: { post: @post }) }
+  end
+
+  alias_method :upvote, :vote
+
+  def downvote
+    vote(false)
   end
 
   private

@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_04_122841) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_16_191517) do
+  create_table "post_votes", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "post_id", null: false
+    t.boolean "isUpvote", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_post_votes_on_post_id"
+    t.index ["user_id"], name: "index_post_votes_on_user_id"
+  end
+
   create_table "posts", force: :cascade do |t|
     t.string "title"
     t.text "body"
@@ -18,6 +28,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_04_122841) do
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "score", default: 0
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -29,5 +40,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_04_122841) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "post_votes", "posts"
+  add_foreign_key "post_votes", "users"
   add_foreign_key "posts", "users"
 end

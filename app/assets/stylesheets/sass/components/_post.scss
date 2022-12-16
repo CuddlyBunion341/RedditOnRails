@@ -4,4 +4,10 @@
 	border: 1px solid #bfbfbf;
 	background-color: white;
 	width: 500px;
+
+	.score-wrapper {
+		button.active {
+			background-color: rebeccapurple;
+		}
+	}
 }

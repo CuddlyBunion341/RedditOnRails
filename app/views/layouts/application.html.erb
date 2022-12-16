@@ -9,6 +9,13 @@
     <%= javascript_importmap_tags %>
   </head>
   <body>
+    <div class="popup">
+      <% flash.each do |name, msg| %>
+        <div class="flash <%= name %>">
+          <%= msg %>
+        </div>
+      <% end %>
+    </div>
     <nav>
       <ul>
         <%= nav_link "Home", root_path %>

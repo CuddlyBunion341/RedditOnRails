@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
-  root "post#index"
+  root "posts#index"
   get "login", to: "sessions#new"
   post "login", to: "sessions#create"
   get "signup", to: "registrations#new"
   post "signup", to: "registrations#create"
   delete "logout", to: "sessions#destroy"
-  get "post", to: "post#new"
-  post "post", to: "post#create"
+  get "post", to: "posts#new"
+  post "post", to: "posts#create"
+
+  get "upvote/:id", to: "posts#upvote"
+  get "downvote/:id", to: "posts#downvote"
 end

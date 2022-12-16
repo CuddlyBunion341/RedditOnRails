@@ -1,0 +1,16 @@
+<article class="post" data-controller="post">
+  <div class="score-wrapper">
+    <button data-target="post.upvote" data-action="click->post#upvote">↑</button>
+    <span data-target="post.score"><%= post.score %></span>
+    <button data-target="post.downvote" data-action="click->post#downvote">↓</button>
+  </div>
+  <div class="main-wrapper">
+    <section class="post-head">
+      posted by <%= post.user.username %> <%= time_ago_in_words post.created_at %> ago
+    </section>
+    <h3><%= post.title %></h3>
+    <p><%= post.body %></p>
+    <section class="post-footer">
+    </section>
+  </div>
+</article>
