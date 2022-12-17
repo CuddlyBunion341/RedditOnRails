@@ -1,0 +1,12 @@
+.vote_btn {
+	&.upvote {
+		&.active {
+			color: red;
+		}
+	}
+	&.downvote {
+		&.active {
+			color: blue;
+		}
+	}
+}

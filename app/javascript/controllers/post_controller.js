@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-	static targets = ["wrapper", "score", "upvote", "downvote"];
+	static targets = ["wrapper"];
 
 	connect() {
 		this.postID = this.wrapperTarget.dataset.id;

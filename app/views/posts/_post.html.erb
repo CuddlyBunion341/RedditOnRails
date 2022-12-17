@@ -1,8 +1,8 @@
 <article class="post" data-id="<%= post.id %>" data-controller="post" data-post-target="wrapper">
   <div class="score-wrapper">
-    <button data-target="post.upvote" data-action="click->post#upvote">↑</button>
-    <span data-target="post.score"><%= post.score %></span>
-    <button data-target="post.downvote" data-action="click->post#downvote">↓</button>
+    <%= upvote_button post %>
+    <span><%= post.score %></span>
+    <%= downvote_button post %>
   </div>
   <div class="main-wrapper">
     <section class="post-head">

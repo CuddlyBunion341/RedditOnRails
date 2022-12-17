@@ -7,4 +7,12 @@ class User < ApplicationRecord
   has_many :posts
   has_many :comments
   has_many :post_votes
+
+  def upvoted?(post)
+    post_votes.find_by(post: post, isUpvote: true)
+  end
+
+  def downvoted?(post)
+    post_votes.find_by(post: post, isUpvote: false)
+  end
 end
