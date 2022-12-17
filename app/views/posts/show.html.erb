@@ -2,7 +2,12 @@
 <%= render "post", post: @post %>
 <h3>Comments</h3>
 <div class="comments-wrapper">
-  <% @post.comments.each do |comment| %>
-    <%= render "comments/comment", comment:comment%>
-  <% end %>
+  <%= render "comments/form" %>
+  <% unless @post.comments.exists? %>
+    <p>No comments yet!</p>
+  <% else %>
+    <% @post.comments.each do |comment| %>
+      <%= render "comments/comment", comment: comment %>
+    <% end %>
+  <% end%>
 </div>
