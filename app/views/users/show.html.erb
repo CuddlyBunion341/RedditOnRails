@@ -1,5 +1,9 @@
 <h1>User <%= @user.username %></h1>
 <h2>Posts:</h2>
-<% @user.posts.each do |post| %>
-  <%= render "posts/post", post: post %>
+<% unless @user.posts.exists? %>
+  <p>This user has no posts yet.</p>
+<% else %>
+  <% @user.posts.each do |post| %>
+    <%= render "posts/post", post: post %>
+  <% end %>
 <% end %>
