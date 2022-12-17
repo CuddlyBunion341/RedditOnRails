@@ -22,7 +22,7 @@
         <% if Current.user %>
           <li><%= button_to 'Logout', logout_path, method: :delete%></li>
           <li>Logged in as <%= Current.user.username %></li>
-          <%= nav_link "Post", post_path %>
+          <%= nav_link "Post", create_post_path %>
         <% else %>
           <%= nav_link "SignUp", signup_path %>
           <%= nav_link "LogIn", login_path %>

@@ -2,8 +2,10 @@ class Post < ApplicationRecord
   belongs_to :user
 
   has_many :votes, class_name: "PostVote", dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   validates :title, presence: true
+  validates :body, presence: true
 
   def vote(user, upvote = true)
     if votes.find_by(user: user, isUpvote: upvote)

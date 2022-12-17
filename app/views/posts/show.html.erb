@@ -1,0 +1,8 @@
+<h1>Showing a single post:</h1>
+<%= render "post", post: @post %>
+<h3>Comments</h3>
+<div class="comments-wrapper">
+  <% @post.comments.each do |comment| %>
+    <%= render "comments/comment", comment:comment%>
+  <% end %>
+</div>

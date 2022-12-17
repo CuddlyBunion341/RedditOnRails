@@ -11,6 +11,7 @@
     <h3><%= post.title %></h3>
     <p><%= post.body %></p>
     <section class="post-footer">
+      <%= link_to "comments", post_path(post) %>
     </section>
   </div>
 </article>

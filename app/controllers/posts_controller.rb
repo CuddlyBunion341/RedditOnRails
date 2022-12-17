@@ -17,6 +17,10 @@ class PostsController < ApplicationController
     end
   end
 
+  def show
+    @post = Post.find(params[:id])
+  end
+
   def vote(upvote = true)
     render json: { error: "You must be logged in to vote" }, status: :unauthorized and return unless Current.user
 

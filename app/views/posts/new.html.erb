@@ -1,5 +1,5 @@
 <h1>Create Post</h1>
-<%= form_with model: @post, url: post_path do |form| %>
+<%= form_with model: @post do |form| %>
   <div>
     <%= form.label :title %><br>
     <%= form.text_field :title %>
