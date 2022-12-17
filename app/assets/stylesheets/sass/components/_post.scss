@@ -4,10 +4,44 @@
 	border: 1px solid #bfbfbf;
 	background-color: white;
 	width: 500px;
+	display: flex;
 
-	.score-wrapper {
-		button.active {
-			// background-color: rebeccapurple;
+	&-head {
+		font-size: 13px;
+		color: dimgray;
+	}
+
+	&-score {
+		background-color: #ebebeb;
+		padding-top: 5px;
+		height: auto;
+		width: 30px;
+		float: left;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		button {
+			background: none;
+			border: none;
 		}
+	}
+
+	&-content {
+		width: 100%;
+		padding: 5px 10px 10px 10px;
+
+		h3 {
+			margin: 0;
+			margin-top: 5px;
+		}
+
+		p {
+			margin: 0;
+			margin-top: 5px;
+		}
+	}
+
+	&-footer {
 	}
 }

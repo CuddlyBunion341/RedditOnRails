@@ -22,6 +22,46 @@ body {
   border: 1px solid #bfbfbf;
   background-color: white;
   width: 500px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.post-head {
+  font-size: 13px;
+  color: dimgray;
+}
+.post-score {
+  background-color: #ebebeb;
+  padding-top: 5px;
+  height: auto;
+  width: 30px;
+  float: left;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.post-score button {
+  background: none;
+  border: none;
+}
+.post-content {
+  width: 100%;
+  padding: 5px 10px 10px 10px;
+}
+.post-content h3 {
+  margin: 0;
+  margin-top: 5px;
+}
+.post-content p {
+  margin: 0;
+  margin-top: 5px;
 }
 main {
   padding-left: 10px;

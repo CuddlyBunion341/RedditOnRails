@@ -1,10 +1,10 @@
 <article class="post" data-id="<%= post.id %>" data-controller="post" data-post-target="wrapper">
-  <div class="score-wrapper">
+  <div class="post-score">
     <%= upvote_button post %>
     <span><%= post.score %></span>
     <%= downvote_button post %>
   </div>
-  <div class="main-wrapper">
+  <div class="post-content">
     <section class="post-head">
       posted by <%= post.user.username %> <%= time_ago_in_words post.created_at %> ago
     </section>
