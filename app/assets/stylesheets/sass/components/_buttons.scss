@@ -1,4 +1,5 @@
 .vote_btn {
+	cursor: pointer;
 	&.upvote {
 		&.active {
 			color: red;

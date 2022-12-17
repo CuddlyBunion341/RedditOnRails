@@ -90,6 +90,10 @@ GEM
       reline (>= 0.3.1)
     erubi (1.11.0)
     ffi (1.15.5)
+    font-awesome-rails (4.7.0.8)
+      railties (>= 3.2, < 8.0)
+    font-awesome-sass (6.2.1)
+      sassc (~> 2.0)
     globalid (1.0.0)
       activesupport (>= 5.0)
     i18n (1.12.0)
@@ -225,6 +229,8 @@ DEPENDENCIES
   bootsnap
   capybara
   debug
+  font-awesome-rails
+  font-awesome-sass (~> 6.2.1)
   importmap-rails
   jbuilder
   jquery-rails
