@@ -12,7 +12,7 @@
     <p><%= post.body %></p>
     <section class="post-footer">
       <%= button_to post_path(post), method: :get do %>
-        <%= icon("fa fa-rg", "comment") %>
+        <%= icon("fa-regular", "comment") %>
         <%= post.comments.count %> comments
       <% end %>
     </section>
