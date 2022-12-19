@@ -3,10 +3,10 @@
 <h3>Comments</h3>
 <div class="comments-wrapper">
   <%= render "comments/form" %>
-  <% unless @post.comments.exists? %>
+  <% unless @comments.exists? %>
     <p>No comments yet!</p>
   <% else %>
-    <% @post.comments.each do |comment| %>
+    <% @comments.each do |comment| %>
       <%= render "comments/comment", comment: comment %>
     <% end %>
   <% end%>

@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   def index
-    @posts = Post.all
+    @posts = Post.all.order(created_at: :desc)
   end
 
   def new
@@ -19,6 +19,18 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+    @comments = @post.comments.order(created_at: :desc)
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+
+    if @post.user_id != Current.user.id
+      redirect_to root_path, alert: "You can only delete your own posts"
+    else
+      @post.destroy
+      redirect_to root_path, notice: "Successfully deleted post!"
+    end
   end
 
   def vote(upvote = true)
