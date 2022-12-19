@@ -22,17 +22,6 @@ class PostsController < ApplicationController
     @comments = @post.comments.order(created_at: :desc)
   end
 
-  def destroy
-    @post = Post.find(params[:id])
-
-    if @post.user_id != Current.user.id
-      redirect_to root_path, alert: "You can only delete your own posts"
-    else
-      @post.destroy
-      redirect_to root_path, notice: "Successfully deleted post!"
-    end
-  end
-
   def vote(upvote = true)
     render json: { error: "You must be logged in to vote" }, status: :unauthorized and return unless Current.user
 
@@ -56,6 +45,17 @@ class PostsController < ApplicationController
     @post.bookmark(Current.user)
 
     render json: { html: render_to_string(partial: "post", locals: { post: @post }) }
+  end
+
+  def archive
+    @post = Post.find(params[:id])
+
+    if @post.user_id != Current.user&.id
+      render json: { error: "You can only archive your own posts." }, status: :unauthorized
+    else
+      @post.update(status: "archived")
+      render json: { html: render_to_string(partial: "post", locals: { post: @post }) }
+    end
   end
 
   private

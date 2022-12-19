@@ -55,4 +55,30 @@ export default class extends Controller {
 				console.error("Error:", error);
 			});
 	}
+
+	archive() {
+		if (
+			window.confirm("Are you sure you want to archive this post?") ==
+			false
+		)
+			return;
+
+		fetch(`/archive_post/${this.postID}`, {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+				"X-CSRF-Token": document.querySelector(
+					'meta[name="csrf-token"]'
+				).content,
+			},
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				if (data.error) alert(error);
+				else this.wrapperTarget.outerHTML = data.html;
+			})
+			.catch((error) => {
+				console.error("Error:", error);
+			});
+	}
 }

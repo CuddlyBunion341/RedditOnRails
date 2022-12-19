@@ -14,6 +14,8 @@ Rails.application.routes.draw do
 
   match "save_post/:id", to: "posts#save", via: [:get, :post], as: "save_post"
 
+  match "archive_post/:id", to: "posts#archive", via: [:get, :post], as: "archive_post"
+
   resources :users, only: [:show, :index]
 
   resources :posts do
