@@ -16,4 +16,17 @@ module PostsHelper
   def downvote_button(post)
     vote_button(post, false)
   end
+
+  def save_button(post)
+    saved = Current.user&.saved?(post)
+    class_name = "save_btn " + (saved ? " active" : "")
+
+    content_tag :button, class: class_name, disabled: Current.user.nil?, data: { :action => "click->post#save" } do
+      if saved
+        icon("fa-solid", "bookmark").concat(" Unsave")
+      else
+        icon("fa-regular", "bookmark").concat(" Save")
+      end
+    end
+  end
 end

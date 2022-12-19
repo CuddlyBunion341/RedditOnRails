@@ -7,6 +7,15 @@ class User < ApplicationRecord
   has_many :posts
   has_many :comments
   has_many :post_votes
+  has_many :post_saves, class_name: "PostSave", dependent: :destroy
+
+  def post_saves
+    PostSave.where(user: self)
+  end
+
+  def saved?(post)
+    post_saves.find_by(post: post)
+  end
 
   def upvoted?(post)
     post_votes.find_by(post: post, isUpvote: true)

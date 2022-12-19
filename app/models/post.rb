@@ -26,4 +26,12 @@ class Post < ApplicationRecord
   def downvote(user)
     vote(user, false)
   end
+
+  def bookmark(user)
+    if user.saved?(self)
+      user.post_saves.find_by(post: self).destroy
+    else
+      user.post_saves.create(post: self)
+    end
+  end
 end

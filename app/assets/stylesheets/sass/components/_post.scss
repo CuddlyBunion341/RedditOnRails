@@ -46,6 +46,9 @@
 	}
 
 	&-footer {
+		& > .button_to {
+			display: inline-block;
+		}
 		button {
 			background: none;
 			border: none;

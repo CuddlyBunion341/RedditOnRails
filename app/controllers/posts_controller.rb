@@ -49,6 +49,15 @@ class PostsController < ApplicationController
     vote(false)
   end
 
+  def save()
+    render json: { error: "You must be logged in to save" }, status: :unauthorized and return unless Current.user
+
+    @post = Post.find(params[:id])
+    @post.bookmark(Current.user)
+
+    render json: { html: render_to_string(partial: "post", locals: { post: @post }) }
+  end
+
   private
 
   def post_params

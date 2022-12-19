@@ -12,7 +12,8 @@ Rails.application.routes.draw do
   match "upvote_post/:id", to: "posts#upvote", via: [:get, :post], as: "upvote_post"
   match "downvote_post/:id", to: "posts#downvote", via: [:get, :post], as: "downvote_post"
 
-  # add routes for users
+  match "save_post/:id", to: "posts#save", via: [:get, :post], as: "save_post"
+
   resources :users, only: [:show, :index]
 
   resources :posts do

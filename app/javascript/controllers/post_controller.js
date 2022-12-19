@@ -19,7 +19,10 @@ export default class extends Controller {
 			},
 		})
 			.then((response) => response.json())
-			.then((data) => (this.wrapperTarget.outerHTML = data.html))
+			.then((data) => {
+				if (data.error) alert(data.error);
+				else this.wrapperTarget.outerHTML = data.html;
+			})
 			.catch((error) => {
 				console.error("Error:", error);
 			});
@@ -31,5 +34,25 @@ export default class extends Controller {
 
 	downvote() {
 		this.vote(false);
+	}
+
+	save() {
+		fetch(`/save_post/${this.postID}`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				"X-CSRF-Token": document.querySelector(
+					'meta[name="csrf-token"]'
+				).content,
+			},
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				if (data.error) alert(data.error);
+				else this.wrapperTarget.outerHTML = data.html;
+			})
+			.catch((error) => {
+				console.error("Error:", error);
+			});
 	}
 }
