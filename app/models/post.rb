@@ -3,6 +3,7 @@ class Post < ApplicationRecord
 
   has_many :votes, class_name: "PostVote", dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :saves, class_name: "PostSave", dependent: :destroy
 
   validates :title, presence: true
   validates :body, presence: true

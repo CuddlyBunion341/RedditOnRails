@@ -1,4 +1,8 @@
 <h1>Posts</h1>
-<% @posts.each do |post| %>
-  <%= render "post", post: post %>
+<% unless @posts.exists? %>
+  <p>There are no posts yet.</p>
+<% else %>
+  <% @posts.each do |post| %>
+    <%= render "post", post: post %>
+  <% end %>
 <% end %>

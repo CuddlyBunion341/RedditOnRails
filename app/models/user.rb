@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
   has_many :posts
   has_many :comments
-  has_many :post_votes
+  has_many :post_votes, dependent: :destroy
   has_many :post_saves, class_name: "PostSave", dependent: :destroy
 
   def post_saves
