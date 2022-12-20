@@ -1,18 +1,32 @@
-nav {
-	background-color: coral;
+nav,
+.nav {
 	ul {
 		padding: 0;
 		margin: 0;
+		overflow: hidden;
 		li {
 			display: inline-block;
 			padding: 5px 10px;
 			a {
-				color: white;
 				text-decoration: none;
 			}
-			&.active a {
-				text-decoration: underline;
-			}
+		}
+	}
+
+	&-main {
+		background-color: coral;
+		a {
+			color: white;
+		}
+		li.active a {
+			text-decoration: underline;
+		}
+	}
+	&-user {
+		border-bottom: 1px solid gray;
+		margin-bottom: 0;
+		a {
+			color: black;
 		}
 	}
 }

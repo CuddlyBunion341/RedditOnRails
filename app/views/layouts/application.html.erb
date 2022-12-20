@@ -16,19 +16,22 @@
         </div>
       <% end %>
     </div>
-    <nav>
-      <ul>
-        <%= nav_link "Home", root_path %>
-        <% if Current.user %>
-          <li><%= button_to 'Logout', logout_path, method: :delete%></li>
-          <li>Logged in as <%= Current.user.username %></li>
-          <%= nav_link "Post", create_post_path %>
-        <% else %>
-          <%= nav_link "SignUp", signup_path %>
-          <%= nav_link "LogIn", login_path %>
-        <% end %>
-      </ul>
-    </nav>
+    <header>
+      <nav class="nav-main">
+        <ul>
+          <%= nav_link "RedditOnRails", root_path %>
+          <% if Current.user %>
+            <%= nav_link "Create Post", create_post_path %>
+            <li>Logged in as <%= Current.user.username %></li>
+            <li><%= button_to "Logout", logout_path, method: :delete %></li>
+          <% else %>
+            <%= nav_link "SignUp", signup_path %>
+            <%= nav_link "LogIn", login_path %>
+          <% end %>
+        </ul>
+      </nav>
+      <%= yield :header %>
+    </header>
     <main>
       <%= yield %>
     </main>

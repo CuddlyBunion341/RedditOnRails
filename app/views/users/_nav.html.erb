@@ -1,0 +1,12 @@
+<nav class="nav-user">
+  <ul>
+    <%= nav_link "overview", user %>
+    <%= nav_link "posts", user %>
+    <%= nav_link "comments", user %>
+    <% if Current.user == user %>
+      <%= nav_link "saved", user %>
+      <%= nav_link "liked", user %>
+      <%= nav_link "drafts", user %>
+    <% end %>
+  </ul>
+</nav>

@@ -1,16 +1,16 @@
 <article class="post" data-id="<%= post.id %>" data-controller="post" data-post-target="wrapper">
-  <div class="post-score">
+  <div class="post__score">
     <%= upvote_button post %>
     <span><%= post.score %></span>
     <%= downvote_button post %>
   </div>
-  <div class="post-content">
+  <div class="post__content">
     <section class="post-head">
-      posted by <%= post.user.username %> <%= time_ago_in_words post.created_at %> ago
+      posted by <%= link_to post.user.username, post.user %> <%= time_ago_in_words post.created_at %> ago
     </section>
     <h3><%= post.title %></h3>
     <p><%= post.body %></p>
-    <section class="post-footer">
+    <section class="post__footer">
       <%= button_to post_path(post), method: :get do %>
         <%= icon("fa-regular", "comment") %>
         <%= post.comments.count %> comments
