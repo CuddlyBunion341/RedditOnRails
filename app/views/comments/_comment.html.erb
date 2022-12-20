@@ -1,4 +1,11 @@
-  
 <article class="comment">
-  <strong><%= comment.user.username%></strong>: <%= comment.body %>
+  <section class="comment__header">
+    <%= link_to comment.user.username, comment.user %>
+    <span><%= time_ago_in_words comment.created_at %> ago</span>
+  </section>
+  <section class="comment__body">
+    <%= comment.body %>
+  </section>
+  <section class="comment__footer">
+  </section>
 </article>

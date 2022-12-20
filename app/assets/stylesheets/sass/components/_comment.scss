@@ -1,0 +1,11 @@
+.comment {
+	&__header {
+		font-size: 13px;
+		color: dimgray;
+	}
+	&__body {
+		border-left: 2px solid black;
+		padding-left: 10px;
+		margin-left: 10px;
+	}
+}
