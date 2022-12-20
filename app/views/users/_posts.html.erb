@@ -3,5 +3,5 @@
   <p>There are no posts yet.</p>
 <% end %>
 <% @user.posts.each do |post| %>
-  <%= render 'posts/post', post: post %>
+  <%= render partial: "posts/post", locals: {post: post, variant: "compact"} %>
 <% end %>
