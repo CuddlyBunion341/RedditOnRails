@@ -9,8 +9,8 @@ class User < ApplicationRecord
   has_many :post_votes, dependent: :destroy
   has_many :post_saves, class_name: "PostSave", dependent: :destroy
 
-  def post_saves
-    PostSave.where(user: self)
+  def saved_posts
+    Post.where(id: post_saves.pluck(:post_id))
   end
 
   def saved?(post)

@@ -16,9 +16,13 @@ Rails.application.routes.draw do
 
   match "/archive_post/:id", to: "posts#archive", via: [:get, :post], as: "archive_post"
 
-  resources :users, only: [:show, :index]
-
   resources :posts do
     resources :comments, only: [:create]
+  end
+
+  resources :users, param: :username, only: [:show, :edit, :update] do
+    member do
+      get :show_tab
+    end
   end
 end

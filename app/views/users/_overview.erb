@@ -1,0 +1,19 @@
+<% unless @user.posts.exists? || @user.comments.exists? %>
+  <p>This user has no posts or comments.</p>
+<% end %>
+<% if @user.posts.exists? %>
+  <h2>Posts</h2>
+  <ul>
+    <% @user.posts.each do |post| %>
+      <li><%= link_to post.title, post_path(post) %></li>
+    <% end %>
+  </ul>
+<% end %>
+<% if @user.comments.exists? %>
+  <h2>Comments</h2>
+  <ul>
+    <% @user.comments.each do |comment| %>
+      <li><%= link_to comment.post.title, post_path(comment.post) %></li>
+    <% end %>
+  </ul>
+<% end %>

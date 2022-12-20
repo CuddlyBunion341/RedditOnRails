@@ -1,0 +1,7 @@
+<h2>Comments</h2>
+<% unless @user.comments.exists? %>
+  <p>There are no comments yet.</p>
+<% end %>
+<% @user.comments.each do |comment| %>
+  <%= render 'comments/comment', comment: comment %>
+<% end %>

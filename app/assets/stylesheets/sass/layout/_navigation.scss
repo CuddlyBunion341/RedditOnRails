@@ -28,5 +28,8 @@ nav,
 		a {
 			color: black;
 		}
+		li.active a {
+			color: darkorange;
+		}
 	}
 }

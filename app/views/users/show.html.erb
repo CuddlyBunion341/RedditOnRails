@@ -2,11 +2,4 @@
   <%= render "nav", user: @user %>
 <% end %>
 <h1>User <%= @user.username %></h1>
-<h2>Posts:</h2>
-<% unless @user.posts.exists? %>
-  <p>This user has no posts yet.</p>
-<% else %>
-  <% @user.posts.each do |post| %>
-    <%= render "posts/post", post: post %>
-  <% end %>
-<% end %>
+<%= render @tab %>

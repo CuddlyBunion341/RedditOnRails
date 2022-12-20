@@ -1,0 +1,7 @@
+<h2>Saved</h2>
+<% unless @user.saved_posts.exists? %>
+  <p>There are no saved posts yet.</p>
+<% end %>
+<% @user.saved_posts.each do |post| %>
+  <%= render 'posts/post', post: post %>
+<% end %>
