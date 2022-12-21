@@ -1,5 +1,14 @@
 main {
-	padding-left: 10px;
-	padding-top: 5px;
-	padding-bottom: 50px;
+	padding: 10px 10px 50px 10px;
+	display: flex;
+	justify-content: center;
+	flex-direction: row;
+
+	& > section {
+		min-width: 300px;
+	}
+}
+
+section > h2 {
+	margin: 0;
 }

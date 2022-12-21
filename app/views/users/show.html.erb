@@ -1,5 +1,16 @@
-<% content_for :header do %>
-  <%= render "nav", user: @user %>
-<% end %>
-<h1>User <%= @user.username %></h1>
-<%= render @tab %>
+<main>
+  <% content_for :header do %>
+    <%= render "nav", user: @user %>
+  <% end %>
+  <aside>
+    <article class="titled user-stats">
+      <h1><%= @user.username %></h1>
+      <p>Joined <%= time_ago_in_words(@user.created_at) %> ago</p>
+      <p>Posts: <%= @user.posts.count %></p>
+      <p>Comments: <%= @user.comments.count %></p>
+    </article>
+  </aside>
+  <section class="fullwidth">
+    <%= render @tab %>
+  </section>
+</main>

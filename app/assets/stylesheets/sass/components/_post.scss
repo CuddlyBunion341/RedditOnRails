@@ -1,11 +1,6 @@
 .post-compact, /* TODO: refactor */ 
 .post {
-	border-radius: 2px;
-	margin-bottom: 10px;
-	border: 1px solid #bfbfbf;
-	background-color: white;
 	display: flex;
-	width: 500px;
 
 	&:hover {
 		border-color: #232323;
@@ -78,6 +73,10 @@
 			}
 		}
 	}
+}
+
+section#feed {
+	width: 500px;
 }
 
 .post-compact {

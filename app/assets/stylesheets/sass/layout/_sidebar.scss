@@ -1,0 +1,28 @@
+aside {
+	width: 300px;
+	margin-left: 20px;
+
+	/* TODO REFACTOR */
+	display: inline-block;
+	justify-self: flex-end;
+	order: 1;
+
+	& .titled {
+		margin-bottom: 10px;
+		border-radius: 2px;
+
+		& > h1 {
+			margin: -1px;
+			padding: 5px;
+			border-top-left-radius: 2px;
+			border-top-right-radius: 2px;
+			color: #fff;
+			background-color: coral;
+		}
+
+		& > p {
+			padding: 10px;
+			margin: 0;
+		}
+	}
+}
