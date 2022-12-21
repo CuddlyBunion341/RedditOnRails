@@ -29,7 +29,7 @@ class PostsController < ApplicationController
     @post.score = @post.vote(Current.user, upvote)
     @post.save
 
-    render json: { html: render_to_string(partial: "post", locals: { post: @post }) }
+    render json: { html: render_post(@post) }
   end
 
   alias_method :upvote, :vote
@@ -44,7 +44,7 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @post.bookmark(Current.user)
 
-    render json: { html: render_to_string(partial: "post", locals: { post: @post }) }
+    render json: { html: render_post(@post) }
   end
 
   def archive
@@ -54,8 +54,18 @@ class PostsController < ApplicationController
       render json: { error: "You can only archive your own posts." }, status: :unauthorized
     else
       @post.update(status: "archived")
-      render json: { html: render_to_string(partial: "post", locals: { post: @post }) }
+
+      render json: { html: render_post(@post) }
     end
+  end
+
+  def render_post(post)
+    partial = "post"
+    if params[:variant]
+      partial += "_#{params[:variant]}"
+    end
+
+    render_to_string(partial: partial, locals: { post: post })
   end
 
   private

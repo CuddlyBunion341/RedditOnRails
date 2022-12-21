@@ -5,6 +5,7 @@ export default class extends Controller {
 
 	connect() {
 		this.postID = this.wrapperTarget.dataset.id;
+		this.varname = this.wrapperTarget.dataset.variant;
 	}
 
 	vote(upvote) {
@@ -17,6 +18,7 @@ export default class extends Controller {
 					'meta[name="csrf-token"]'
 				).content,
 			},
+			body: JSON.stringify({ variant: this.varname }),
 		})
 			.then((response) => response.json())
 			.then((data) => {
@@ -45,6 +47,7 @@ export default class extends Controller {
 					'meta[name="csrf-token"]'
 				).content,
 			},
+			body: JSON.stringify({ variant: this.varname }),
 		})
 			.then((response) => response.json())
 			.then((data) => {
@@ -71,6 +74,7 @@ export default class extends Controller {
 					'meta[name="csrf-token"]'
 				).content,
 			},
+			body: JSON.stringify({ variant: this.varname }),
 		})
 			.then((response) => response.json())
 			.then((data) => {
