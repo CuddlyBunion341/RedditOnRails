@@ -2,6 +2,6 @@
 <% unless @user.posts.exists? %>
   <p>There are no posts yet.</p>
 <% end %>
-<% @user.posts.each do |post| %>
-  <%= render partial: "posts/post", locals: {post: post, variant: "compact"} %>
+<% @user.posts.order(created_at: :desc).each do |post| %>
+  <%= render "posts/post_compact", post: post %>
 <% end %>
