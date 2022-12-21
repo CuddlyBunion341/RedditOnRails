@@ -9,7 +9,9 @@ class UsersController < ApplicationController
 
     valid_tabs = %w[overview posts comments saved drafts]
     private_tabs = %w[saved drafts]
+    fullwidth_tabs = %w[posts comments]
     @tab = "overview" unless valid_tabs.include?(@tab)
+    @fullwidth = fullwidth_tabs.include?(@tab)
 
     if @user.nil?
       redirect_to root_path, alert: "User not found"

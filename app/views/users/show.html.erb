@@ -10,7 +10,7 @@
       <p>Comments: <%= @user.comments.count %></p>
     </article>
   </aside>
-  <section class="fullwidth">
+  <section class="<%= "fullwidth" if @fullwidth %>">
     <%= render @tab %>
   </section>
 </main>

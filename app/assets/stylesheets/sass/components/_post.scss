@@ -75,8 +75,8 @@
 	}
 }
 
-section#feed {
-	width: 500px;
+section:has(.post) {
+	min-width: 500px;
 }
 
 .post-compact {
