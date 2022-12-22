@@ -5,9 +5,11 @@
   <aside>
     <article class="titled user-stats">
       <h1><%= @user.username %></h1>
-      <p>Joined <%= time_ago_in_words(@user.created_at) %> ago</p>
-      <p>Posts: <%= @user.posts.count %></p>
-      <p>Comments: <%= @user.comments.count %></p>
+      <p>
+        Joined <%= time_ago_in_words(@user.created_at) %> ago<br>
+        Posts: <%= @user.posts.count %><br>
+        Comments: <%= @user.comments.count %><br>
+      </p>
     </article>
   </aside>
   <section class="<%= "fullwidth" if @fullwidth %>">

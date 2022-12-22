@@ -1,14 +1,16 @@
-<h1>Login</h1>
-<%= form_with data: {turbo: false} do |f| %>
-  <p>
-    <%= f.label "username:" %><br>
-    <%= f.text_field :username, id: "username" %>
-  </p>
-  <p>
-    <%= f.label "password:" %><br>
-    <%= f.password_field :password, id: "password" %>
-  </p>
-  <p>
-    <%= f.submit "Log In" %>
-  </p>
-<% end %>
+<div class="form-wrapper">
+  <h1>Login</h1>
+  <%= form_with data: {turbo: false} do |f| %>
+    <p>
+      <%= f.label "username:" %><br>
+      <%= f.text_field :username, id: "username" %>
+    </p>
+    <p>
+      <%= f.label "password:" %><br>
+      <%= f.password_field :password, id: "password" %>
+    </p>
+    <p>
+      <%= f.submit "Log In" %>
+    </p>
+  <% end %>
+</div>
