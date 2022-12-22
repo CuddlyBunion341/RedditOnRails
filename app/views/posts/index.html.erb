@@ -8,7 +8,7 @@
         <a href="http://rubyonrails.org">Ruby on Rails</a> and
         <a href="http://www.mysql.com">MySQL</a>.
         The source code is available on
-        <a href="https://www.github.com/CuddlyBunion/RedditOnRails">GitHub</a>
+        <a href="https://github.com/CuddlyBunion341/RedditOnRails">GitHub</a>
         under the MIT license.
       </p>
     </article>
@@ -23,8 +23,9 @@
   </aside>
   <section id="feed">
     <article class="padded">
-      <h1>Popular Posts</h1>
+      <h1><%= (params[:sort] == "top") ? "Popular" : "New"%> Posts</h1>
     </article>
+    <%= render "sort" %>
     <% unless @posts.exists? %>
       <p>There are no posts yet.</p>
     <% else %>

@@ -1,0 +1,15 @@
+.sort {
+	a {
+		text-decoration: none;
+		color: black;
+		margin-right: 10px;
+		&:hover {
+			&:has(.fa-fire) {
+				color: orange;
+			}
+			&:has(.fa-newspaper) {
+				color: green;
+			}
+		}
+	}
+}

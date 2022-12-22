@@ -1,0 +1,8 @@
+<article class="padded sort">
+  <%= link_to params.permit(:per_page).merge(sort: "new") do %>
+    <%= icon("fa","newspaper") %> New
+  <% end %>
+  <%= link_to params.permit(:per_page).merge(sort: "top") do %>
+    <%= icon("fa","fire") %> Popular 
+  <% end %>
+</article>
