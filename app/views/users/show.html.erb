@@ -10,6 +10,19 @@
         Posts: <%= @user.posts.count %><br>
         Comments: <%= @user.comments.count %><br>
       </p>
+      <%= follow_button @user %>
+    </article>
+    <article class="titled">
+      <h1>Followers</h1>
+      <% unless @user.followers.exists? %>
+        <p>No followers yet!</p>
+      <% else %>
+        <ul>
+          <% @followers.each do |follower| %>
+            <li><%= link_to follower.username, user_path(follower.username) %></li>
+          <% end %>
+        </ul>
+      <% end %>
     </article>
   </aside>
   <section class="<%= "fullwidth" if @fullwidth %>">

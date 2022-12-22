@@ -1,0 +1,18 @@
+.follow-btn {
+	padding: 5px;
+	background-color: orange;
+	border: 1px solid orange;
+	border-radius: 5px;
+	margin-left: 10px;
+	text-decoration: none;
+	color: black;
+	display: block;
+	max-width: max-content;
+	margin-bottom: 10px;
+
+	&.active {
+		background-color: white;
+		color: orange;
+		border-color: orange;
+	}
+}

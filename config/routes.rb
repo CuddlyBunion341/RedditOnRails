@@ -25,4 +25,6 @@ Rails.application.routes.draw do
       get :show_tab
     end
   end
+
+  match "/follow_user/:username", to: "users#follow", via: [:get, :post], as: "follower"
 end

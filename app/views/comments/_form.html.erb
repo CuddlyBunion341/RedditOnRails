@@ -1,4 +1,4 @@
-<% unless Current.user.nil? %>
+<% unless Current.user.nil? || @post.archived? %>
   <%= form_for [ @post, Comment.new ], :remote => true do |f|%>
     <%= link_to Current.user.username, user_path(Current.user) %>
     <%= f.text_field :body, placeholder: "Write a comment..." %>
