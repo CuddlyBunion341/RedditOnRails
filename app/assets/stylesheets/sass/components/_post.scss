@@ -80,6 +80,10 @@ section:has(.post) {
 	min-width: 500px;
 }
 
+section.show-post {
+	max-width: 600px;
+}
+
 .post-compact {
 	.post__score {
 		justify-content: center;

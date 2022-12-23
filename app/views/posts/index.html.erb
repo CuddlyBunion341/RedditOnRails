@@ -28,8 +28,8 @@
   <section id="feed">
     <article class="padded">
       <h1><%= (params[:sort] == "top") ? "Popular" : "New"%> Posts</h1>
+      <%= render "sort" %>
     </article>
-    <%= render "sort" %>
     <% unless @posts.exists? %>
       <p>There are no posts yet.</p>
     <% else %>
