@@ -1,4 +1,9 @@
 <article class="comment">
+  <section class="comment__pfp-wrapper">
+    <div class="user-pfp">
+      <%= comment.user.username[0].upcase %>
+    </div>
+  </section>
   <section class="comment__header">
     <%= link_to comment.user.username, user_path(comment.user.username) %>
     <span><%= time_ago_in_words comment.created_at %> ago</span>
