@@ -8,8 +8,9 @@ class User < ApplicationRecord
   has_many :comments
   has_many :post_votes, dependent: :destroy
   has_many :post_saves, class_name: "PostSave", dependent: :destroy
-  has_many :followers, class_name: "Follower", foreign_key: "user_id", dependent: :destroy
-  has_many :following, class_name: "Follower", foreign_key: "follower_id", dependent: :destroy
+
+  has_many :followers, class_name: "Follower", foreign_key: :user_id
+  has_many :following, class_name: "Follower", foreign_key: :follower_id
 
   def saved_posts
     Post.where(id: post_saves.pluck(:post_id))
@@ -28,18 +29,18 @@ class User < ApplicationRecord
   end
 
   def following?(user)
-    followers.find_by(user: user)
-  end
-
-  def followed_by?(user)
-    user.followers.find_by(user: self)
+    following.find_by(user: user)
   end
 
   def follow(user)
-    if followers.find_by(user: user).nil?
-      followers.create(user: user)
-    else
-      followers.find_by(user: user).destroy
-    end
+    following.create(user: user)
+  end
+
+  def unfollow(user)
+    following.find_by(user: user).destroy
+  end
+
+  def followed_by?(user)
+    followers.find_by(follower: user)
   end
 end

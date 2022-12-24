@@ -15,9 +15,9 @@ module UsersHelper
 
   def follow_button(user)
     if user == Current.user
-      link_to "Follow", follower_path(user), class: "follow-btn", disabled: true
+      return
     elsif user.followed_by?(Current.user)
-      link_to "Unfollow", follower_path(user), method: :post, class: "follow-btn active"
+      link_to "Unfollow", follower_path(user.username), method: :post, class: "follow-btn active"
     else
       link_to "Follow", follower_path(user.username), method: :post, class: "follow-btn"
     end

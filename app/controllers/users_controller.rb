@@ -28,20 +28,16 @@ class UsersController < ApplicationController
   end
 
   def follow
-    # render json: { error: "You must be logged in to follow" }, status: :unauthorized and return unless Current.user
+    if Current.user.nil?
+      return
+    end
 
     @user = User.find_by(username: params[:username])
-    @user.follow(Current.user)
-
-    puts "123456fvewygfhuh3ewyhdj vhb78efijuhtrge8fi9wkirnbtbu8g9ikom"
-    puts @user.followers
-
-    ## TODO Implement this with AJAX
-    # if @user.followed_by?(Current.user)
-    # render json: { text: "Unfollow", class: "active" }
-    # else
-    # render json: { text: "Follow", class: "" }
-    # end
+    if Current.user.following?(@user)
+      Current.user.unfollow(@user)
+    else
+      Current.user.follow(@user)
+    end
 
     redirect_to user_path(@user.username)
   end
