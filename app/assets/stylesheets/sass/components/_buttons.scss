@@ -15,4 +15,11 @@
 		color: orange;
 		border-color: orange;
 	}
+
+	&.disabled {
+		background-color: grey;
+		color: white;
+		border-color: grey;
+		opacity: 0.5;
+	}
 }

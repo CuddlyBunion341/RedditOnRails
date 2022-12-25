@@ -29,6 +29,7 @@ class UsersController < ApplicationController
 
   def follow
     if Current.user.nil?
+      redirect_to request.referrer || root_path, alert: "You must be logged in to perform that action"
       return
     end
 
