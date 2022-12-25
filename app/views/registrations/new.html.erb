@@ -1,25 +1,26 @@
-<div class="form-wrapper">
+<div class="form-wrapper login">
   <h1>SignUp</h1>
   <%= form_with model: @user, data: {turbo:false}, url: signup_path do |f| %>
-    <p>
-      <%= f.label "username:" %><br>
-      <%= f.text_field :username, id: "username" %>
-    </p>
-    <p>
-      <%= f.label "email:" %><br>
-      <%= f.text_field :email, id: "email" %>
-    </p>
-    <p>
-      <%= f.label "password:" %><br>
-      <%= f.password_field :password, id: "password" %>
-    </p>
-    <p>
-      <%= f.label "verify password:" %><br>
-      <%= f.password_field :verify, id: "verify" %>
-    </p>
-    <p>
-      <%= f.submit "Signup" %>
-    </p>
+    <div class="field">
+      <%= icon("fa","user") %>
+      <%= f.text_field :username, placeholder:"Username", required:true %>
+    </div>
+    <div class="field">
+      <%= icon("fa","envelope") %>
+      <%= f.email_field :email, placeholder: "Email", required: true %>
+    </div>
+    <div class="field">
+      <%= icon("fa","lock") %>
+      <%= f.password_field :password, placeholder: "Password", required: true %>
+    </div>
+    <div class="field">
+      <%= icon("fa","key") %>
+      <%= f.password_field :verify, placeholder: "Verify Password
+      ", required: true %>
+    </div>
+    <div class="field">
+      <%= f.submit "Sign Up" %>
+    </div>
     <span>
       Already a member? <%= link_to "Login", login_path %>
     </span>
