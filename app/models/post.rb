@@ -38,6 +38,10 @@ class Post < ApplicationRecord
     status == "archived"
   end
 
+  def draft?
+    status == "draft"
+  end
+
   # -- helpers ---
   def vote(user, upvote = true)
     if votes.find_by(user: user, isUpvote: upvote)

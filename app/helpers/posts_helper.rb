@@ -39,4 +39,13 @@ module PostsHelper
       icon("fa", "box-archive").concat(" Archive")
     end
   end
+
+  def delete_button(post)
+    return unless Current.user&.id == post.user_id
+    return if post.archived?
+
+    content_tag :button, class: "delete_button", data: { :action => "click->post#delete" } do
+      icon("fa", "trash-alt").concat(" Delete")
+    end
+  end
 end

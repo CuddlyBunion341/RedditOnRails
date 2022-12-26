@@ -1,0 +1,21 @@
+<div class="form-wrapper">
+  <h1>Create Post</h1>
+  <%= form_with model: @post do |f| %>
+    <ul class="errors">
+      <% @post.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+    <div>
+      <%= f.label :title %><br>
+      <%= f.text_field :title %>
+    </div>
+    <div>
+      <%= f.label :body %><br>
+      <%= f.text_area :body %>
+    </div>
+    <div>
+      <%= f.submit 'Post' %>
+    </div>
+  <% end %>
+</div>

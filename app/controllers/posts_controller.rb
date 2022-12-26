@@ -16,10 +16,68 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.user_id = Current.user.id
+    @post.status = "public"
+
     if @post.save
-      redirect_to root_path, notice: "Successfully created post!"
+      redirect_to post_path(@post), notice: "Successfully created post!"
     else
       render :new, status: :unprocessable_entity
+    end
+  end
+
+  def edit
+    @post = Post.find(params[:id])
+    if @post.user != Current.user
+      redirect_to root_path, alert: "You can only edit your own posts."
+    end
+
+    unless @post.draft?
+      redirect_to root_path, alert: "You can only edit draft posts."
+    end
+
+    render :edit
+  end
+
+  def update
+    @post = Post.find(params[:id])
+    @post.user = Current.user
+
+    if @post.update(post_params)
+      redirect_to post_path(@post), notice: "Successfully updated post!"
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def delete
+    @post = Post.find(params[:id])
+
+    respond_to do |format|
+      if !@post.draft?
+        msg = "You can only delete drafts!"
+        format.html { redirect_to root_path, notice: msg }
+        format.json { render json: { error: msg } }
+      elsif Current.user != @post.user
+        msg = "You can only delete your own posts!"
+        format.html { redirect_to root_path, notice: msg }
+        format.json { render json: { error: msg } }
+      else
+        msg = "Post deleted successfully!"
+        format.html { redirect_to root_path, notice: msg }
+        format.json { render json: { msg: msg } }
+        @post.destroy
+      end
+    end
+  end
+
+  def publish
+    @post = Post.find(params[:id])
+    @post.user = Current.user
+
+    if @post.update(status: "public", created_at: Time.now)
+      redirect_to post_path(@post), notice: "Successfully published post!"
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -30,6 +88,7 @@ class PostsController < ApplicationController
 
   def vote(upvote = true)
     render json: { error: "You must be logged in to vote" }, status: :unauthorized and return unless Current.user
+    render json: { error: "You can't vote on your own posts" }, status: :bad_request and return if Current.user.id == params[:user_id].to_i
 
     @post = Post.find(params[:id])
     @post.score = @post.vote(Current.user, upvote)
@@ -75,6 +134,10 @@ class PostsController < ApplicationController
   end
 
   private
+
+  def draft_params
+    params.require(:post).permit(:title)
+  end
 
   def post_params
     params.require(:post).permit(:title, :body)

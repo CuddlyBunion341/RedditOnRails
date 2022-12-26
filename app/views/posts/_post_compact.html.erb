@@ -1,26 +1,28 @@
-<article class="post-compact" data-id="<%= post.id %>" data-controller="post" data-post-target="wrapper" data-variant="compact">
-  <div class="post__score">
-    <%= upvote_button post %>
-    <span><%= post.score %></span>
-    <%= downvote_button post %>
-  </div>
-  <div class="post__thumb">
-    <div class="icon_wrapper">
-      <%= icon("fa","bars")%>
+<% if post.public? %>
+  <article class="post-compact" data-id="<%= post.id %>" data-controller="post" data-post-target="wrapper" data-variant="compact">
+    <div class="post__score">
+      <%= upvote_button post %>
+      <span><%= post.score %></span>
+      <%= downvote_button post %>
     </div>
-  </div>
-  <div class="post__content">
-    <section class="post__head">
-      posted by <%= link_to post.user.username, user_path(post.user.username) %> <%= time_ago_in_words post.created_at %> ago
-    </section>
-    <h3><%= post.title %></h3>
-    <section class="post__footer">
-      <%= button_to post_path(post), method: :get do %>
-        <%= icon("fa-regular", "comment") %>
-        <%= post.comments.count %> comments
-      <% end %>
-      <%= save_button post %>
-      <%= archive_button post %>
-    </section>
-  </div>
-</article>
+    <div class="post__thumb">
+      <div class="icon_wrapper">
+        <%= icon("fa","bars")%>
+      </div>
+    </div>
+    <div class="post__content">
+      <section class="post__head">
+        posted by <%= link_to post.user.username, user_path(post.user.username) %> <%= time_ago_in_words post.created_at %> ago
+      </section>
+      <h3><%= post.title %></h3>
+      <section class="post__footer">
+        <%= button_to post_path(post), method: :get do %>
+          <%= icon("fa-regular", "comment") %>
+          <%= post.comments.count %> comments
+        <% end %>
+        <%= save_button post %>
+        <%= archive_button post %>
+      </section>
+    </div>
+  </article>
+<% end %>

@@ -12,6 +12,10 @@ class User < ApplicationRecord
   has_many :followers, class_name: "Follower", foreign_key: :user_id
   has_many :following, class_name: "Follower", foreign_key: :follower_id
 
+  def drafts
+    posts.where(status: "draft")
+  end
+
   def saved_posts
     Post.where(id: post_saves.pluck(:post_id))
   end

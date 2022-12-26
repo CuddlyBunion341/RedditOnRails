@@ -2,5 +2,7 @@
   <p>There are no posts yet.</p>
 <% end %>
 <% @user.posts.order(created_at: :desc).each do |post| %>
-  <%= render "posts/post_compact", post: post %>
+  <% if post.public? %>
+    <%= render "posts/post_compact", post: post %>
+  <% end%>
 <% end %>

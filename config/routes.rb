@@ -16,6 +16,8 @@ Rails.application.routes.draw do
 
   match "/archive_post/:id", to: "posts#archive", via: [:get, :post], as: "archive_post"
 
+  match "/publish_post/:id", to: "posts#publish", via: [:get, :post], as: "publish_post"
+
   resources :posts do
     resources :comments, only: [:create]
   end

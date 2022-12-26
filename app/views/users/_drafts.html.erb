@@ -1,1 +1,6 @@
-<p>Drafts Coming soon!</p>
+<% unless @user.drafts.exists? %>
+  <p>There are no drafts yet.</p>
+<% end %>
+<% @user.drafts.order(created_at: :desc).each do |draft| %>
+  <%= render "posts/post_draft", post: draft %>
+<% end %>
