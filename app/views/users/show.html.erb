@@ -19,7 +19,7 @@
       <% else %>
         <ul>
           <% @followers.each do |follower| %>
-            <li><%= link_to follower.username, user_path(follower.username) %></li>
+            <%= render "users/list_item", user: follower %>
           <% end %>
         </ul>
       <% end %>

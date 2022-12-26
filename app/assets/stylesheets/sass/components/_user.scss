@@ -10,4 +10,14 @@
 		background-color: purple;
 		color: white;
 	}
+	&-item {
+		ul:has(&) {
+			padding: 5px;
+			margin: 0;
+		}
+		list-style-type: none;
+		border-bottom: 1px solid #ebebeb;
+		margin-bottom: 5px;
+		padding: 5px;
+	}
 }
