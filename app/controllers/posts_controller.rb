@@ -11,6 +11,7 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
+    @post.status = "draft"
   end
 
   def create
@@ -18,7 +19,11 @@ class PostsController < ApplicationController
     @post.user_id = Current.user.id
     @post.status = "public"
 
-    if @post.save
+    if params[:draft]
+      @post.status = "draft"
+      @post.save(validate: false)
+      redirect_to root_path, notice: "Successfully created draft!"
+    elsif @post.save
       redirect_to post_path(@post), notice: "Successfully created post!"
     else
       render :new, status: :unprocessable_entity
@@ -42,14 +47,24 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @post.user = Current.user
 
-    if @post.update(post_params)
-      redirect_to post_path(@post), notice: "Successfully updated post!"
-    else
-      render :edit, status: :unprocessable_entity
+    if @post.user != Current.user
+      redirect_to root_path, alert: "You can only edit your own posts."
+    elsif !@post.draft?
+      redirect_to root_path, alert: "You can only edit draft posts."
+    elsif params[:publish]
+      if @post.publish
+        redirect_to post_path(@post), notice: "Successfully published post!"
+      else
+        render :edit, status: :unprocessable_entity
+      end
+    elsif params[:draft]
+      @post.assign_attributes(post_params)
+      @post.save(validate: false)
+      redirect_to root_path, notice: "Successfully updated draft!"
     end
   end
 
-  def delete
+  def destroy
     @post = Post.find(params[:id])
 
     respond_to do |format|
@@ -72,9 +87,10 @@ class PostsController < ApplicationController
 
   def publish
     @post = Post.find(params[:id])
-    @post.user = Current.user
 
-    if @post.update(status: "public", created_at: Time.now)
+    if @post.user != Current.user
+      redirect_to root_path, alert: "You can only publish your own posts."
+    elsif @post.publish
       redirect_to post_path(@post), notice: "Successfully published post!"
     else
       render :edit, status: :unprocessable_entity

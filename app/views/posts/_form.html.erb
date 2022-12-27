@@ -1,21 +1,23 @@
 <div class="form-wrapper">
   <h1>Create Post</h1>
   <%= form_with model: @post do |f| %>
-    <ul class="errors">
-      <% @post.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-    </ul>
-    <div>
+    <div class="field">
       <%= f.label :title %><br>
-      <%= f.text_field :title %>
+      <%= f.text_field :title, class: error_class(@post, :title) %>
+      <%= form_error(@post, :title) %>
     </div>
-    <div>
+    <div class="field">
       <%= f.label :body %><br>
-      <%= f.text_area :body %>
+      <%= f.text_area :body, class: error_class(@post, :body) %>
+      <%= form_error(@post, :body) %>
     </div>
-    <div>
-      <%= f.submit 'Post' %>
+    <div class="field">
+      <% if @post.draft? %>
+        <%= f.submit 'Publish', name: :publish %>
+      <% else %>
+        <%= f.submit 'Post' %>
+      <% end %>
+      <%= f.submit 'Save Draft', name: :draft %>
     </div>
   <% end %>
 </div>

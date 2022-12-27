@@ -70,4 +70,10 @@ class Post < ApplicationRecord
       user.post_saves.create(post: self)
     end
   end
+
+  def publish
+    if self.save # check if draft is valid
+      update(status: "public", created_at: Time.now)
+    end
+  end
 end

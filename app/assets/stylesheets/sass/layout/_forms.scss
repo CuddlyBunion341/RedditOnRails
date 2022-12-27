@@ -3,6 +3,13 @@
 	max-width: max-content;
 	padding: 0 20px;
 
+	.has-error {
+		border: 1px solid red;
+	}
+	.form-error {
+		color: red;
+	}
+
 	&.login {
 		background-color: white;
 		box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);

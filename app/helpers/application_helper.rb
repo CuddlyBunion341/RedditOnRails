@@ -7,4 +7,16 @@ module ApplicationHelper
       link_to link_text, link_path
     end
   end
+
+  def form_error(model, field)
+    if model.errors[field].any?
+      content_tag(:div, class: "form-error") do
+        model.errors[field].join("<br />").html_safe
+      end
+    end
+  end
+
+  def error_class(model, field)
+    "has-error" if model.errors[field].any?
+  end
 end
