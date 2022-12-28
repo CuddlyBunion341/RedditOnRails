@@ -10,6 +10,23 @@
 		color: red;
 	}
 
+	&.user-editform {
+		border-radius: 2px;
+		box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+		padding: 20px;
+		padding-top: 10px;
+		margin-top: 15px;
+
+		h1 {
+			margin: 0;
+			margin-bottom: 10px;
+		}
+
+		.user-avatar__wrapper {
+			margin-top: 10px;
+		}
+	}
+
 	&.login {
 		background-color: white;
 		box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
