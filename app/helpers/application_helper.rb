@@ -19,4 +19,12 @@ module ApplicationHelper
   def error_class(model, field)
     "has-error" if model.errors[field].any?
   end
+
+  def user_avatar(user, class_name = "")
+    if user.avatar.attached?
+      image_tag user.avatar, class: "user-avatar #{class_name}"
+    else
+      image_tag "default-avatar.png", class: "user-avatar #{class_name}"
+    end
+  end
 end

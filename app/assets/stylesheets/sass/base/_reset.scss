@@ -5,6 +5,10 @@ body {
 	height: 100%;
 }
 
+* {
+	box-sizing: border-box;
+}
+
 div.field_with_errors {
 	display: inline;
 }
