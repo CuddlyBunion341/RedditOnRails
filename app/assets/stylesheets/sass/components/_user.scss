@@ -1,14 +1,32 @@
 .user {
-	&-pfp {
+	&-avatar {
 		width: 30px;
-		height: 30px;
+		aspect-ratio: 1/1;
 		border-radius: 50%;
-		border: 1px solid black;
+		outline: 1px solid black;
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		background-color: purple;
-		color: white;
+		background-color: white;
+		object-fit: cover;
+
+		&.medium {
+			width: 50px;
+		}
+
+		&.big {
+			width: 70px;
+		}
+
+		&__wrapper {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		&__overlay {
+			color: black;
+		}
 	}
 	&-item {
 		ul:has(&) {

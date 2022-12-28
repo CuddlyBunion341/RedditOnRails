@@ -1,0 +1,18 @@
+<div class="form-wrapper" data-controller="user">
+  <%= form_with model: @user do |f| %>
+    <h1><%= @user.username %></h1>
+    <div class="user-avatar__wrapper" data-target="user.avatarWrapper">
+      <%= image_tag @user.avatar, class: "user-avatar big", data: {target: "user.avatar"} %>
+      <div class="user-avatar__overlay">
+        Edit Avatar
+      </div>
+    </div>
+    <%= f.file_field :avatar, class: "hidden", data: {action: "user#updateAvatar", target:"user.avatarInput"} do %>
+    <% end %>
+    <p>
+      <%= f.label :bio %>
+      <%= f.text_area :bio %>
+    </p>
+    <%= f.submit "Save Changes" %>
+  <% end %>
+</div>

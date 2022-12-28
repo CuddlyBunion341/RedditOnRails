@@ -27,6 +27,33 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+    @user = User.find_by(username: params[:username])
+    unless @user == Current.user
+      redirect_to user_path(@user.username), alert: "You are not
+      authorized to view this page"
+    end
+  end
+
+  def update
+    @user = User.find_by(params[:id])
+
+    unless @user == Current.user
+      redirect_to user_path(@user.username), alert: "You are not
+      authorized to view this page"
+      return
+    end
+
+    @user.avatar.attach(params[:user][:avatar]) if params[:user][:avatar]
+
+    if @user.update!(user_params)
+      redirect_to user_path(@user.username), notice: "User updated
+      successfully"
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   def follow
     if Current.user.nil?
       redirect_to request.referrer || root_path, alert: "You must be logged in to perform that action"
@@ -41,5 +68,11 @@ class UsersController < ApplicationController
     end
 
     redirect_to user_path(@user.username)
+  end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:name, :username, :email, :password, :password_confirmation, :bio, :avatar)
   end
 end

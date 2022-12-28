@@ -11,7 +11,6 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
-    @post.status = "draft"
   end
 
   def create

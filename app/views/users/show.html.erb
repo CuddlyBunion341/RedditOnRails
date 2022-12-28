@@ -3,14 +3,23 @@
     <%= render "nav", user: @user %>
   <% end %>
   <aside>
-    <article class="titled user-stats">
+    <article class="titled user-profile">
       <h1><%= @user.username %></h1>
+      <%= image_tag @user.avatar, class: "user-avatar medium" %>
+      <% unless @user.bio.blank? %>
+        <p><%= @user.bio %></p>
+      <% end %>
       <p>
         Joined <%= time_ago_in_words(@user.created_at) %> ago<br>
         Posts: <%= @user.posts.count %><br>
         Comments: <%= @user.comments.count %><br>
       </p>
       <%= follow_button @user %>
+      <% if Current.user && @user == Current.user %>
+        <%= link_to edit_user_path(@user.username) do %>
+          <%= icon("fa","pen") %> Edit Profile
+        <% end %>
+      <% end %>
     </article>
     <article class="titled">
       <h1>Followers</h1>
