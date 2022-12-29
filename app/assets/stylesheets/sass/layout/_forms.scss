@@ -12,10 +12,17 @@
 
 	&.post-form {
 		form {
-			width: 300px;
+			width: 400px;
 			border-radius: 5px;
 			background-color: whitesmoke;
+			overflow: hidden;
 		}
+
+		input,
+		textarea {
+			margin-bottom: 10px;
+		}
+
 		input[type="text"],
 		textarea {
 			padding: 5px;
@@ -31,6 +38,7 @@
 
 		.post-form__main {
 			padding: 10px;
+			padding-bottom: 0;
 		}
 
 		.tabs {
@@ -42,13 +50,28 @@
 				}
 				&:has(input[type="radio"]:checked) {
 					border-color: $bg-primary;
+					background-color: #f3f3f3;
 				}
 				flex: 1;
 				border: none;
 				padding: 5px;
 				border-bottom: 3px solid lightgray;
+				box-shadow: -2px 0px 0px 0px white;
 				text-align: center;
+
+				&:first-child {
+					box-shadow: none;
+				}
 			}
+		}
+
+		.upload-region {
+			aspect-ratio: 2/1;
+			border: 2px dashed lightgray;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			margin-bottom: 10px;
 		}
 	}
 
