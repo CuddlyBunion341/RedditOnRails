@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-	static targets = ["wrapper", "tabs", "uploadList"];
+	static targets = ["wrapper", "tabs", "uploadList", "dropzone"];
 
 	connect() {}
 
@@ -18,7 +18,14 @@ export default class extends Controller {
 	}
 
 	upload(event) {
-		const files = event.target.files;
+		event.preventDefault();
+
+		let files;
+		if (event.dataTransfer) {
+			files = event.dataTransfer.files;
+		} else {
+			files = event.target.files;
+		}
 
 		for (let i = 0; i < files.length; i++) {
 			let file = files.item(i);
@@ -33,5 +40,19 @@ export default class extends Controller {
 
 			reader.readAsDataURL(file);
 		}
+	}
+
+	uploadDragOver(event) {
+		event.preventDefault();
+		this.dropzoneTarget.classList.add("dragover");
+	}
+
+	uploadDrop(event) {
+		this.upload(event);
+		this.dropzoneTarget.classList.remove("dragover");
+	}
+
+	uploadDragLeave() {
+		this.dropzoneTarget.classList.remove("dragover");
 	}
 }

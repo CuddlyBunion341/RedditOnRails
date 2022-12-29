@@ -39,7 +39,7 @@ class PostsController < ApplicationController
       redirect_to root_path, alert: "You can only edit draft posts."
     end
 
-    render :edit
+    render :new
   end
 
   def update
@@ -54,7 +54,7 @@ class PostsController < ApplicationController
       if @post.publish
         redirect_to post_path(@post), notice: "Successfully published post!"
       else
-        render :edit, status: :unprocessable_entity
+        render :new, status: :unprocessable_entity
       end
     elsif params[:draft]
       @post.assign_attributes(post_params)
