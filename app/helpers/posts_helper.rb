@@ -48,4 +48,11 @@ module PostsHelper
       icon("fa", "trash-alt").concat(" Delete")
     end
   end
+
+  def tab_button(form, tab, content, checked = false)
+    content_tag :label, class: "tab_button" do
+      concat form.radio_button :tab, true, checked: checked, data: { :action => "click->post-form#showTab", :tab => "#{tab}" }
+      concat content
+    end
+  end
 end

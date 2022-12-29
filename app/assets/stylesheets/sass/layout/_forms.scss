@@ -10,6 +10,48 @@
 		color: red;
 	}
 
+	&.post-form {
+		form {
+			width: 300px;
+			border-radius: 5px;
+			background-color: whitesmoke;
+		}
+		input[type="text"],
+		textarea {
+			padding: 5px;
+			border: 1px solid gray;
+			border-radius: 2px;
+			width: 100%;
+		}
+
+		textarea {
+			resize: none;
+			height: 200px;
+		}
+
+		.post-form__main {
+			padding: 10px;
+		}
+
+		.tabs {
+			display: flex;
+			width: 100%;
+			.tab_button {
+				input[type="radio"] {
+					display: none;
+				}
+				&:has(input[type="radio"]:checked) {
+					border-color: $bg-primary;
+				}
+				flex: 1;
+				border: none;
+				padding: 5px;
+				border-bottom: 3px solid lightgray;
+				text-align: center;
+			}
+		}
+	}
+
 	&.user-editform {
 		border-radius: 2px;
 		box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);

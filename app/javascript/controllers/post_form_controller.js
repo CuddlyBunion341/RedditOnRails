@@ -6,12 +6,14 @@ export default class extends Controller {
 	connect() {}
 
 	showTab(event) {
-		event.preventDefault();
 		const tab = event.target.dataset.tab;
 
-		this.tabsTarget.querySelectorAll("button").forEach((button) => {
-			button.classList.remove("active");
+		this.wrapperTarget.querySelectorAll(".tab").forEach((tab) => {
+			tab.classList.add("hidden");
 		});
-		event.target.classList.add("active");
+
+		this.wrapperTarget
+			.querySelector(`#tab${tab}`)
+			.classList.remove("hidden");
 	}
 }
