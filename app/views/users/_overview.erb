@@ -1,7 +1,7 @@
 <% unless @user.posts.exists? || @user.comments.exists? %>
   <p>This user has no posts or comments.</p>
 <% end %>
-<% @user.posts.each do |post| %>
+<% @user.posts.order(created_at: :desc).each do |post| %>
   <% if post.public? %>
     <%= render post %>
   <% end%>
