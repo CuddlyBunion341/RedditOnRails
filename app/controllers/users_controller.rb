@@ -15,6 +15,7 @@ class UsersController < ApplicationController
     @fullwidth = fullwidth_tabs.include?(@tab)
 
     if @user.nil?
+      # TODO: Add a 404 page, add JSON response, 404 status code
       redirect_to root_path, alert: "User not found"
       return
     end
@@ -30,6 +31,7 @@ class UsersController < ApplicationController
   def edit
     @user = User.find_by(username: params[:username])
     unless @user == Current.user
+      # TODO Add JSON response
       redirect_to user_path(@user.username), alert: "You are not
       authorized to view this page"
     end
@@ -39,6 +41,7 @@ class UsersController < ApplicationController
     @user = User.find_by(params[:id])
 
     unless @user == Current.user
+      # TODO Add JSON response
       redirect_to user_path(@user.username), alert: "You are not
       authorized to view this page"
       return
@@ -47,6 +50,7 @@ class UsersController < ApplicationController
     @user.avatar.attach(params[:user][:avatar]) if params[:user][:avatar]
 
     if @user.update!(user_params)
+      # TODO Add JSON response
       redirect_to user_path(@user.username), notice: "User updated
       successfully"
     else
@@ -56,6 +60,7 @@ class UsersController < ApplicationController
 
   def follow
     if Current.user.nil?
+      # TODO Add JSON response
       redirect_to request.referrer || root_path, alert: "You must be logged in to perform that action"
       return
     end

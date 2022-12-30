@@ -18,6 +18,8 @@ class PostsController < ApplicationController
     @post.user_id = Current.user.id
     @post.status = "public"
 
+    # TODO File uploads & Link previews
+
     if params[:draft]
       @post.status = "draft"
       @post.save(validate: false)
@@ -102,6 +104,7 @@ class PostsController < ApplicationController
   end
 
   def vote(upvote = true)
+    # TODO Add html response
     render json: { error: "You must be logged in to vote" }, status: :unauthorized and return unless Current.user
     render json: { error: "You can't vote on your own posts" }, status: :bad_request and return if Current.user.id == params[:user_id].to_i
 
@@ -119,6 +122,7 @@ class PostsController < ApplicationController
   end
 
   def save()
+    # TODO Add html response
     render json: { error: "You must be logged in to save" }, status: :unauthorized and return unless Current.user
 
     @post = Post.find(params[:id])
@@ -128,6 +132,7 @@ class PostsController < ApplicationController
   end
 
   def archive
+    # TODO Add html response
     @post = Post.find(params[:id])
 
     if @post.user_id != Current.user&.id

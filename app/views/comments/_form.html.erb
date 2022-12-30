@@ -1,6 +1,6 @@
 <% unless Current.user.nil? || @post.archived? %>
   <%= form_for [ @post, Comment.new ], html: {:class => "comment-composer"} do |f|%>
-    <%= link_to Current.user.username, user_path(Current.user) %>
+    <%= link_to @username, user_path(@username) %>
     <%= f.text_field :body, placeholder: "Write a comment..." %>
     <%= f.hidden_field :post_id, :value => @post.id %>
     <%= f.submit "Post" %>

@@ -22,7 +22,7 @@
           <%= nav_link "RedditOnRails", root_path %>
           <% if Current.user %>
             <%= nav_link "Create Post", create_post_path %>
-            <li>Logged in as <%= Current.user.username %></li>
+            <%= nav_link "Logged in as #{@username}", user_path(@username) %>
             <li><%= button_to "Logout", logout_path, method: :delete %></li>
           <% else %>
             <%= nav_link "SignUp", signup_path %>

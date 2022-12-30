@@ -35,7 +35,21 @@ export default class extends Controller {
 			reader.onload = (e) => {
 				const image = document.createElement("img");
 				image.src = e.target.result;
-				this.uploadListTarget.appendChild(image);
+				const picture = document.createElement("picture");
+				picture.appendChild(image);
+
+				const removeButton = document.createElement("button");
+
+				removeButton.innerHTML = "✕";
+
+				removeButton.addEventListener("click", (event) => {
+					event.preventDefault();
+					picture.remove();
+				});
+
+				picture.appendChild(removeButton);
+
+				this.uploadListTarget.appendChild(picture);
 			};
 
 			reader.readAsDataURL(file);
