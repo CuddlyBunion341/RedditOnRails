@@ -50,8 +50,9 @@ module PostsHelper
   end
 
   def tab_button(form, tab, content, checked = false)
+    name = %w[ text media link ][tab]
     content_tag :label, class: "tab_button" do
-      concat form.radio_button :tab, true, checked: checked, data: { :action => "click->post-form#showTab", :tab => "#{tab}" }
+      concat form.radio_button :post_type, name, checked: checked, data: { :action => "click->post-form#showTab", :tab => "#{tab}" }
       concat content
     end
   end

@@ -1,4 +1,3 @@
-  
 <article class="post" data-id="<%= post.id %>" data-controller="post" data-post-target="wrapper">
   <div class="post__score">
     <%= upvote_button post %>
@@ -11,6 +10,11 @@
     </section>
     <h3><%= post.title %></h3>
     <p><%= post.body %></p>
+    <% if post.media.attached? %>
+      <div class="post__media">
+        <%= image_tag post.media[0] %>
+      </div>
+    <% end %>
     <section class="post__footer">
       <%= button_to post_path(post), method: :get do %>
         <%= icon("fa-regular", "comment") %>

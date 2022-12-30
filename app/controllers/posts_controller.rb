@@ -15,10 +15,12 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
-    @post.user_id = Current.user.id
+    @post.user = Current.user
     @post.status = "public"
 
-    # TODO File uploads & Link previews
+    if params[:media]
+      @post.media.attach(params[:media])
+    end
 
     if params[:draft]
       @post.status = "draft"
@@ -45,6 +47,7 @@ class PostsController < ApplicationController
   end
 
   def update
+    # TODO add attachments
     @post = Post.find(params[:id])
     @post.user = Current.user
 
@@ -155,11 +158,11 @@ class PostsController < ApplicationController
 
   private
 
-  def draft_params
-    params.require(:post).permit(:title)
-  end
-
   def post_params
-    params.require(:post).permit(:title, :body)
+    params[:post][:url] = nil if params[:post][:post_type] != "link"
+    params[:post][:body] = nil if params[:post][:post_type] != "text"
+    params[:post][:media] = nil if params[:post][:post_type] != "media"
+
+    params.require(:post).permit(:title, :body, :url, :post_type, media: [])
   end
 end

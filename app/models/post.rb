@@ -5,12 +5,17 @@ class Post < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :saves, class_name: "PostSave", dependent: :destroy
 
+  has_many_attached :media do |attachable|
+    attachable.variant :thumb, resize_to_limit: [100, 100]
+  end
+
   validates :title, presence: true
-  validates :body, presence: true
 
   VALID_STATUSES = %w[public private draft archived].freeze
+  VALID_TYPES = %w[text media link].freeze
 
   validates :status, inclusion: { in: VALID_STATUSES }
+  validates :post_type, inclusion: { in: VALID_TYPES }
 
   # --- getters ---
   def title

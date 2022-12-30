@@ -1,37 +1,37 @@
 <div class="form-wrapper post-form" data-controller="post-form">
   <h1>Create Post</h1>
   <%= form_with model: @post do |f| %>
-    <div class="post-form__tabs tabs" data-target="post-form.tabs">
-      <%= tab_button f, 1, icon("fa-regular", "file-lines") %>
-      <%= tab_button f, 2, icon("fa-regular", "image"), true %>
-      <%= tab_button f, 3, icon("fa", "link") %>
+    <div class="post-form__tabs" data-post-form-target="tabs">
+      <%= tab_button f, 0, icon("fa-regular", "file-lines"), true %>
+      <%= tab_button f, 1, icon("fa-regular", "image") %>
+      <%= tab_button f, 2, icon("fa", "link") %>
     </div>
     <div class="post-form__main">
       <div class="field">
         <%= f.text_field :title, class: error_class(@post, :title), placeholder: "Title" %>
       </div>
-      <div class="tab-wrapper" data-target="post-form.wrapper">
-        <div id="tab1" class="tab hidden">
+      <div class="tab-wrapper" data-post-form-target="wrapper">
+        <div id="tab0" class="tab">
           <%= f.text_area :body, class: error_class(@post, :body), placeholder: "Text" %>
         </div>
-        <div id="tab2" class="tab">
-          <%= f.label :upload, "Drag and drop media or click", class:"upload-region", data: {
-            target: "post-form.dropzone",
+        <div id="tab1" class="tab hidden">
+          <%= f.label :media, "Drag and drop media or click", class:"upload-region", data: {
+            "post-form-target": "dropzone",
             action: "
             drop->post-form#uploadDrop 
             dragover->post-form#uploadDragOver dragleave->post-form#uploadDragLeave"
           } %>
-          <%= f.file_field :upload, :multiple => true, class: "hidden", data: {
-            action: "change->post-form#upload"
+          <%= f.file_field :media, :multiple => true, class: "hidden", data: {
+            action: "change->post-form#upload", "post-form-target": "upload"
           } %>
-          <div class="attachments" data-target="post-form.uploadList">
+          <div class="post-form__attachments" data-post-form-target="uploadList">
           </div>
         </div>
-        <div id="tab3" class="tab hidden">
+        <div id="tab2" class="tab hidden">
           <%= f.text_field :url, placeholder: "Url" %>
         </div>
       </div>
-      <div class="field submit">
+      <div class="actions submit">
         <% if @post.draft? %>
           <%= f.submit 'Publish', name: :publish %>
         <% else %>

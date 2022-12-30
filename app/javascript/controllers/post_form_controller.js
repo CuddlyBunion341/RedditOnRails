@@ -1,14 +1,17 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-	static targets = ["wrapper", "tabs", "uploadList", "dropzone"];
+	static targets = ["wrapper", "tabs", "uploadList", "dropzone", "upload"];
 
-	connect() {}
+	connect() {
+		this.files = new Map();
+		this.tabs = this.wrapperTarget.querySelectorAll(".tab");
+	}
 
 	showTab(event) {
 		const tab = event.target.dataset.tab;
 
-		this.wrapperTarget.querySelectorAll(".tab").forEach((tab) => {
+		this.tabs.forEach((tab) => {
 			tab.classList.add("hidden");
 		});
 
@@ -20,40 +23,40 @@ export default class extends Controller {
 	upload(event) {
 		event.preventDefault();
 
-		let files;
-		if (event.dataTransfer) {
-			files = event.dataTransfer.files;
-		} else {
-			files = event.target.files;
-		}
+		const files = event?.dataTransfer?.files || event.target.files;
 
 		for (let i = 0; i < files.length; i++) {
-			let file = files.item(i);
+			const file = files.item(i);
+
+			const identifier = file.name + file.size + file.lastModified;
+
+			if (this.files.has(identifier)) continue;
+
+			this.files.set(identifier, file);
 
 			const reader = new FileReader();
 
 			reader.onload = (e) => {
 				const image = document.createElement("img");
 				image.src = e.target.result;
+
 				const picture = document.createElement("picture");
 				picture.appendChild(image);
 
 				const removeButton = document.createElement("button");
-
+				removeButton.classList.add("removebtn");
 				removeButton.innerHTML = "✕";
-
-				removeButton.addEventListener("click", (event) => {
-					event.preventDefault();
-					picture.remove();
-				});
+				removeButton.dataset.file = identifier;
+				removeButton.dataset.action = "click->post-form#removeFile";
 
 				picture.appendChild(removeButton);
-
 				this.uploadListTarget.appendChild(picture);
 			};
 
 			reader.readAsDataURL(file);
 		}
+
+		this.updateFiles();
 	}
 
 	uploadDragOver(event) {
@@ -68,5 +71,22 @@ export default class extends Controller {
 
 	uploadDragLeave() {
 		this.dropzoneTarget.classList.remove("dragover");
+	}
+
+	removeFile(event) {
+		const file = event.target.dataset.file;
+		this.files.delete(file);
+		event.target.parentNode.remove();
+
+		this.updateFiles();
+	}
+
+	updateFiles() {
+		const dataTransfer = new DataTransfer();
+		this.files.forEach((file) => {
+			dataTransfer.items.add(file);
+		});
+
+		this.uploadTarget.files = dataTransfer.files;
 	}
 }
