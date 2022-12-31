@@ -26,6 +26,7 @@
     </div>
   </aside>
   <section id="feed">
+    <%= render "new_post" %>
     <article class="padded">
       <h1><%= (params[:sort] == "top") ? "Popular" : "New"%> Posts</h1>
       <%= render "sort" %>

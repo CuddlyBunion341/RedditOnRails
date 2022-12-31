@@ -1,0 +1,9 @@
+<% unless Current.user.nil? %>
+  <article class="padded new-post">
+    <%= user_avatar Current.user %>
+    <%= link_to new_post_path, class:"input" do %>
+      <%= icon("fa-regular","file-lines") %>
+      Create Post
+    <% end %>
+  </article>
+<% end %>

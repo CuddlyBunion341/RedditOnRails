@@ -21,10 +21,12 @@ module ApplicationHelper
   end
 
   def user_avatar(user, class_name = "")
-    if user.avatar.attached?
-      image_tag user.avatar, class: "user-avatar #{class_name}"
-    else
-      image_tag "default-avatar.png", class: "user-avatar #{class_name}"
+    link_to user_path(user.username), class: "user-avatar__wrapper" do
+      if user.avatar.attached?
+        image_tag user.avatar, class: "user-avatar #{class_name}"
+      else
+        image_tag "default-avatar.png", class: "user-avatar #{class_name}"
+      end
     end
   end
 end
