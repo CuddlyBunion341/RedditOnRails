@@ -55,9 +55,15 @@
 	}
 
 	&__media {
+		margin-top: 10px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 		img {
+			height: 9999px;
 			max-width: 100%;
 			max-height: 300px;
+			object-fit: contain;
 		}
 	}
 

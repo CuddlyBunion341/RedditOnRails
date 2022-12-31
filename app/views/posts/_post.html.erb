@@ -9,11 +9,14 @@
       posted by <%= link_to post.user.username, user_path(post.user.username) %> <%= time_ago_in_words post.created_at %> ago
     </section>
     <h3><%= post.title %></h3>
-    <p><%= post.body %></p>
-    <% if post.media.attached? %>
-      <div class="post__media">
+    <% if post.mediaPost? %>
+      <%= link_to post_path(post), class:"post__media" do %>
         <%= image_tag post.media[0] %>
-      </div>
+      <% end %>
+    <% elsif post.linkPost? %>
+      <a href="<%= post.url %>"><%= post.url %></a>
+    <% else %>
+      <p><%= post.body %></p>
     <% end %>
     <section class="post__footer">
       <%= button_to post_path(post), method: :get do %>

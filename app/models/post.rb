@@ -47,6 +47,14 @@ class Post < ApplicationRecord
     status == "draft"
   end
 
+  def mediaPost?
+    post_type == "media" && media.attached?
+  end
+
+  def linkPost?
+    post_type == "link" && !url.blank?
+  end
+
   # -- helpers ---
   def vote(user, upvote = true)
     if votes.find_by(user: user, isUpvote: upvote)
