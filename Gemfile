@@ -30,6 +30,9 @@ gem "jbuilder"
 # Password encrypt, decrypt
 gem "bcrypt", "~> 3.1.7"
 
+# Link thumbnailer
+gem "link_thumbnailer"
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 

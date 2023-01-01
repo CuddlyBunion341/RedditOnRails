@@ -15,6 +15,19 @@
       <% end %>
     <% elsif post.linkPost? %>
       <a href="<%= post.url %>"><%= post.url %></a>
+      <div class="link-preview">
+        <% preview = LinkThumbnailer.generate(post.url) %>
+        <strong class="link-preview__title">
+          <%= image_tag preview.favicon, class: "favicon" %>
+          <%= preview.title %>
+        </strong>
+        <p class="link-preview__description">
+          <%= preview.description %>
+        </p>
+        <span class="link-preview__host">
+          <%= icon("fa","link") %> <%= Addressable::URI.parse(post.url).host %>
+        </span>
+      </div>
     <% else %>
       <p><%= post.body %></p>
     <% end %>
