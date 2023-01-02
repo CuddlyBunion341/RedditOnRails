@@ -4,22 +4,23 @@ main {
 	justify-content: center;
 	flex-direction: row;
 
-	@media (max-width: 768px) {
+	@media (max-width: 950px) {
 		flex-direction: column;
 		align-items: center;
-		aside {
+		aside,
+		section {
 			order: 0;
-			width: 80%;
+			width: 100% !important; // todo remove
 			margin: 0;
-			min-width: 500px;
-		}
-		& > section {
-			width: 80%;
+			min-width: 0 !important; // todo remove
 		}
 	}
 
-	& > section {
-		min-width: 300px;
+	@media (max-width: 750px) {
+		aside,
+		section {
+			width: 100%;
+		}
 	}
 }
 

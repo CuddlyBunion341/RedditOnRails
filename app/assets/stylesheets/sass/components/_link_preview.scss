@@ -1,19 +1,40 @@
 .link-preview {
 	border-radius: 5px;
-	background: linear-gradient(180deg, #ffffff, #ebebeb);
-	padding: 10px;
+	outline: 1px solid #ebebeb;
+	overflow: hidden;
 	margin-top: 10px;
 	color: black;
+	display: flex;
+	width: 100%;
+
+	&__thumb {
+		width: 120px;
+		height: 120px;
+		img {
+			width: 120px;
+			height: 120px;
+			object-fit: cover;
+			outline: 1px solid #ebebeb;
+			background-color: #ebebeb;
+		}
+	}
+
+	&__main {
+		padding: 10px;
+		flex: 1;
+		position: relative;
+	}
 
 	&__title {
 		display: flex;
 		align-items: center;
+		text-overflow: ellipsis;
 		img {
 			margin-right: 10px;
 		}
 	}
 	&__description {
-		// todo
+		font-size: 0.9em;
 	}
 
 	&__favicon {
@@ -24,5 +45,11 @@
 	&__host {
 		font-size: 0.8em;
 		color: #999;
+		position: absolute;
+		// TODO refactor
+		width: 100%;
+		bottom: 10px;
+		background-color: white;
+		height: 18px;
 	}
 }
