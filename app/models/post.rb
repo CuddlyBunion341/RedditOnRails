@@ -1,21 +1,55 @@
 class Post < ApplicationRecord
+  before_save :update_link_preview
+
   belongs_to :user
 
   has_many :votes, class_name: "PostVote", dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :saves, class_name: "PostSave", dependent: :destroy
+  belongs_to :link, dependent: :destroy, optional: true
 
   has_many_attached :media do |attachable|
     attachable.variant :thumb, resize_to_limit: [100, 100]
   end
 
   validates :title, presence: true
+  validates :url, format: { with: URI.regexp }, presence: true, if: :link_post?
+  validates :body, presence: true, if: :text_post?
+  validates :media, presence: true, if: :media_post?
 
   VALID_STATUSES = %w[public private draft archived].freeze
   VALID_TYPES = %w[text media link].freeze
 
   validates :status, inclusion: { in: VALID_STATUSES }
   validates :post_type, inclusion: { in: VALID_TYPES }
+
+  # --- scopes ---
+  scope :public_posts, -> { where(status: "public") }
+
+  # -- static methods ---
+  def self.update_link_previews
+    Post.where(post_type: "link").each(&:update_link_preview)
+  end
+
+  # -- callbacks ---
+
+  def create_link_preview(save = false)
+    if link_post?
+      link_obj = Link.find_or_create_by(url: url)
+      if save
+        update(link: link_obj)
+      else
+        self.link = link_obj
+      end
+    end
+  end
+
+  def update_link_preview
+    if link_post?
+      link = Link.find_or_create_by(url: url) if link.nil?
+      link.create_link_preview
+    end
+  end
 
   # --- getters ---
   def title
@@ -47,15 +81,19 @@ class Post < ApplicationRecord
     status == "draft"
   end
 
-  def mediaPost?
-    post_type == "media" && media.attached?
+  def text_post?
+    post_type == "text"
   end
 
-  def linkPost?
-    post_type == "link" && !url.blank?
+  def media_post?
+    post_type == "media"
   end
 
-  # -- helpers ---
+  def link_post?
+    post_type == "link"
+  end
+
+  # -- instance methods ---
   def vote(user, upvote = true)
     if votes.find_by(user: user, isUpvote: upvote)
       votes.find_by(user: user, isUpvote: upvote).destroy
@@ -82,6 +120,10 @@ class Post < ApplicationRecord
     else
       user.post_saves.create(post: self)
     end
+  end
+
+  def archive
+    update(status: "archived")
   end
 
   def publish

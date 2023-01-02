@@ -9,25 +9,27 @@
       posted by <%= link_to post.user.username, user_path(post.user.username) %> <%= time_ago_in_words post.created_at %> ago
     </section>
     <h3><%= post.title %></h3>
-    <% if post.mediaPost? %>
+    <% if post.media_post? %>
       <%= link_to post_path(post), class:"post__media" do %>
         <%= image_tag post.media[0] %>
       <% end %>
-    <% elsif post.linkPost? %>
+    <% elsif post.link_post? %>
       <a href="<%= post.url %>"><%= post.url %></a>
-      <div class="link-preview">
-        <% preview = LinkThumbnailer.generate(post.url) %>
-        <strong class="link-preview__title">
-          <%= image_tag preview.favicon, class: "favicon" %>
-          <%= preview.title %>
-        </strong>
-        <p class="link-preview__description">
-          <%= preview.description %>
-        </p>
-        <span class="link-preview__host">
-          <%= icon("fa","link") %> <%= Addressable::URI.parse(post.url).host %>
-        </span>
-      </div>
+      <a href="<%= post.url %>" class="no-underline">
+        <div class="link-preview">
+          <strong class="link-preview__title">
+            <%= image_tag post.link.favicon_src, class: "link-preview__favicon" %>
+            <%= post.link.title %>
+          </strong>
+          <p class="link-preview__description">
+            <%= post.link.description %>
+          </p>
+          <span class="link-preview__host">
+            <%= icon("fa","link") %> <%= Addressable::URI.parse(post.url).host %>
+            <%= image_tag post.link.thumb_src %>
+          </span>
+        </div>
+      </a>
     <% else %>
       <p><%= post.body %></p>
     <% end %>

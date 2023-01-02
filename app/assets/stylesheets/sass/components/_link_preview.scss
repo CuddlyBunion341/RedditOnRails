@@ -1,9 +1,9 @@
 .link-preview {
-	border: 1px solid #bfbfbf;
 	border-radius: 5px;
-	background: linear-gradient(180deg, #f5f5f5, #ebebeb);
+	background: linear-gradient(180deg, #ffffff, #ebebeb);
 	padding: 10px;
 	margin-top: 10px;
+	color: black;
 
 	&__title {
 		display: flex;
@@ -17,7 +17,8 @@
 	}
 
 	&__favicon {
-		// todo
+		width: 25px;
+		height: 25px;
 	}
 
 	&__host {
