@@ -20,18 +20,6 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-
-		button {
-			background: none;
-			border: none;
-			cursor: pointer;
-			&.upvote.active {
-				color: red;
-			}
-			&.downvote.active {
-				color: blue;
-			}
-		}
 	}
 
 	&__thumb {
@@ -59,6 +47,7 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+
 		img {
 			height: 9999px;
 			max-width: 100%;

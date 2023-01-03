@@ -1,0 +1,40 @@
+$upvote: $bg-primary;
+$downvote: #3f51b5;
+.vote-arrow {
+	width: 15px;
+	&__outline {
+		stroke: black;
+		stroke-width: 2px;
+	}
+	&__fill {
+		fill: none;
+	}
+	&.downvote {
+		rotate: 180deg;
+	}
+	&.active.upvote &__fill {
+		fill: $upvote;
+	}
+	&.active.downvote &__fill {
+		fill: $downvote;
+	}
+}
+.vote-btn {
+	height: 19px;
+	background: none;
+	border: none;
+	cursor: pointer;
+	&:disabled {
+		opacity: 0.2;
+	}
+	&:hover {
+		.vote-arrow {
+			&.upvote .vote-arrow__outline {
+				stroke: $upvote;
+			}
+			&.downvote .vote-arrow__outline {
+				stroke: $downvote;
+			}
+		}
+	}
+}

@@ -83,7 +83,8 @@ Rails.application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new "app-name")
 
   # Sass config
-  config.assets.css_compressor = :yui
+  # config.assets.css_compressor = :yui
+  config.assets.css_compressor = :sass
   config.assets.js_compressor = :terser
 
   if ENV["RAILS_LOG_TO_STDOUT"].present?

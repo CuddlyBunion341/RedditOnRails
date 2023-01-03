@@ -8,7 +8,7 @@
     <div class="post__thumb">
       <div class="icon_wrapper">
         <% if post.media_post? %>
-          <%= image_tag post.media[0].variant(:thumb) %>
+          <%= image_tag post.media[0].variant(:thumb), alt: post.media[0].name %>
         <% elsif post.link_post? %>
           <%= icon("fa","link") %>
         <% else %>
