@@ -1,6 +1,34 @@
 .community {
 	&__header {
 		border-bottom: 5px solid $bg-primary;
+		overflow: hidden;
+		background: white;
+
+		&__content {
+			padding: 10px;
+			padding-left: 20px;
+			.shortname {
+				font-size: 1.2em;
+				margin: 5px;
+			}
+		}
+
+		&__image {
+			width: 100%;
+			height: 100px;
+			overflow: hidden;
+			background: repeating-linear-gradient(
+				150deg,
+				#ffffff,
+				#d3d3d3 13px
+			);
+			img {
+				display: none;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+		}
 		h1 {
 			margin: 0;
 		}
