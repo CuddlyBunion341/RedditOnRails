@@ -1,0 +1,14 @@
+<main class="noflex">
+  <h1>All communities:</h1>
+  <% unless @communities.exists? %>
+    <p>There are no communities yet.</p>
+  <% else %>
+    <ul>
+      <% @communities.each do |community| %>
+        <li>
+          <%= link_to community.name, community_path(community.shortname) %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+</main>

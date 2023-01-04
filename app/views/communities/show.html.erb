@@ -1,0 +1,46 @@
+<div class="community">
+  <div class="community__header">
+    <h1><%= @community.name %></h1>
+    <p><%= @community.shortname %></p>
+    <p><%= @community.description %></p>
+  </div>
+</div>
+<main>
+  <aside>
+    <article class="community__about titled">
+      <h1>About</h1>
+      <p><%= @community.description %></p>
+      <hr>
+      <p>
+        Created 
+        <%= time_ago_in_words @community.created_at %>
+        ago
+      </p>
+      <p>
+        <%= icon("fa-regular","file-lines") %>
+        <%= @community.posts.count %>
+        Posts
+      </p>
+      <p>
+        <%= icon("fa-regular","user") %>
+        0
+        Members
+      </p>
+    </article>
+  </aside>
+  <section id="feed">
+    <%= render "posts/new_post" %>
+    <article class="padded">
+      <h1><%= (params[:sort] == "top") ? "Popular" : "New"%> Posts</h1>
+      <%= render "posts/sort" %>
+    </article>
+    <% unless @community.posts.exists? %>
+      <article class="titled">
+        <p>No posts yet!</p>
+      </article>
+    <% end %>
+    <% @community.posts.each do |post| %>
+      <%= render "posts/post", post: post %>
+    <% end %>
+  </section>
+</main>

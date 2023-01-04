@@ -4,6 +4,10 @@ main {
 	justify-content: center;
 	flex-direction: row;
 
+	&.noflex {
+		display: block;
+	}
+
 	@media (max-width: 950px) {
 		flex-direction: column;
 		align-items: center;

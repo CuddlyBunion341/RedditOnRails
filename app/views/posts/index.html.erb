@@ -31,8 +31,9 @@
       <% else %>
         <ul>
           <% @active_communities.each do |community| %>
-            <strong><%= community.name %></strong>
-            <span><%= community.shortname %></span>
+            <li>
+              <%= link_to community.name, community_path(community.shortname) %>
+            </li>
           <% end %>
         </ul>
       <% end %>
@@ -46,12 +47,11 @@
     </article>
     <% unless @posts.exists? %>
       <p>There are no posts yet.</p>
-    <% else %>
-      <% @posts.each do |post| %>
-        <% if post.public? %>
-          <%= render "post", post: post %>
-        <% end%>
-      <% end %>
+    <% end %>
+    <% @posts.each do |post| %>
+      <% if post.public? %>
+        <%= render "post", post: post %>
+      <% end%>
     <% end %>
   </section>
 </main>

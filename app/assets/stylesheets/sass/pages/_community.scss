@@ -1,0 +1,15 @@
+.community {
+	&__header {
+		border-bottom: 5px solid $bg-primary;
+		h1 {
+			margin: 0;
+		}
+	}
+	&__about.titled {
+		// .titled just used for specificity
+		p {
+			padding: 0 10px;
+			margin: 10px 0;
+		}
+	}
+}

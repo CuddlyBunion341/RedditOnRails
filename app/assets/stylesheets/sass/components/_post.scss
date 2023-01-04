@@ -90,6 +90,11 @@ section:has(.post) {
 	width: 700px;
 }
 
+section#feed {
+	min-width: 500px;
+	width: 700px;
+}
+
 section.show-post {
 	max-width: 600px;
 }

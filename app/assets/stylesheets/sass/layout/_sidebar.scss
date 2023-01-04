@@ -7,24 +7,24 @@ aside {
 	display: inline-block;
 	justify-self: flex-end;
 	order: 1;
+}
 
-	& .titled {
-		margin-bottom: 10px;
-		border-radius: 2px;
-		overflow: visible;
+article.titled {
+	margin-bottom: 10px;
+	border-radius: 2px;
+	overflow: visible;
 
-		& > h1 {
-			margin: -1px;
-			padding: 5px;
-			border-top-left-radius: 2px;
-			border-top-right-radius: 2px;
-			color: #fff;
-			background-color: $bg-primary;
-		}
+	& > h1 {
+		margin: -1px;
+		padding: 5px;
+		border-top-left-radius: 2px;
+		border-top-right-radius: 2px;
+		color: #fff;
+		background-color: $bg-primary;
+	}
 
-		& > p {
-			padding: 10px;
-			margin: 0;
-		}
+	& > p {
+		padding: 10px;
+		margin: 0;
 	}
 }

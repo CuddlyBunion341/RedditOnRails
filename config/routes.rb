@@ -28,5 +28,7 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :communities, param: :name, only: [:show, :index]
+
   match "/follow_user/:username", to: "users#follow", via: [:get, :post], as: "follower"
 end

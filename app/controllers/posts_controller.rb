@@ -1,12 +1,13 @@
 class PostsController < ApplicationController
   def index
     if params[:sort] == "top"
-      @posts = Post.all.order(score: :desc)
+      @posts = Post.public_posts.order(score: :desc)
     else
-      @posts = Post.all.order(created_at: :desc)
+      @posts = Post.public_posts.order(created_at: :desc)
     end
 
     @active_users = User.joins(:posts).group(:id).order("count(posts.id) desc").limit(10)
+    @active_communities = Community.all # for now
   end
 
   def new
@@ -17,10 +18,6 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.user = Current.user
     @post.status = "public"
-
-    if params[:media]
-      @post.media.attach(params[:media])
-    end
 
     if params[:draft]
       @post.status = "draft"
@@ -47,24 +44,24 @@ class PostsController < ApplicationController
   end
 
   def update
-    # TODO add attachments
     @post = Post.find(params[:id])
-    @post.user = Current.user
 
     if @post.user != Current.user
       redirect_to root_path, alert: "You can only edit your own posts."
     elsif !@post.draft?
       redirect_to root_path, alert: "You can only edit draft posts."
-    elsif params[:publish]
-      if @post.publish
-        redirect_to post_path(@post), notice: "Successfully published post!"
-      else
-        render :new, status: :unprocessable_entity
+    else
+      if params[:publish]
+        if @post.update(post_params) && @post.publish
+          redirect_to post_path(@post), notice: "Successfully published post!"
+        else
+          render :new, status: :unprocessable_entity
+        end
+      elsif params[:draft]
+        @post.assign_attributes(post_params)
+        @post.save(validate: false)
+        redirect_to root_path, notice: "Successfully updated draft!"
       end
-    elsif params[:draft]
-      @post.assign_attributes(post_params)
-      @post.save(validate: false)
-      redirect_to root_path, notice: "Successfully updated draft!"
     end
   end
 
@@ -80,11 +77,14 @@ class PostsController < ApplicationController
         msg = "You can only delete your own posts!"
         format.html { redirect_to root_path, notice: msg }
         format.json { render json: { error: msg } }
-      else
+      elsif @post.destroy
         msg = "Post deleted successfully!"
         format.html { redirect_to root_path, notice: msg }
         format.json { render json: { msg: msg } }
-        @post.destroy
+      else
+        msg = "Something went wrong!"
+        format.html { redirect_to root_path, notice: msg }
+        format.json { render json: { error: msg } }
       end
     end
   end
@@ -159,9 +159,9 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params[:post][:url] = nil if params[:post][:post_type] != "link"
-    params[:post][:body] = nil if params[:post][:post_type] != "text"
-    params[:post][:media] = nil if params[:post][:post_type] != "media"
+    # params[:post][:url] = nil if params[:post][:post_type] != "link"
+    # params[:post][:body] = nil if params[:post][:post_type] != "text"
+    # params[:post][:media] = nil if params[:post][:post_type] != "media"
 
     params.require(:post).permit(:title, :body, :url, :post_type, media: [])
   end
