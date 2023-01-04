@@ -31,9 +31,7 @@
       <% else %>
         <ul>
           <% @active_communities.each do |community| %>
-            <li>
-              <%= link_to community.name, community_path(community.shortname) %>
-            </li>
+            <%= render "communities/list_item", community: community %>
           <% end %>
         </ul>
       <% end %>
