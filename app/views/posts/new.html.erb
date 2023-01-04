@@ -1,5 +1,14 @@
 <div class="form-wrapper post-form" data-controller="post-form">
   <h1>Create Post</h1>
+  <div class="errors">
+    <% if @post.errors.any? %>
+      <ul>
+        <% @post.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
   <%= form_with model: @post do |f| %>
     <div class="post-form__tabs" data-post-form-target="tabs">
       <%= tab_button f, 0, icon("fa-regular", "file-lines"), true %>
@@ -8,6 +17,8 @@
     </div>
     <div class="post-form__main">
       <div class="field">
+        <%= f.label :community_id %>
+        <%= f.select :community_id, options_from_collection_for_select(@communities, "id", "name")%>
         <%= f.text_field :title, class: error_class(@post, :title), placeholder: "Title" %>
       </div>
       <div class="tab-wrapper" data-post-form-target="wrapper">
@@ -25,6 +36,15 @@
             action: "change->post-form#upload", "post-form-target": "upload"
           } %>
           <div class="post-form__attachments" data-post-form-target="uploadList">
+            <% if @post.media.attached? %>
+              <%= @post.media.attachments.inspect %>
+              <% @post.media.each do |media| %>
+                <picture>
+                  <%= image_tag media %>
+                  <button class="removebtn" data-file="<%= attachment_identifier(media) %>">✕</button>
+                </picture>
+              <% end %>
+            <% end %>
           </div>
         </div>
         <div id="tab2" class="tab hidden">

@@ -11,13 +11,16 @@ class PostsController < ApplicationController
   end
 
   def new
+    @communities = Community.all
     @post = Post.new
   end
 
   def create
+    @communities = Community.all
     @post = Post.new(post_params)
     @post.user = Current.user
     @post.status = "public"
+    @post.community = Community.find(params[:post][:community_id])
 
     if params[:draft]
       @post.status = "draft"
@@ -31,6 +34,7 @@ class PostsController < ApplicationController
   end
 
   def edit
+    @communities = Community.all
     @post = Post.find(params[:id])
     if @post.user != Current.user
       redirect_to root_path, alert: "You can only edit your own posts."
@@ -44,6 +48,7 @@ class PostsController < ApplicationController
   end
 
   def update
+    @communities = Community.all
     @post = Post.find(params[:id])
 
     if @post.user != Current.user
@@ -163,6 +168,6 @@ class PostsController < ApplicationController
     # params[:post][:body] = nil if params[:post][:post_type] != "text"
     # params[:post][:media] = nil if params[:post][:post_type] != "media"
 
-    params.require(:post).permit(:title, :body, :url, :post_type, media: [])
+    params.require(:post).permit(:title, :body, :url, :community_id, :post_type, media: [])
   end
 end
