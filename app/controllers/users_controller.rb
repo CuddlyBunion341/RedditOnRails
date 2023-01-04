@@ -38,7 +38,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = User.find_by(params[:id])
+    @user = User.find(params[:username].to_i) # TODO: Fix this
 
     unless @user == Current.user
       # TODO Add JSON response
@@ -47,7 +47,10 @@ class UsersController < ApplicationController
       return
     end
 
-    @user.avatar.attach(params[:user][:avatar]) if params[:user][:avatar]
+    if params[:user][:avatar]
+      @user.avatar.purge
+      @user.avatar.attach(params[:user][:avatar])
+    end
 
     if @user.update!(user_params)
       # TODO Add JSON response

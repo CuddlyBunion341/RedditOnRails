@@ -3,7 +3,7 @@
     <h1><%= @user.username %></h1>
     <%= f.label :avatar, "Edit Profile Picture" %><br>
     <div class="user-avatar__wrapper" data-target="user.avatarWrapper">
-      <%= image_tag @user.avatar, class: "user-avatar medium", data: {target: "user.avatar"} %>
+      <%= user_avatar_img @user, "medium", { target: "user.avatar" } %>
     </div>
     <%= f.file_field :avatar, class: "hidden", data: {action: "user#updateAvatar", target:"user.avatarInput"} do %>
     <% end %>

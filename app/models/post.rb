@@ -1,5 +1,5 @@
 class Post < ApplicationRecord
-  before_save :update_link_preview
+  before_save :create_link_preview, if: :will_save_change_to_url?
 
   belongs_to :user
 
@@ -12,7 +12,7 @@ class Post < ApplicationRecord
     attachable.variant :thumb, resize_to_limit: [100, 100]
   end
 
-  validates :title, presence: true
+  validates :title, presence: true, length: { maximum: 100 }
   validates :url, format: { with: URI.regexp }, presence: true, if: :link_post?
   validates :body, presence: true, if: :text_post?
   validates :media, presence: true, if: :media_post?

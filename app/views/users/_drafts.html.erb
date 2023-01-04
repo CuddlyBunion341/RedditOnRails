@@ -1,5 +1,5 @@
 <% unless @user.drafts.exists? %>
-  <p>There are no drafts yet.</p>
+  <article class="padded">There are no drafts yet.</article>
 <% end %>
 <% @user.drafts.order(created_at: :desc).each do |draft| %>
   <%= render "posts/post_draft", post: draft %>

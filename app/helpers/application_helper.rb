@@ -20,13 +20,18 @@ module ApplicationHelper
     "has-error" if model.errors[field].any?
   end
 
-  def user_avatar(user, class_name = "")
+  def user_avatar(user, class_name = "", data = {})
     link_to user_path(user.username), class: "user-avatar__wrapper" do
-      if user.avatar.attached?
-        image_tag user.avatar, class: "user-avatar #{class_name}"
-      else
-        image_tag "default-avatar.png", class: "user-avatar #{class_name}"
-      end
+      user_avatar_img(user, class_name, data)
     end
+  end
+
+  def user_avatar_img(user, class_name = "", data = {})
+    img = user.avatar.attached? ? user.avatar : "default-avatar.png"
+    image_tag img, class: "user-avatar #{class_name}", alt: user.username, data: data
+  end
+
+  def attachment_identifier(attachment)
+    attachment.filename.to_s + attachment.byte_size.to_s + attachment.created_at.to_i.to_s # won't work
   end
 end

@@ -1,22 +1,22 @@
 $upvote: $bg-primary;
+$upvote-stroke: #aa190f;
 $downvote: #3f51b5;
+$downvote-stroke: #354498;
 .vote-arrow {
 	width: 15px;
-	&__outline {
-		stroke: black;
-		stroke-width: 2px;
-	}
-	&__fill {
-		fill: none;
+	fill: none;
+	stroke: black;
+	stroke-width: 3px;
+	&.upvote.active {
+		fill: $upvote;
+		stroke: $upvote-stroke;
 	}
 	&.downvote {
 		rotate: 180deg;
-	}
-	&.active.upvote &__fill {
-		fill: $upvote;
-	}
-	&.active.downvote &__fill {
-		fill: $downvote;
+		&.active {
+			fill: $downvote;
+			stroke: $downvote-stroke;
+		}
 	}
 }
 .vote-btn {
@@ -29,11 +29,12 @@ $downvote: #3f51b5;
 	}
 	&:hover {
 		.vote-arrow {
-			&.upvote .vote-arrow__outline {
-				stroke: $upvote;
+			opacity: 0.8;
+			&.upvote {
+				stroke: $upvote-stroke;
 			}
-			&.downvote .vote-arrow__outline {
-				stroke: $downvote;
+			&.downvote {
+				stroke: $downvote-stroke;
 			}
 		}
 	}
