@@ -23,7 +23,20 @@
           <% end %>
         </ul>
       <% end %>
-    </div>
+    </article>
+    <article class="titled">
+      <h1>Popular Communities!</h1>
+      <% unless @active_communities.exists? %>
+        <p>There are no active communities. </p>
+      <% else %>
+        <ul>
+          <% @active_communities.each do |community| %>
+            <strong><%= community.name %></strong>
+            <span><%= community.shortname %></span>
+          <% end %>
+        </ul>
+      <% end %>
+    </article>
   </aside>
   <section id="feed">
     <%= render "new_post" %>

@@ -2,6 +2,7 @@ class Post < ApplicationRecord
   before_save :create_link_preview, if: :will_save_change_to_url?
 
   belongs_to :user
+  belongs_to :community, optional: true
 
   has_many :votes, class_name: "PostVote", dependent: :destroy
   has_many :comments, dependent: :destroy

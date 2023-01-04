@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_02_092340) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_04_152320) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -47,6 +47,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_02_092340) do
     t.datetime "updated_at", null: false
     t.index ["post_id"], name: "index_comments_on_post_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "communities", force: :cascade do |t|
+    t.string "name"
+    t.string "shortname"
+    t.text "description"
+    t.integer "owner_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_id"], name: "index_communities_on_owner_id"
   end
 
   create_table "follower2s", force: :cascade do |t|
@@ -107,6 +117,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_02_092340) do
     t.string "url"
     t.string "post_type"
     t.integer "link_id"
+    t.integer "community_id"
+    t.index ["community_id"], name: "index_posts_on_community_id"
     t.index ["link_id"], name: "index_posts_on_link_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
@@ -118,6 +130,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_02_092340) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
+  add_foreign_key "communities", "users", column: "owner_id"
   add_foreign_key "follower2s", "users"
   add_foreign_key "follower2s", "users", column: "follower_id"
   add_foreign_key "followers", "users"
@@ -126,6 +139,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_02_092340) do
   add_foreign_key "post_saves", "users"
   add_foreign_key "post_votes", "posts"
   add_foreign_key "post_votes", "users"
+  add_foreign_key "posts", "communities"
   add_foreign_key "posts", "links"
   add_foreign_key "posts", "users"
 end
