@@ -6,9 +6,6 @@ Rails.application.routes.draw do
   post "/signup", to: "registrations#create"
   delete "/logout", to: "sessions#destroy", as: "logout"
 
-  get "/create_post", to: "posts#new"
-  post "/create_post", to: "posts#create"
-
   match "/upvote_post/:id", to: "posts#upvote", via: [:get, :post], as: "upvote_post"
   match "/downvote_post/:id", to: "posts#downvote", via: [:get, :post], as: "downvote_post"
 

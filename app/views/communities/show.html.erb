@@ -31,6 +31,18 @@
         Members
       </p>
     </article>
+    <article class="titled">
+      <h1>Active Users</h1>
+      <% unless @active_users.exists? %>
+        <p>No active users yet!</p>
+      <% else %>
+        <ul>
+          <% @active_users.each do |user| %>
+            <%= render "users/list_item", user: user %>
+          <% end %>
+        </ul>
+      <% end %>
+    </article>
   </aside>
   <section id="feed">
     <%= render "posts/new_post" %>

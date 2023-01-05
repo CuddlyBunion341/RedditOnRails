@@ -15,11 +15,29 @@ nav,
 
 	&-main {
 		background-color: $bg-primary;
+		overflow: hidden;
+		ul {
+			display: flex;
+			align-items: center;
+		}
 		a {
 			color: white;
 		}
-		li.active a {
-			text-decoration: underline;
+		li {
+			&.logo {
+				padding: 0;
+				padding-left: 10px;
+				img {
+					max-height: 20px;
+				}
+				a {
+					display: flex;
+					align-items: center;
+				}
+			}
+			&.active a {
+				text-decoration: underline;
+			}
 		}
 	}
 	&-user {

@@ -20,9 +20,9 @@
     <header>
       <nav class="nav-main">
         <ul>
-          <%= nav_link "RedditOnRails", root_path %>
+          <%= nav_link image_tag( "logo.svg"), root_path, "logo" %>
           <% if Current.user %>
-            <%= nav_link "Create Post", create_post_path %>
+            <%= nav_link "Create Post", new_post_path %>
             <%= nav_link "Logged in as #{@username}", user_path(@username) %>
             <li><%= button_to "Logout", logout_path, method: :delete %></li>
           <% else %>
