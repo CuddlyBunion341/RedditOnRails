@@ -1,0 +1,40 @@
+<aside>
+  <article class="community__about titled">
+    <h1>About</h1>
+    <p><%= community.description %></p>
+    <hr>
+    <p>
+      Created 
+      <%= time_ago_in_words community.created_at %>
+      ago
+    </p>
+    <p>
+      <%= icon("fa-regular","file-lines") %>
+      <%= community.posts.count %>
+      Posts
+    </p>
+    <p>
+      <%= icon("fa-regular","user") %>
+      0
+      Members
+    </p>
+  </article>
+  <article class="titled">
+    <h1>Active Users</h1>
+    <% unless community.active_users.exists? %>
+      <p>No active users yet!</p>
+    <% else %>
+      <ul>
+        <% community.active_users.each do |user| %>
+          <%= render "users/list_item", user: user %>
+        <% end %>
+      </ul>
+    <% end %>
+  </article>
+  <article class="titled">
+    <h1>Moderators</h1>
+    <ul>
+      <%= render "users/list_item", user: community.owner %>
+    </ul>
+  </article>
+</aside>

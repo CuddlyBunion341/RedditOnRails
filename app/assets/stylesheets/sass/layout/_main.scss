@@ -12,7 +12,7 @@ main {
 		flex-direction: column;
 		align-items: center;
 		aside,
-		section {
+		& > section {
 			order: 0;
 			width: 100% !important; // todo remove
 			margin: 0;
@@ -22,7 +22,7 @@ main {
 
 	@media (max-width: 750px) {
 		aside,
-		section {
+		& > section {
 			width: 100%;
 		}
 	}

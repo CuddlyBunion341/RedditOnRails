@@ -10,6 +10,11 @@
 			.shortname {
 				font-size: 1.2em;
 				margin: 5px;
+				text-decoration: none;
+				color: black;
+				&:hover {
+					text-decoration: underline;
+				}
 			}
 		}
 
