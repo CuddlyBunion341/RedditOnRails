@@ -2,7 +2,7 @@
 <main>
   <%= render "sidebar", community: @community %>
   <section id="feed">
-    <%= render "posts/new_post", community: @community.name %>
+    <%= render "posts/new_post", community_id: @community.id %>
     <article class="padded">
       <h1><%= (params[:sort] == "top") ? "Popular" : "New"%> Posts</h1>
       <%= render "posts/sort" %>

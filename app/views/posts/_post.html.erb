@@ -10,7 +10,7 @@
     </section>
     <h3><%= post.title %></h3>
     <% if post.media_post? && !post.archived? %>
-      <%= render "lightbox", media: post.media %>
+      <%= render "posts/lightbox", media: post.media %>
     <% elsif post.link_post? && !post.archived? %>
       <a href="<%= post.url %>"><%= post.url %></a>
       <a href="<%= post.url %>" class="no-underline link-preview">
