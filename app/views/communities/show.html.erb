@@ -7,12 +7,12 @@
       <h1><%= (params[:sort] == "top") ? "Popular" : "New"%> Posts</h1>
       <%= render "posts/sort" %>
     </article>
-    <% unless @community.posts.exists? %>
+    <% unless @posts.exists? %>
       <article class="titled">
         <p>No posts yet!</p>
       </article>
     <% end %>
-    <% @community.posts.each do |post| %>
+    <% @posts.each do |post| %>
       <%= render "posts/post", post: post %>
     <% end %>
   </section>
