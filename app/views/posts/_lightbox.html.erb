@@ -1,0 +1,22 @@
+<div class="lightbox" data-controller="lightbox">
+  <div class="lightbox__content" data-lightbox-target="content">
+    <% media.each do |image| %>
+      <%= image_tag image %>
+    <% end %>
+    <% if media.count > 1 %>
+      <div class="lightbox__overlay">
+        <span class="lightbox__overlay__counter" data-lightbox-target="counter">
+          1 of <%= media.count %>
+        </span>
+        <div class="lightbox__overlay__controls">
+          <button class="lightbox__button hidden" data-action="click->lightbox#previous" data-lightbox-target="previous">
+            <%= icon("fa-solid", "chevron-left") %>
+          </button>
+          <button class="lightbox__button" data-action="click->lightbox#next" data-lightbox-target="next">
+            <%= icon("fa-solid", "chevron-right") %>
+          </button>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
