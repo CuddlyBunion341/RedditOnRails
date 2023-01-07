@@ -34,11 +34,29 @@
 		border-radius: 5px;
 		border: 1px solid #bfbfbf;
 		overflow: hidden;
+		position: relative;
 
 		img {
 			min-width: 100%;
 			min-height: 100%;
 			object-fit: contain;
+		}
+
+		&:has(.count) {
+			background-color: rgb(0, 0, 0);
+			img {
+				opacity: 0.8;
+			}
+		}
+
+		.count {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			white-space: nowrap;
+			color: white;
+			pointer-events: none;
 		}
 	}
 
