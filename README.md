@@ -1,24 +1,35 @@
-# README
+![Alt text](doc/logo.svg)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## About
 
-Things you may want to cover:
+RailDit (also called RedditOnRails) is a clone of the popular social news website [Reddit](https://www.reddit.com/). It is being built using [Ruby on Rails](https://rubyonrails.org/), a fullstack web application framework using a model-view-controller architecture.
 
-* Ruby version
+## Requirements
 
-* System dependencies
+-   [Github](https://github.com/git-guides/install-git)
+-   [Ruby 3.0.0](https://www.ruby-lang.org/en/downloads/)
+-   [SqlLite3](https://www.sqlite.org/index.html)
 
-* Configuration
+## Installation
 
-* Database creation
+1. Clone the repository
 
-* Database initialization
+```
+git clone https://github.com/CuddlyBunion341/RedditOnRails.git
+```
 
-* How to run the test suite
+2. Install gem dependencies
 
-* Services (job queues, cache servers, search engines, etc.)
+```
+bundle install
+```
 
-* Deployment instructions
+3. Start dev server
 
-* ...
+```
+rails server
+```
+
+## License
+
+Distributed under the MIT License. See [LICENSE](LICENSE) for further information.
