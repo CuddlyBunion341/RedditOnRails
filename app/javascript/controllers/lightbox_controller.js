@@ -49,6 +49,7 @@ export default class extends Controller {
 	next() {
 		this.moveGallery(1);
 	}
+
 	previous() {
 		this.moveGallery(-1);
 	}

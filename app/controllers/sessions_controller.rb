@@ -5,6 +5,7 @@ class SessionsController < ApplicationController
     # TODO Add json response
     user = User.find_by(username: params[:username])
     if user.present? && user.authenticate(params[:password])
+      user.login
       session[:user_id] = user.id
       redirect_to root_path, notice: "Logged in successfully!"
     else
@@ -15,6 +16,7 @@ class SessionsController < ApplicationController
 
   def destroy
     # TODO Add json response
+    Current.user.logout
     session[:user_id] = nil
     redirect_to root_path, notice: "Logged Out"
   end

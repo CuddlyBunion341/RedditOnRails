@@ -11,6 +11,13 @@
         <h2><%= @user.username %></h2>
         <%= link_to "u/#{@user.username}", user_path(@user.username) %>
       </div>
+      <span class="online">
+        <% if @user.is_online %>
+          <span class="green">online</span>
+        <% else %>
+          Last seen <%= time_ago_in_words(@user.last_online) %> ago
+        <% end %>
+      </span>
       <% unless @user.bio.blank? %>
         <p><%= @user.bio %></p>
       <% end %>

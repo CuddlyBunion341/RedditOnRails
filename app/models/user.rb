@@ -17,6 +17,14 @@ class User < ApplicationRecord
     attachable.variant :thumb, resize_to_limit: [100, 100]
   end
 
+  def login
+    update(last_online: Time.now, is_online: true)
+  end
+
+  def logout
+    update(last_online: Time.now, is_online: false)
+  end
+
   def drafts
     posts.where(status: "draft")
   end
