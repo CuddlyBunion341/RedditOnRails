@@ -6,18 +6,42 @@ export default class extends Controller {
 	connect() {
 		this.files = new Map();
 		this.tabs = this.wrapperTarget.querySelectorAll(".tab");
+
+		// show selected tab
+		const selectedTabElement = this.tabsTarget.querySelector(
+			'input[name="post[post_type]"]:checked'
+		);
+		if (selectedTabElement) {
+			const selectedTab = selectedTabElement.dataset.tab;
+			this.showTabIndex(selectedTab);
+		}
+
+		// // TODO fix
+		// document
+		// 	.querySelectorAll(".post-form__attachments img")
+		// 	.forEach((img) => {
+		// 		const file = new File([img.src], img.src, {
+		// 			type: "image/png",
+		// 		});
+		// 		this.files.set(img.dataset.identifier, file);
+		// 	});
+
+		// this.updateFiles();
 	}
 
-	showTab(event) {
-		const tab = event.target.dataset.tab;
-
+	showTabIndex(index) {
 		this.tabs.forEach((tab) => {
 			tab.classList.add("hidden");
 		});
 
 		this.wrapperTarget
-			.querySelector(`#tab${tab}`)
+			.querySelector(`#tab${index}`)
 			.classList.remove("hidden");
+	}
+
+	showTab(event) {
+		const tab = event.target.dataset.tab;
+		this.showTabIndex(tab);
 	}
 
 	upload(event) {

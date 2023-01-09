@@ -1,4 +1,5 @@
 class Post < ApplicationRecord
+  validate :url_must_exist, if: :will_save_change_to_url?
   before_save :create_link_preview, if: :will_save_change_to_url?
 
   belongs_to :user
@@ -33,6 +34,20 @@ class Post < ApplicationRecord
   end
 
   # -- callbacks ---
+
+  def url_must_exist
+    if link_post?
+      begin
+        LinkThumbnailer.generate(url)
+      rescue LinkThumbnailer::BadUriFormat
+        errors.add(:url, "is not a valid URL")
+      rescue OpenSSL::SSL::SSLError
+        errors.add(:url, "is not a valid URL")
+      rescue LinkThumbnailer::HTTPError
+        errors.add(:url, "does not exist")
+      end
+    end
+  end
 
   def create_link_preview(save = false)
     if link_post?

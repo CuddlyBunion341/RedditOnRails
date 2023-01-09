@@ -18,10 +18,10 @@
           <%= image_tag post.link.thumb_src, alt:"#{post.url} thumbnail" %>
         </div>
         <div class="link-preview__main">
-          <strong class="link-preview__title">
+          <span class="link-preview__title">
             <%= image_tag post.link.favicon_src, class: "link-preview__favicon", alt: "favicon" %>
-            <%= post.link.title %>
-          </strong>
+            <strong><%= post.link.title %></strong>
+          </span>
           <p class="link-preview__description">
             <%= post.link.description %>
           </p>

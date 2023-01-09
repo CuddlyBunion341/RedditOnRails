@@ -25,16 +25,25 @@
 		position: relative;
 	}
 
+	&__title > strong,
+	&__description {
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		-webkit-line-clamp: 1;
+	}
+
 	&__title {
 		display: flex;
 		align-items: center;
-		text-overflow: ellipsis;
 		img {
 			margin-right: 10px;
 		}
 	}
 	&__description {
+		-webkit-line-clamp: 3;
 		font-size: 0.9em;
+		margin: 0;
 	}
 
 	&__favicon {
@@ -46,10 +55,8 @@
 		font-size: 0.8em;
 		color: #606060;
 		position: absolute;
-		// TODO refactor
 		width: 100%;
 		bottom: 10px;
-		background-color: white;
 		height: 18px;
 	}
 }

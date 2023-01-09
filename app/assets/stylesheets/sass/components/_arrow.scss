@@ -12,7 +12,7 @@ $downvote-stroke: #354498;
 		stroke: $upvote-stroke;
 	}
 	&.downvote {
-		rotate: 180deg;
+		transform: rotate(180deg);
 		&.active {
 			fill: $downvote;
 			stroke: $downvote-stroke;
