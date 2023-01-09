@@ -10,6 +10,9 @@ nav,
 			a {
 				text-decoration: none;
 			}
+			&.flex {
+				flex: 1;
+			}
 		}
 	}
 
@@ -24,9 +27,11 @@ nav,
 			color: white;
 		}
 		li {
+			padding: 10px;
 			&.logo {
 				padding: 0;
 				padding-left: 10px;
+				padding-right: 10px;
 				img {
 					max-height: 20px;
 				}
@@ -34,6 +39,9 @@ nav,
 					display: flex;
 					align-items: center;
 				}
+			}
+			li:has(.logout) {
+				align-self: flex-end;
 			}
 			&.active a {
 				text-decoration: underline;

@@ -22,9 +22,9 @@
         <ul>
           <%= nav_link image_tag( "logo.svg"), root_path, "logo" %>
           <% if Current.user %>
-            <%= nav_link "Create Post", new_post_path %>
-            <%= nav_link "Logged in as #{@username}", user_path(@username) %>
-            <li><%= button_to "Logout", logout_path, method: :delete %></li>
+            <%= nav_link "Create Post", new_post_path, "flex" %>
+            <%= nav_link @username, user_path(@username) %>
+            <li><%= button_to "Logout", logout_path, method: :delete, class: "logout" %></li>
           <% else %>
             <%= nav_link "SignUp", signup_path %>
             <%= nav_link "LogIn", login_path %>
