@@ -1,0 +1,25 @@
+.dropdown {
+	position: relative;
+	& > &__content {
+		display: none;
+		position: absolute;
+		background: #820000;
+		right: 0;
+		width: max-content;
+		top: 100%;
+		border-bottom-right-radius: 3px;
+		border-bottom-left-radius: 3px;
+		outline: 1px solid #343434;
+		li {
+			display: block;
+		}
+	}
+
+	input[type="checkbox"]:checked ~ &__content {
+		display: block !important;
+	}
+
+	input[type="checkbox"] {
+		display: none
+	}
+}

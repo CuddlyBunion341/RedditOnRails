@@ -18,10 +18,12 @@ nav,
 
 	&-main {
 		background-color: $bg-primary;
-		overflow: hidden;
+		overflow: visible;
 		ul {
 			display: flex;
 			align-items: center;
+			overflow: visible;
+			position: relative;
 		}
 		a {
 			color: white;
@@ -42,6 +44,10 @@ nav,
 			}
 			li:has(.logout) {
 				align-self: flex-end;
+			}
+			.logout {
+				all: unset;
+				color: white;
 			}
 			&.active a {
 				text-decoration: underline;
