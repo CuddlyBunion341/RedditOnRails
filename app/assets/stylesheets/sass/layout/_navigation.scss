@@ -17,8 +17,11 @@ nav,
 	}
 
 	&-main {
-		background-color: $bg-primary;
+		background-color: #800020;
 		overflow: visible;
+		padding: 5px;
+		padding-right: 15px;
+		border-bottom: 1px solid #bfbfbf;
 		ul {
 			display: flex;
 			align-items: center;
@@ -26,11 +29,12 @@ nav,
 			position: relative;
 		}
 		a {
-			color: white;
+			color: inherit;
 		}
 		li {
-			padding: 10px;
+			color: white;
 			&.logo {
+				flex: 1;
 				padding: 0;
 				padding-left: 10px;
 				padding-right: 10px;

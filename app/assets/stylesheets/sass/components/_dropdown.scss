@@ -3,6 +3,7 @@
 	& > &__content {
 		display: none;
 		position: absolute;
+		z-index: 999;
 		background: #820000;
 		right: 0;
 		width: max-content;

@@ -18,30 +18,8 @@
       <% end %>
     </div>
     <header>
-      <nav class="nav-main">
-        <ul>
-          <%= nav_link image_tag( "logo.svg"), root_path, "logo" %>
-          <% if Current.user %>
-            <%= nav_link "Create Post", new_post_path, "flex" %>
-            <li class="dropdown">
-              <input type="checkbox" id="user-drop">
-              <label for="user-drop">
-                <%= @username %>
-                <%= icon("fa","chevron-down") %>
-              </label>
-              <ul class="dropdown__content">
-              <%= nav_link "Profile", user_path(@username) %>
-              <%= nav_link "Create a Community", "#", "flex" %>
-              <%= nav_button "Logout", logout_path, "logout" %>
-              </ul>
-            </li>
-          <% else %>
-            <%= nav_link "SignUp", signup_path %>
-            <%= nav_link "LogIn", login_path %>
-          <% end %>
-        </ul>
-      </nav>
-      <%= yield :header %>
+     <%= render "layouts/nav" %>
+     <%= yield :header %>
     </header>
     <%= yield %>
   </body>
