@@ -2,7 +2,7 @@
   <ul>
     <%= nav_link image_tag( "logo.svg"), root_path, "logo" %>
     <% if Current.user %>
-      <%= nav_link "Create Post", new_post_path, "flex" %>
+      <%= nav_link "Create Post", new_post_path %>
       <li class="dropdown">
         <input type="checkbox" id="user-drop">
         <label for="user-drop">
@@ -11,7 +11,7 @@
         </label>
         <ul class="dropdown__content">
         <%= nav_link "Profile", user_path(@username) %>
-        <%= nav_link "Create a Community", "#", "flex" %>
+        <%= nav_link "Create a Community", new_community_path %>
         <%= nav_button "Logout", logout_path, "logout" %>
         </ul>
       </li>

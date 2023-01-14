@@ -74,6 +74,12 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+
+  # Add Live Reload
+  gem "guard", "~> 2.5", require: false
+  gem "guard-livereload", require: false
+  gem "rack-livereload"
+  gem "rb-fsevent", require: false
 end
 
 group :test do

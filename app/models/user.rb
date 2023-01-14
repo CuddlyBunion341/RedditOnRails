@@ -2,6 +2,7 @@ class User < ApplicationRecord
   has_secure_password
 
   validates :username, presence: true, uniqueness: true, format: { with: /[a-zA-Z0-9_]{1,20}/, message: "Invalid Username" }
+  validates :display_name, presence: true, length: { maximum: 40 }
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP, message: "Invalid Email" }
   validates :bio, length: { maximum: 200 }
 
@@ -15,6 +16,10 @@ class User < ApplicationRecord
 
   has_one_attached :avatar do |attachable|
     attachable.variant :thumb, resize_to_limit: [100, 100]
+  end
+
+  before_create do
+    self.display_name = self.username
   end
 
   def login

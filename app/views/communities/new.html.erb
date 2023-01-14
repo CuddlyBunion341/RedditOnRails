@@ -1,0 +1,36 @@
+<div class="form-wrapper community">
+  <div class="errors">
+    <% if @community.errors.any? %>
+      <ul>
+        <% @community.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+  <h1>Create a Community</h1>
+  <%= form_with model: @community do |f| %>
+    <div>
+      <span>Community Type</span><br>
+      <%= f.radio_button :community_type, "public", checked: true %>
+      <%= f.label :community_type_public do %>
+        <%= icon("fa","eye") %>
+        public
+      <% end %><br>
+      <%= f.radio_button :community_type, "private" %>
+      <%= f.label :community_type_private do %>
+        <%= icon("fa","lock") %>
+        private
+      <% end %>
+    </div>
+    <div>
+      <%= f.label :name %><br>
+      <%= f.text_field :name %>
+    </div>
+    <div>
+      <%= f.label :description %><br>
+      <%= f.text_area :description %>
+    </div>
+    <div><%= f.submit %></div>
+  <% end %>
+</div>

@@ -13,7 +13,6 @@
 	&.user-editform {
 		// TODO Refactor this
 		border-radius: 2px;
-		box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
 		padding: 20px;
 		padding-top: 10px;
 		margin-top: 15px;
@@ -29,11 +28,14 @@
 	}
 
 	&.login,
-	&.post-form form {
+	&.post-form form,
+	&.community {
 		box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
 	}
 
-	&.login {
+
+	&.login,
+	&.community {
 		background-color: white;
 		padding: 10px 20px;
 		margin-top: 15px;
@@ -48,14 +50,14 @@
 		.field {
 			display: flex;
 			align-items: center;
-			margin-bottom: 10px;
+			i {
+				width: 20px;
+				font-size: 0.7em;
+				color: gray;
+			}	margin-bottom: 10px;
 		}
 
-		i {
-			width: 20px;
-			font-size: 0.7em;
-			color: gray;
-		}
+		
 
 		input {
 			border: none;

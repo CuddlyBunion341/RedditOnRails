@@ -1,0 +1,22 @@
+.form-wrapper.community {
+	width: 400px;
+	form {
+		padding: 10px;
+	}
+	div {
+		margin: 5px 0;
+	}
+	h1 {
+		margin-bottom: 0;
+	}
+	input[type="text"] {
+		border: 1px solid #767676;
+		border-radius: 3px;
+	}
+	i {
+		font-size: 0.75em;
+		color: black;
+		width: 1em;
+	}
+}
+
