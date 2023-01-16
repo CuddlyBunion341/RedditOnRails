@@ -1,15 +1,15 @@
 module PostsHelper
   def vote_button(post, upvote = true)
     active = !post.votes.find_by(user: Current.user, isUpvote: upvote).nil?
-    active_class = active ? " active" : ""
-    vote_string = upvote ? "upvote" : "downvote"
-    class_name = "vote-btn " + vote_string + active_class
+    active_class = active ? ' active' : ''
+    vote_string = upvote ? 'upvote' : 'downvote'
+    class_name = "vote-btn #{vote_string} #{active_class}"
     upvoteable = post.user_id != Current.user&.id && !post.archived?
 
-    content_tag :button, 'aria-label': "#{upvote ? "up" : "down"}vote", class: class_name, disabled: !upvoteable, data: { :action => "click->post#" + vote_string } do
-      # icon("fa", "arrow-" + (upvote ? "up" : "down"))
-      render "shared/vote", upvote: upvote, active: active
-      # render partial: "shared/vote", locals: { :upvote => upvote, :active => active }
+    content_tag :button, 'aria-label': "#{upvote ? 'up' : 'down'}vote", class: class_name, disabled: !upvoteable, data: { :action => 'click->post#' + vote_string } do
+      # icon('fa', 'arrow-' + (upvote ? 'up' : 'down'))
+      render 'shared/vote', upvote: upvote, active: active
+      # render partial: 'shared/vote', locals: { :upvote => upvote, :active => active }
     end
   end
 
@@ -23,13 +23,13 @@ module PostsHelper
 
   def save_button(post)
     saved = Current.user&.saved?(post)
-    class_name = "save_btn " + (saved ? " active" : "")
+    class_name = "save_btn #{saved ? 'active' : ''}"
 
-    content_tag :button, class: class_name, disabled: Current.user.nil? || post.archived?, data: { :action => "click->post#save" } do
+    content_tag :button, class: class_name, disabled: Current.user.nil? || post.archived?, data: { :action => 'click->post#save' } do
       if saved
-        icon("fa-solid", "bookmark").concat(" Unsave")
+        icon('fa-solid', 'bookmark').concat(' Unsave')
       else
-        icon("fa-regular", "bookmark").concat(" Save")
+        icon('fa-regular', 'bookmark').concat(' Save')
       end
     end
   end
@@ -38,8 +38,8 @@ module PostsHelper
     return unless Current.user&.id == post.user_id
     return if post.archived?
 
-    content_tag :button, class: "archive_button", data: { :action => "click->post#archive" } do
-      icon("fa", "box-archive").concat(" Archive")
+    content_tag :button, class: 'archive_button', data: { action => 'click->post#archive' } do
+      icon('fa', 'box-archive').concat(' Archive')
     end
   end
 
@@ -47,17 +47,17 @@ module PostsHelper
     return unless Current.user&.id == post.user_id
     return if post.archived?
 
-    content_tag :button, class: "delete_button", data: { :action => "click->post#delete" } do
-      icon("fa", "trash-alt").concat(" Delete")
+    content_tag :button, class: 'delete_button', data: { action => 'click->post#delete' } do
+      icon('fa', 'trash-alt').concat(' Delete')
     end
   end
 
   def tab_button(form, tab, content, checked = false)
-    name = %w[ text media link ][tab]
+    name = %w[text media link][tab]
     checked ||= params[:post][:post_type] == name if params[:post]
 
-    content_tag :label, class: "tab_button" do
-      concat form.radio_button :post_type, name, checked: checked, data: { :action => "click->post-form#showTab", :tab => "#{tab}" }
+    content_tag :label, class: 'tab_button' do
+      concat form.radio_button :post_type, name, checked: checked, data: { :action => 'click->post-form#showTab', :tab => tab.to_s }
       concat content
     end
   end

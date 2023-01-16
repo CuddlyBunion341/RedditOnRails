@@ -5,9 +5,9 @@ class Post < ApplicationRecord
   belongs_to :user
   belongs_to :community, optional: true
 
-  has_many :votes, class_name: "PostVote", dependent: :destroy
+  has_many :votes, class_name: 'PostVote', dependent: :destroy
   has_many :comments, dependent: :destroy
-  has_many :saves, class_name: "PostSave", dependent: :destroy
+  has_many :saves, class_name: 'PostSave', dependent: :destroy
   belongs_to :link, dependent: :destroy, optional: true
 
   has_many_attached :media do |attachable|
@@ -15,7 +15,7 @@ class Post < ApplicationRecord
   end
 
   validates :title, presence: true, length: { maximum: 100 }
-  validates :url, format: { with: URI.regexp }, presence: true, if: :link_post?
+  validates :url, format: { with: URI::DEFAULT_PARSER.make_regexp }, presence: true, if: :link_post?
   validates :body, presence: true, if: :text_post?
   validates :media, presence: true, if: :media_post?
 
@@ -26,51 +26,51 @@ class Post < ApplicationRecord
   validates :post_type, inclusion: { in: VALID_TYPES }
 
   # --- scopes ---
-  scope :public_posts, -> { where(status: "public") }
+  scope :public_posts, -> { where(status: 'public') }
 
   # -- static methods ---
   def self.update_link_previews
-    Post.where(post_type: "link").each(&:update_link_preview)
+    Post.where(post_type: 'link').each(&:update_link_preview)
   end
 
   # -- callbacks ---
 
   def url_must_exist
-    if link_post?
-      begin
-        LinkThumbnailer.generate(url)
-      rescue LinkThumbnailer::BadUriFormat
-        errors.add(:url, "is not a valid URL")
-      rescue OpenSSL::SSL::SSLError
-        errors.add(:url, "is not a valid URL")
-      rescue LinkThumbnailer::HTTPError
-        errors.add(:url, "does not exist")
-      end
+    return unless link_post?
+
+    begin
+      LinkThumbnailer.generate(url)
+    rescue LinkThumbnailer::BadUriFormat
+      errors.add(:url, 'is not a valid URL')
+    rescue OpenSSL::SSL::SSLError
+      errors.add(:url, 'is not a valid URL')
+    rescue LinkThumbnailer::HTTPError
+      errors.add(:url, 'does not exist')
     end
   end
 
   def create_link_preview(save = false)
-    if link_post?
-      link_obj = Link.find_or_create_by(url: url)
-      if save
-        update(link: link_obj)
-      else
-        self.link = link_obj
-      end
+    return unless link_post?
+
+    link_obj = Link.find_or_create_by(url: url)
+    if save
+      update(link: link_obj)
+    else
+      self.link = link_obj
     end
   end
 
   def update_link_preview
-    if link_post?
-      link = Link.find_or_create_by(url: url) if link.nil?
-      link.create_link_preview
-    end
+    return unless link_post?
+
+    link = Link.find_or_create_by(url: url) if link.nil?
+    link.create_link_preview
   end
 
   # --- getters ---
   def title
     if archived?
-      "Archived Post"
+      'Archived Post'
     else
       read_attribute(:title)
     end
@@ -78,7 +78,7 @@ class Post < ApplicationRecord
 
   def body
     if archived?
-      "This post has been archived."
+      'This post has been archived.'
     else
       read_attribute(:body)
     end
@@ -86,34 +86,34 @@ class Post < ApplicationRecord
 
   # --- predicates ---
   def public?
-    status == "public"
+    status == 'public'
   end
 
   def archived?
-    status == "archived"
+    status == 'archived'
   end
 
   def draft?
-    status == "draft"
+    status == 'draft'
   end
 
   def text_post?
-    post_type == "text"
+    post_type == 'text'
   end
 
   def media_post?
-    post_type == "media"
+    post_type == 'media'
   end
 
   def link_post?
-    post_type == "link"
+    post_type == 'link'
   end
 
   # -- instance methods ---
   def vote(user, upvote = true)
     if votes.find_by(user: user, isUpvote: upvote)
       votes.find_by(user: user, isUpvote: upvote).destroy
-    elsif vote = votes.find_by(user: user)
+    elsif (vote = votes.find_by(user: user))
       vote.update(isUpvote: upvote)
     else
       votes.create(user: user, isUpvote: upvote)
@@ -139,12 +139,12 @@ class Post < ApplicationRecord
   end
 
   def archive
-    update(status: "archived")
+    update(status: 'archived')
   end
 
   def publish
-    if self.save # check if draft is valid
-      update(status: "public", created_at: Time.now)
-    end
+    return unless save # check if draft is valid
+
+    update(status: 'public', created_at: Time.now)
   end
 end

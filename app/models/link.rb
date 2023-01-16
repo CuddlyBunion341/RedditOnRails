@@ -10,7 +10,7 @@ class Link < ApplicationRecord
       title: obj.title,
       description: obj.description,
       favicon_src: obj.favicon,
-      thumb_src: obj.images.first.src,
+      thumb_src: obj.images.first.src
     )
   end
 end

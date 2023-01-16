@@ -1,12 +1,12 @@
 class PostsController < ApplicationController
   def index
-    if params[:sort] == "top"
+    if params[:sort] == 'top'
       @posts = Post.public_posts.order(score: :desc)
     else
       @posts = Post.public_posts.order(created_at: :desc)
     end
 
-    @active_users = User.joins(:posts).group(:id).order("count(posts.id) desc").limit(10)
+    @active_users = User.joins(:posts).group(:id).order('count(posts.id) desc').limit(10)
     @active_communities = Community.all # for now
   end
 
@@ -19,15 +19,15 @@ class PostsController < ApplicationController
     @communities = Community.all
     @post = Post.new(post_params)
     @post.user = Current.user
-    @post.status = "public"
+    @post.status = 'public'
     @post.community = Community.find(params[:post][:community_id])
-
+    
     if params[:draft]
-      @post.status = "draft"
+      @post.status = 'draft'
       @post.save(validate: false)
-      redirect_to root_path, notice: "Successfully created draft!"
+      redirect_to root_path, notice: 'Successfully created draft!'
     elsif @post.save
-      redirect_to post_path(@post), notice: "Successfully created post!"
+      redirect_to post_path(@post), notice: 'Successfully created post!'
     else
       render :new, status: :unprocessable_entity
     end
@@ -36,12 +36,12 @@ class PostsController < ApplicationController
   def edit
     @communities = Community.all
     @post = Post.find(params[:id])
-    if @post.user != Current.user
-      redirect_to root_path, alert: "You can only edit your own posts."
+    unless @post.user == Current.user
+      redirect_to root_path, alert: 'You can only edit your own posts.'
     end
 
     unless @post.draft?
-      redirect_to root_path, alert: "You can only edit draft posts."
+      redirect_to root_path, alert: 'You can only edit draft posts.'
     end
 
     render :new
@@ -52,20 +52,19 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
 
     if @post.user != Current.user
-      redirect_to root_path, alert: "You can only edit your own posts."
+      redirect_to root_path, alert: 'You can only edit your own posts.'
     elsif !@post.draft?
-      redirect_to root_path, alert: "You can only edit draft posts."
-    else
-      if params[:publish]
+      redirect_to root_path, alert: 'You can only edit draft posts.'
+    elsif params[:publish]
         if @post.update(post_params) && @post.publish
-          redirect_to post_path(@post), notice: "Successfully published post!"
+          redirect_to post_path(@post), notice: 'Successfully published post!'
         else
           render :new, status: :unprocessable_entity
         end
       elsif params[:draft]
         @post.assign_attributes(post_params)
         @post.save(validate: false)
-        redirect_to root_path, notice: "Successfully updated draft!"
+        redirect_to root_path, notice: 'Successfully updated draft!'
       end
     end
   end
@@ -75,19 +74,19 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if !@post.draft?
-        msg = "You can only delete drafts!"
+        msg = 'You can only delete drafts!'
         format.html { redirect_to root_path, notice: msg }
         format.json { render json: { error: msg } }
       elsif Current.user != @post.user
-        msg = "You can only delete your own posts!"
+        msg = 'You can only delete your own posts!'
         format.html { redirect_to root_path, notice: msg }
         format.json { render json: { error: msg } }
       elsif @post.destroy
-        msg = "Post deleted successfully!"
+        msg = 'Post deleted successfully!'
         format.html { redirect_to root_path, notice: msg }
         format.json { render json: { msg: msg } }
       else
-        msg = "Something went wrong!"
+        msg = 'Something went wrong!'
         format.html { redirect_to root_path, notice: msg }
         format.json { render json: { error: msg } }
       end
@@ -98,9 +97,9 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
 
     if @post.user != Current.user
-      redirect_to root_path, alert: "You can only publish your own posts."
+      redirect_to root_path, alert: 'You can only publish your own posts.'
     elsif @post.publish
-      redirect_to post_path(@post), notice: "Successfully published post!"
+      redirect_to post_path(@post), notice: 'Successfully published post!'
     else
       render :edit, status: :unprocessable_entity
     end
@@ -112,9 +111,12 @@ class PostsController < ApplicationController
   end
 
   def vote(upvote = true)
-    # TODO Add html response
-    render json: { error: "You must be logged in to vote" }, status: :unauthorized and return unless Current.user
-    render json: { error: "You can't vote on your own posts" }, status: :bad_request and return if Current.user.id == params[:user_id].to_i
+    # TODO: Add html response
+    render json: { error: 'You must be logged in to vote' }, status: :unauthorized and return unless Current.user
+
+    if Current.user.id == params[:user_id].to_i
+      render json: { error: 'You can\'t vote on your own posts' }, status: :bad_request
+    end
 
     @post = Post.find(params[:id])
     @post.score = @post.vote(Current.user, upvote)
@@ -123,15 +125,15 @@ class PostsController < ApplicationController
     render json: { html: render_post(@post) }
   end
 
-  alias_method :upvote, :vote
+  alias upvote vote
 
   def downvote
     vote(false)
   end
 
-  def save()
-    # TODO Add html response
-    render json: { error: "You must be logged in to save" }, status: :unauthorized and return unless Current.user
+  def save
+    # TODO: Add html response
+    render json: { error: 'You must be logged in to save' }, status: :unauthorized and return unless Current.user
 
     @post = Post.find(params[:id])
     @post.bookmark(Current.user)
@@ -140,23 +142,21 @@ class PostsController < ApplicationController
   end
 
   def archive
-    # TODO Add html response
+    # TODO: Add html response
     @post = Post.find(params[:id])
 
     if @post.user_id != Current.user&.id
-      render json: { error: "You can only archive your own posts." }, status: :unauthorized
+      render json: { error: 'You can only archive your own posts.' }, status: :unauthorized
     else
-      @post.update(status: "archived")
+      @post.update(status: 'archived')
 
       render json: { html: render_post(@post) }
     end
   end
 
   def render_post(post)
-    partial = "post"
-    if params[:variant]
-      partial += "_#{params[:variant]}"
-    end
+    partial = 'post'
+    params[:variant] && partial += "_#{params[:variant]}"
 
     render_to_string(partial: partial, locals: { post: post })
   end
@@ -164,10 +164,6 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    # params[:post][:url] = nil if params[:post][:post_type] != "link"
-    # params[:post][:body] = nil if params[:post][:post_type] != "text"
-    # params[:post][:media] = nil if params[:post][:post_type] != "media"
-
     params.require(:post).permit(:title, :body, :url, :community_id, :post_type, media: [])
   end
 end

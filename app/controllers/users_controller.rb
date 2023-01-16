@@ -11,39 +11,38 @@ class UsersController < ApplicationController
     valid_tabs = %w[overview posts comments saved drafts]
     private_tabs = %w[saved drafts]
     fullwidth_tabs = %w[posts comments]
-    @tab = "overview" unless valid_tabs.include?(@tab)
+    @tab = 'overview' unless valid_tabs.include?(@tab)
     @fullwidth = fullwidth_tabs.include?(@tab)
 
     if @user.nil?
       # TODO: Add a 404 page, add JSON response, 404 status code
-      redirect_to root_path, alert: "User not found"
+      redirect_to root_path, alert: 'User not found'
       return
     end
 
-    unless @user == Current.user
-      if private_tabs.include?(@tab)
-        redirect_to user_path(@user.username), alert: "You are not authorized to view this page"
-        return
-      end
-    end
+    return if @user == Current.user
+    return unless private_tabs.include?(@tab)
+
+    redirect_to user_path(@user.username), alert: 'You are not authorized to view this page'
+    nil
   end
 
   def edit
     @user = User.find_by(username: params[:username])
-    unless @user == Current.user
-      # TODO Add JSON response
-      redirect_to user_path(@user.username), alert: "You are not
-      authorized to view this page"
-    end
+    return if @user == Current.user
+
+    # TODO: Add JSON response
+    redirect_to user_path(@user.username), alert: 'You are not
+      authorized to view this page'
   end
 
   def update
     @user = User.find(params[:username].to_i) # TODO: Fix this
 
     unless @user == Current.user
-      # TODO Add JSON response
-      redirect_to user_path(@user.username), alert: "You are not
-      authorized to view this page"
+      # TODO: Add JSON response
+      redirect_to user_path(@user.username), alert: 'You are not
+      authorized to view this page'
       return
     end
 
@@ -53,9 +52,9 @@ class UsersController < ApplicationController
     end
 
     if @user.update!(user_params)
-      # TODO Add JSON response
-      redirect_to user_path(@user.username), notice: "User updated
-      successfully"
+      # TODO: Add JSON response
+      redirect_to user_path(@user.username), notice: 'User updated
+      successfully'
     else
       render :edit, status: :unprocessable_entity
     end
@@ -63,8 +62,8 @@ class UsersController < ApplicationController
 
   def follow
     if Current.user.nil?
-      # TODO Add JSON response
-      redirect_to request.referrer || root_path, alert: "You must be logged in to perform that action"
+      # TODO: Add JSON response
+      redirect_to request.referrer || root_path, alert: 'You must be logged in to perform that action'
       return
     end
 
