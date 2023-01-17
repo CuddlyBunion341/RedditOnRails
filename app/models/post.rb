@@ -1,4 +1,6 @@
 class Post < ApplicationRecord
+  include Votable
+
   validate :url_must_exist, if: :will_save_change_to_url?
   before_save :create_link_preview, if: :will_save_change_to_url?
 
@@ -110,26 +112,6 @@ class Post < ApplicationRecord
   end
 
   # -- instance methods ---
-  def vote(user, upvote = true)
-    if votes.find_by(user: user, isUpvote: upvote)
-      votes.find_by(user: user, isUpvote: upvote).destroy
-    elsif (vote = votes.find_by(user: user))
-      vote.update(isUpvote: upvote)
-    else
-      votes.create(user: user, isUpvote: upvote)
-    end
-
-    votes.where(isUpvote: true).count - votes.where(isUpvote: false).count
-  end
-
-  def upvote(user)
-    vote(user, true)
-  end
-
-  def downvote(user)
-    vote(user, false)
-  end
-
   def bookmark(user)
     if user.saved?(self)
       user.post_saves.find_by(post: self).destroy

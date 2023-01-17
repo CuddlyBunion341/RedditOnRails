@@ -36,9 +36,19 @@
 			}
 		}
 	}
-	&__body {
+	&__body,
+	&__footer {
 		// border-left: 2px solid black;
-		padding-left: 10px;
 		margin-left: 27px;
+	}
+
+	&__body {
+		padding-left: 10px;
+		margin-bottom: 5px;
+	}
+
+	&__vote {
+		display: flex;
+	  align-items: center;
 	}
 }

@@ -9,6 +9,10 @@ Rails.application.routes.draw do
   match '/upvote_post/:id', to: 'posts#upvote', via: %i[get post], as: 'upvote_post'
   match '/downvote_post/:id', to: 'posts#downvote', via: %i[get post], as: 'downvote_post'
 
+  match '/upvote_comment/:id', to: 'comments#upvote', via: %i[get post], as: 'upvote_comment'
+  match '/downvote_comment/:id', to: 'comments#downvote', via: %i[get post], as: 'downvote_comment'
+
+
   match '/save_post/:id', to: 'posts#save', via: %i[get post], as: 'save_post'
 
   match '/archive_post/:id', to: 'posts#archive', via: %i[get post], as: 'archive_post'

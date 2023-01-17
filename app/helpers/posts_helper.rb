@@ -1,25 +1,5 @@
 module PostsHelper
-  def vote_button(post, upvote = true)
-    active = !post.votes.find_by(user: Current.user, isUpvote: upvote).nil?
-    active_class = active ? ' active' : ''
-    vote_string = upvote ? 'upvote' : 'downvote'
-    class_name = "vote-btn #{vote_string} #{active_class}"
-    upvoteable = post.user_id != Current.user&.id && !post.archived?
-
-    content_tag :button, 'aria-label': "#{upvote ? 'up' : 'down'}vote", class: class_name, disabled: !upvoteable, data: { :action => 'click->post#' + vote_string } do
-      # icon('fa', 'arrow-' + (upvote ? 'up' : 'down'))
-      render 'shared/vote', upvote: upvote, active: active
-      # render partial: 'shared/vote', locals: { :upvote => upvote, :active => active }
-    end
-  end
-
-  def upvote_button(post)
-    vote_button(post, true)
-  end
-
-  def downvote_button(post)
-    vote_button(post, false)
-  end
+  include VoteHelper
 
   def save_button(post)
     saved = Current.user&.saved?(post)

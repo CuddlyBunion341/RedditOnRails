@@ -1,4 +1,4 @@
-<article class="comment">
+<article class="comment" data-id="<%= comment.id %>" data-controller="comments" data-comments-target="wrapper">
   <section class="comment__header">
     <%= user_avatar(comment.user, "small") %>
     <%= link_to comment.user.username, user_path(comment.user.username) %>
@@ -8,5 +8,12 @@
     <%= comment.body %>
   </section>
   <section class="comment__footer">
+    <div class="comment__vote">
+      <%= upvote_button comment, :comments %>
+      <div class="comment__score">
+        <span><%= comment.score %></span>
+      </div>
+      <%= downvote_button comment, :comments %>
+    </div>
   </section>
 </article>
