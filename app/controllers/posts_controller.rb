@@ -1,10 +1,10 @@
 class PostsController < ApplicationController
   def index
-    if params[:sort] == 'top'
-      @posts = Post.public_posts.order(score: :desc)
-    else
-      @posts = Post.public_posts.order(created_at: :desc)
-    end
+    @posts = if params[:sort] == 'top'
+               Post.public_posts.order(score: :desc)
+             else
+               Post.public_posts.order(created_at: :desc)
+             end
 
     @active_users = User.joins(:posts).group(:id).order('count(posts.id) desc').limit(10)
     @active_communities = Community.all # for now
@@ -21,7 +21,7 @@ class PostsController < ApplicationController
     @post.user = Current.user
     @post.status = 'public'
     @post.community = Community.find(params[:post][:community_id])
-    
+
     if params[:draft]
       @post.status = 'draft'
       @post.save(validate: false)
@@ -36,13 +36,9 @@ class PostsController < ApplicationController
   def edit
     @communities = Community.all
     @post = Post.find(params[:id])
-    unless @post.user == Current.user
-      redirect_to root_path, alert: 'You can only edit your own posts.'
-    end
+    redirect_to root_path, alert: 'You can only edit your own posts.' unless @post.user == Current.user
 
-    unless @post.draft?
-      redirect_to root_path, alert: 'You can only edit draft posts.'
-    end
+    redirect_to root_path, alert: 'You can only edit draft posts.' unless @post.draft?
 
     render :new
   end
@@ -56,16 +52,15 @@ class PostsController < ApplicationController
     elsif !@post.draft?
       redirect_to root_path, alert: 'You can only edit draft posts.'
     elsif params[:publish]
-        if @post.update(post_params) && @post.publish
-          redirect_to post_path(@post), notice: 'Successfully published post!'
-        else
-          render :new, status: :unprocessable_entity
-        end
-      elsif params[:draft]
-        @post.assign_attributes(post_params)
-        @post.save(validate: false)
-        redirect_to root_path, notice: 'Successfully updated draft!'
+      if @post.update(post_params) && @post.publish
+        redirect_to post_path(@post), notice: 'Successfully published post!'
+      else
+        render :new, status: :unprocessable_entity
       end
+    elsif params[:draft]
+      @post.assign_attributes(post_params)
+      @post.save(validate: false)
+      redirect_to root_path, notice: 'Successfully updated draft!'
     end
   end
 

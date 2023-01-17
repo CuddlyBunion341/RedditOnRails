@@ -38,7 +38,7 @@ module PostsHelper
     return unless Current.user&.id == post.user_id
     return if post.archived?
 
-    content_tag :button, class: 'archive_button', data: { action => 'click->post#archive' } do
+    content_tag :button, class: 'archive_button', data: { :action => 'click->post#archive' } do
       icon('fa', 'box-archive').concat(' Archive')
     end
   end
@@ -47,7 +47,7 @@ module PostsHelper
     return unless Current.user&.id == post.user_id
     return if post.archived?
 
-    content_tag :button, class: 'delete_button', data: { action => 'click->post#delete' } do
+    content_tag :button, class: 'delete_button', data: { :action => 'click->post#delete' } do
       icon('fa', 'trash-alt').concat(' Delete')
     end
   end

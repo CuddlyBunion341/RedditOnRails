@@ -1,25 +1,27 @@
 class User < ApplicationRecord
   has_secure_password
 
-  validates :username, presence: true, uniqueness: true, format: { with: /[a-zA-Z0-9_]{1,20}/, message: "Invalid Username" }
-  validates :display_name, presence: true, length: { maximum: 40 }
-  validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP, message: "Invalid Email" }
+  validates :username, presence: true, uniqueness: true,
+                       format: { with: /[a-zA-Z0-9_]{1,20}/, message: 'Invalid Username' }
+  validates :email, presence: true, uniqueness: true,
+                    format: { with: URI::MailTo::EMAIL_REGEXP, message: 'Invalid Email' }
   validates :bio, length: { maximum: 200 }
 
   has_many :posts
   has_many :comments
   has_many :post_votes, dependent: :destroy
-  has_many :post_saves, class_name: "PostSave", dependent: :destroy
+  has_many :comment_votes, dependent: :destroy
+  has_many :post_saves, class_name: 'PostSave', dependent: :destroy
 
-  has_many :followers, class_name: "Follower", foreign_key: :user_id
-  has_many :following, class_name: "Follower", foreign_key: :follower_id
+  has_many :followers, class_name: 'Follower', foreign_key: :user_id
+  has_many :following, class_name: 'Follower', foreign_key: :follower_id
 
   has_one_attached :avatar do |attachable|
     attachable.variant :thumb, resize_to_limit: [100, 100]
   end
 
   before_create do
-    self.display_name = self.username
+    self.display_name = username
   end
 
   def login
@@ -31,7 +33,7 @@ class User < ApplicationRecord
   end
 
   def drafts
-    posts.where(status: "draft")
+    posts.where(status: 'draft')
   end
 
   def saved_posts
@@ -48,6 +50,14 @@ class User < ApplicationRecord
 
   def downvoted?(post)
     post_votes.find_by(post: post, isUpvote: false)
+  end
+
+  def upvoted_comment?(comment)
+    comment_votes.find_by(comment: comment, isUpvote: true)
+  end
+
+  def downvoted_comment?(comment)
+    comment_votes.find_by(comment: comment, isUpvote: false)
   end
 
   def following?(user)
