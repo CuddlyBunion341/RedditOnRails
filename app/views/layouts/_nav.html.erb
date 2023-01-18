@@ -4,15 +4,14 @@
     <% if Current.user %>
       <%= nav_link "Create Post", new_post_path %>
       <li class="dropdown">
-        <input type="checkbox" id="user-drop">
-        <label for="user-drop">
-          <%= @username %>
-          <%= icon("fa","chevron-down") %>
-        </label>
+          <button type="button" class="dropdown__title" href="#">
+            <%= @username %>
+            <%= icon("fa","chevron-down") %>
+          </button>
         <ul class="dropdown__content">
-        <%= nav_link "Profile", user_path(@username) %>
-        <%= nav_link "Create a Community", new_community_path %>
-        <%= nav_button "Logout", logout_path, "logout" %>
+          <%= nav_link "Profile", user_path(@username), '', icon('fa','user') %>
+          <%= nav_link "New Community", new_community_path, '',icon('fa','users-line') %>
+          <%= nav_button "Logout", logout_path, "logout", icon('fa','arrow-right-from-bracket') %>
         </ul>
       </li>
     <% else %>

@@ -10,7 +10,7 @@ class CommentsController < ApplicationController
         format.js {}
         format.json { render :show, status: :created, location: @comment }
       else
-        format.html { }
+        format.html {}
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
@@ -26,9 +26,18 @@ class CommentsController < ApplicationController
   end
 
   alias upvote vote
-  
+
   def downvote
     vote(false)
+  end
+
+  def save
+    render json: { error: 'You must be logged in to save' }, status: :unauthorized and return unless Current.user
+
+    @comment = Comment.find(params[:id])
+    @comment.bookmark(Current.user)
+
+    render json: { html: render_comment(@comment) }
   end
 
   private

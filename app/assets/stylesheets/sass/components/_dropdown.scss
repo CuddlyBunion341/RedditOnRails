@@ -1,26 +1,44 @@
 .dropdown {
-	position: relative;
 	& > &__content {
 		display: none;
 		position: absolute;
 		z-index: 999;
-		background: #820000;
+		background: #5d0000;
 		right: 0;
 		width: max-content;
 		top: 100%;
 		border-bottom-right-radius: 3px;
 		border-bottom-left-radius: 3px;
-		outline: 1px solid #343434;
 		li {
 			display: block;
+			padding: 5px 5px;
+		}
+		i {
+			width: 20px;
+			margin-right: 5px;
+			font-size: 0.7em;
+			text-align: center;
 		}
 	}
 
-	input[type="checkbox"]:checked ~ &__content {
+	& > &__title {
+		background: none !important;
+		border: none;
+		padding: 0 !important;
+		color: inherit;
+		font-size: inherit;
+		font-family: inherit;
+
+		i {
+			transition: transform 0.2s ease-in-out;
+		}
+	}
+
+	&:focus-within &__content {
 		display: block !important;
 	}
 
-	input[type="checkbox"] {
-		display: none
+	&:focus-within &__title i {
+		transform: rotate(180deg);
 	}
 }

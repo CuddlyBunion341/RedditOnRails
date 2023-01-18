@@ -1,23 +1,24 @@
 class Post < ApplicationRecord
   include Votable
+  include Savable
 
   validate :url_must_exist, if: :will_save_change_to_url?
   before_save :create_link_preview, if: :will_save_change_to_url?
 
   belongs_to :user
   belongs_to :community, optional: true
+  belongs_to :link, dependent: :destroy, optional: true
 
   has_many :votes, class_name: 'PostVote', dependent: :destroy
-  has_many :comments, dependent: :destroy
   has_many :saves, class_name: 'PostSave', dependent: :destroy
-  belongs_to :link, dependent: :destroy, optional: true
+  has_many :comments, dependent: :destroy
 
   has_many_attached :media do |attachable|
     attachable.variant :thumb, resize_to_limit: [100, 100]
   end
 
   validates :title, presence: true, length: { maximum: 100 }
-  validates :url, format: { with: URI::DEFAULT_PARSER.make_regexp }, presence: true, if: :link_post?
+  validates :url, format: { with: URI::regexp }, presence: true, if: :link_post?
   validates :body, presence: true, if: :text_post?
   validates :media, presence: true, if: :media_post?
 
@@ -112,13 +113,13 @@ class Post < ApplicationRecord
   end
 
   # -- instance methods ---
-  def bookmark(user)
-    if user.saved?(self)
-      user.post_saves.find_by(post: self).destroy
-    else
-      user.post_saves.create(post: self)
-    end
-  end
+  # def bookmark(user)
+  #   if user.saved?(self)
+  #     user.post_saves.find_by(post: self).destroy
+  #   else
+  #     user.post_saves.create(post: self)
+  #   end
+  # end
 
   def archive
     update(status: 'archived')

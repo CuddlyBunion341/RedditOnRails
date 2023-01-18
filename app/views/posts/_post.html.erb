@@ -1,8 +1,8 @@
 <article class="post" data-id="<%= post.id %>" data-controller="post" data-post-target="wrapper">
-  <div class="post__score">
-    <%= upvote_button post, :post %>
-    <span><%= post.score %></span>
-    <%= downvote_button post, :post %>
+  <div class="post__vote">
+    <%= post_upvote_button post %>
+    <span class="post__score"><%= post.score %></span>
+    <%= post_downvote_button post %>
   </div>
   <div class="post__content">
     <section class="post__head">
@@ -38,7 +38,7 @@
         <%= icon("fa-regular", "comment") %>
         <%= post.comments.count %> comments
       <% end %>
-      <%= save_button post %>
+      <%= post_save_button post %>
       <%= archive_button post %>
     </section>
   </div>

@@ -1,9 +1,9 @@
 <% if post.public? %>
   <article class="post-compact" data-id="<%= post.id %>" data-controller="post" data-post-target="wrapper" data-variant="compact">
-    <div class="post__score">
-      <%= upvote_button post, :post %>
-      <span><%= post.score %></span>
-      <%= downvote_button post, :post %>
+    <div class="post__vote">
+      <%= post_upvote_button post %>
+      <span class="post__score"><%= post.score %></span>
+      <%= post_downvote_button post %>
     </div>
     <div class="post__thumb">
       <div class="icon_wrapper">
@@ -31,7 +31,7 @@
           <%= icon("fa-regular", "comment") %>
           <%= post.comments.count %> comments
         <% end %>
-        <%= save_button post %>
+        <%= post_save_button post %>
         <%= archive_button post %>
       </section>
     </div>

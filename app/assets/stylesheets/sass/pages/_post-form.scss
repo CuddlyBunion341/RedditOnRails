@@ -63,11 +63,18 @@
 		width: 100%;
 		.tab_button {
 			input[type="radio"] {
-				display: none;
+				position: absolute;
+				opacity: 0;
 			}
 			&:has(input[type="radio"]:checked) {
 				border-color: $bg-primary;
 				background-color: #f3f3f3;
+			}
+			&:has(input[type="radio"]:focus) {
+				i {
+					outline: 2px dashed lightgray;
+					outline-offset: 2px;
+				}
 			}
 			flex: 1;
 			border: none;

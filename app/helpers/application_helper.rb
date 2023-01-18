@@ -1,15 +1,21 @@
 module ApplicationHelper
-  def nav_link(link_text, link_path, class_name = '')
+  def nav_link(link_text, link_path, class_name = '', link_icon = '')
     # https://stackoverflow.com/questions/3705898/best-way-to-add-current-class-to-nav-in-rails-3
     class_name += current_page?(link_path) ? ' active' : ''
     content_tag(:li, class: class_name) do
-      link_to link_text, link_path
+      link_to link_path do
+        concat link_icon
+        concat link_text
+      end
     end
   end
 
-  def nav_button(button_text, link_path, class_name, method = :delete)
+  def nav_button(button_text, link_path, class_name, button_icon = '')
     content_tag(:li) do
-      button_to button_text, link_path, method: method, class: class_name
+      button_to link_path, method: :delete, class: class_name do
+        concat button_icon
+        concat button_text
+      end
     end
   end
 

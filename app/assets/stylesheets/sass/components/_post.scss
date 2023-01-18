@@ -11,7 +11,7 @@
 		color: dimgray;
 	}
 
-	&__score {
+	&__vote {
 		background-color: #ebebeb;
 		padding-top: 5px;
 		height: auto;
@@ -89,7 +89,8 @@
 		& > .button_to {
 			display: inline-block;
 		}
-		button {
+		& > button,
+		& > .button_to > button {
 			cursor: pointer;
 			background: none;
 			border: none;
@@ -118,7 +119,7 @@ section.show-post {
 }
 
 .post-compact {
-	.post__score {
+	.post__vote {
 		justify-content: center;
 		padding: 0;
 	}
@@ -149,6 +150,8 @@ section.show-post {
 		width: 40px; // TODO replace with class
 		outline: 1px solid #bfbfbf;
 		display: inline-flex;
-		margin-right: 15px;
+		&__wrapper {
+			margin-right: 15px;
+		}
 	}
 }

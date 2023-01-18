@@ -22,11 +22,11 @@ nav,
 		padding: 5px;
 		padding-right: 15px;
 		border-bottom: 1px solid #bfbfbf;
+		position: relative;
 		ul {
 			display: flex;
 			align-items: center;
 			overflow: visible;
-			position: relative;
 		}
 		a {
 			color: inherit;
@@ -42,7 +42,7 @@ nav,
 					max-height: 20px;
 				}
 				a {
-					display: flex;
+					display: inline-flex;
 					align-items: center;
 				}
 			}
@@ -50,8 +50,11 @@ nav,
 				align-self: flex-end;
 			}
 			.logout {
-				all: unset;
-				color: white;
+				background: none !important;
+				border: none;
+				padding: 0 !important;
+				color: inherit;
+				font-size: inherit;
 			}
 			&.active a {
 				text-decoration: underline;
