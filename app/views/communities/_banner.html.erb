@@ -6,6 +6,7 @@
     <div class="community__header__content">
       <h1 class="name"><%= community.name %></h1>
       <%= link_to "s/#{community.shortname}", community_path(community.shortname), class:"shortname" %>
+      <%= join_button community %>
     </div>
   </div>
 </div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_18_184827) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_18_204557) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -77,6 +77,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_18_184827) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["owner_id"], name: "index_communities_on_owner_id"
+  end
+
+  create_table "community_members", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "community_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["community_id"], name: "index_community_members_on_community_id"
+    t.index ["user_id"], name: "index_community_members_on_user_id"
   end
 
   create_table "follower2s", force: :cascade do |t|
@@ -155,6 +164,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_18_184827) do
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
   add_foreign_key "communities", "users", column: "owner_id"
+  add_foreign_key "community_members", "communities"
+  add_foreign_key "community_members", "users"
   add_foreign_key "follower2s", "users"
   add_foreign_key "follower2s", "users", column: "follower_id"
   add_foreign_key "followers", "users"

@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :require_login, only: %i[edit update follow]
+
   def index
     @users = User.all
   end

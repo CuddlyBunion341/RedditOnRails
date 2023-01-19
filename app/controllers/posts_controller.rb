@@ -1,4 +1,6 @@
 class PostsController < ApplicationController
+  before_action :require_login, only: %i[new create edit update destroy publish]
+
   def index
     @posts = if params[:sort] == 'top'
                Post.public_posts.order(score: :desc)

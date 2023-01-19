@@ -15,6 +15,7 @@ class User < ApplicationRecord
 
   has_many :followers, class_name: 'Follower', foreign_key: :user_id
   has_many :following, class_name: 'Follower', foreign_key: :follower_id
+  has_many :joined_communities, class_name: 'CommunityMember', foreign_key: :user_id
 
   has_one_attached :avatar do |attachable|
     attachable.variant :thumb, resize_to_limit: [100, 100]

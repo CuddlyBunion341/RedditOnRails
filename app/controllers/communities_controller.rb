@@ -1,17 +1,19 @@
 class CommunitiesController < ApplicationController
+  before_action :require_login, only: %i[new create join]
+
   def index
     @communities = Community.all
   end
 
   def show
     @community = Community.find_by(shortname: params[:name])
-    if params[:sort] == "top"
-      @posts = @community.posts.where(status: "public").order(score: :desc)
-    else
-      @posts = @community.posts.where(status: "public").order(created_at: :desc)
-    end
+    @posts = if params[:sort] == 'top'
+               @community.posts.where(status: 'public').order(score: :desc)
+             else
+               @community.posts.where(status: 'public').order(created_at: :desc)
+             end
   end
-  
+
   def new
     @community = Community.new
   end
@@ -27,11 +29,17 @@ class CommunitiesController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
-  end 
+  end
+
+  def join
+    @community = Community.find_by(shortname: params[:name])
+    @community.join(Current.user)
+    redirect_to community_path(@community.shortname)
+  end
 
   private
 
   def community_params
-    params.require(:community).permit(:name,:shortname,:description)
+    params.require(:community).permit(:name, :shortname, :description)
   end
 end
