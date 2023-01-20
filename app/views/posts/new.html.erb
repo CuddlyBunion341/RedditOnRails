@@ -18,7 +18,7 @@
     <div class="post-form__main">
       <div class="field">
         <%= f.label :community_id %>
-        <%= f.select :community_id, options_from_collection_for_select(@communities, "id", "name", selected: params[:community_id]) %>
+        <%= render "communities/dropdown" %>
         <%= f.text_field :title, class: error_class(@post, :title), placeholder: "Title" %>
       </div>
       <div class="tab-wrapper" data-post-form-target="wrapper">

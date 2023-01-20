@@ -1,0 +1,28 @@
+.community-select {
+	border: 1px solid red;
+	&__list {
+		padding: 3px 0;
+		margin: 0;
+		list-style-type: none;
+		overflow-x: hidden;
+		overflow-y: scroll;
+
+		li {
+			padding: 0 3px;
+			cursor: pointer;
+			&:hover {
+				background-color: #eee;
+			}
+		}
+
+		button {
+			width: 100%;
+			text-align: left;
+
+			> b,
+			> span {
+				pointer-events: none;
+			}
+		}
+	}
+}

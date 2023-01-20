@@ -1,29 +1,5 @@
 import { Controller } from "@hotwired/stimulus";
-
-function ajax(url, options = {}) {
-	const {
-		body = null,
-		method = "GET",
-		contentType = "json",
-		debug = false,
-	} = options;
-
-	return fetch(url, {
-		method,
-		headers: {
-			"Content-Type": `application/${contentType}`,
-			"X-CSRF-Token": document.querySelector('meta[name="csrf-token"]')
-				.content,
-		},
-		body: body ? JSON.stringify(body) : null,
-	}).then((response) => {
-		if (debug) {
-			response.text().then((text) => console.log(text));
-		}
-
-		return response;
-	});
-}
+import { ajax } from "../application.js";
 
 // Connects to data-controller="comment"
 export default class extends Controller {
@@ -69,4 +45,6 @@ export default class extends Controller {
 				console.log("Error:", error);
 			});
 	}
+
+	reply() {}
 }

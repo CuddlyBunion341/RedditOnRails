@@ -9,6 +9,9 @@
 	&__head {
 		font-size: 13px;
 		color: dimgray;
+		.id {
+			float: right;
+		}
 	}
 
 	&__vote {

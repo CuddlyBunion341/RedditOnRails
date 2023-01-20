@@ -43,8 +43,10 @@
 
 	&__footer {
 		margin: 0 0 0 27px;
+		padding-top: 5px;
 		display: flex;
 		align-items: center;
+		border-top: 1px solid #bfbfbf;
 		& > button {
 			cursor: pointer;
 			background: none;
@@ -70,5 +72,10 @@
 		.vote-arrow {
 			scale: 0.8;
 		}
+	}
+
+	.id {
+		flex: 1;
+		text-align: right;
 	}
 }

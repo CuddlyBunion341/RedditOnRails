@@ -1,18 +1,5 @@
 import { Controller } from "@hotwired/stimulus";
-
-function ajax(url, options = {}) {
-	const { body = null, method = "GET", contentType = "json" } = options;
-
-	return fetch(url, {
-		method,
-		headers: {
-			"Content-Type": `application/${contentType}`,
-			"X-CSRF-Token": document.querySelector('meta[name="csrf-token"]')
-				.content,
-		},
-		body: body ? JSON.stringify(body) : null,
-	});
-}
+import { ajax } from "../application.js";
 
 export default class extends Controller {
 	static targets = ["wrapper"];

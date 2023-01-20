@@ -7,6 +7,7 @@
   <div class="post__content">
     <section class="post__head">
       posted by <%= link_to post.user.username, user_path(post.user.username) %> <%= time_ago_in_words post.created_at %> ago
+      <span class="id"><%= link_to "POST##{post.id}", post %></span>
     </section>
     <h3><%= post.title %></h3>
     <% if post.media_post? && !post.archived? %>

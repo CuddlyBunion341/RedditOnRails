@@ -70,7 +70,7 @@
 				border-color: $bg-primary;
 				background-color: #f3f3f3;
 			}
-			&:has(input[type="radio"]:focus) {
+			&:has(input[type="radio"]:focus-visible) {
 				i {
 					outline: 2px dashed lightgray;
 					outline-offset: 2px;

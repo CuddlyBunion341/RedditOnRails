@@ -5,6 +5,15 @@ class CommunitiesController < ApplicationController
     @communities = Community.all
   end
 
+  def list
+    @communities = Community.all
+
+    respond_to do |format|
+      format.json { render json: @communities, methods: :posts_count }
+      format.html { render :index }
+    end
+  end
+
   def show
     @community = Community.find_by(shortname: params[:name])
     @posts = if params[:sort] == 'top'
