@@ -18,4 +18,8 @@ class Community < ApplicationRecord
       members.find_by(user: user).destroy
     end
   end
+
+  def posts_count
+    posts.count
+  end
 end

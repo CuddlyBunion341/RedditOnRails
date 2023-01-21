@@ -1,27 +1,45 @@
 .community-select {
-	border: 1px solid red;
+	position: relative;
+	&__header {
+		display: flex;
+		align-items: stretch;
+		> input[type="text"] {
+			margin: 0;
+		}
+	}
+	&__search {
+		flex: 1;
+	}
 	&__list {
-		padding: 3px 0;
-		margin: 0;
+		background: white;
+		border: 1px solid gray;
+		width: 100%;
+		border-radius: 2px;
+		padding: 0;
+		margin: 5px 0;
 		list-style-type: none;
 		overflow-x: hidden;
 		overflow-y: scroll;
-
+		max-height: 143px;
+		position: absolute;
 		li {
-			padding: 0 3px;
+			padding: 0;
 			cursor: pointer;
 			&:hover {
 				background-color: #eee;
 			}
 		}
-
 		button {
 			width: 100%;
 			text-align: left;
-
+			background-color: transparent;
+			border: none;
 			> b,
 			> span {
 				pointer-events: none;
+			}
+			> b:before {
+				content: "s/";
 			}
 		}
 	}

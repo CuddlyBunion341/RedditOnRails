@@ -12,8 +12,9 @@ export default class extends Controller {
 		this.fetchCommunities();
 	}
 
+	// Fetches the list of communities from the server
 	fetchCommunities() {
-		ajax("/communities/list", { debug: false })
+		ajax("/communities/list")
 			.then((response) => response.json())
 			.then((data) => {
 				this.communities = data;
@@ -25,23 +26,26 @@ export default class extends Controller {
 			});
 	}
 
+	// Returns the HTML for a single community
+	listItem(community) {
+		return `
+		<li>
+			<button type="button" 
+			data-value="${community.id}" data-action="click->community-select#select">
+			<b>${community.shortname}</b><br>
+			<span>${community.posts_count} posts</span>
+			</button>
+		</li>`;
+	}
+
+	// Populates the select with the list of communities
 	populateSelect() {
 		this.listTarget.innerHTML = this.communities
-			.map((community) => {
-				console.log(community);
-				return `
-				<li>
-					<button type="button" 
-					data-value="${community.id}" data-action="click->community-select#select">
-					<b>${community.shortname}</b><br>
-					<span>${community.posts_count} posts</span>
-					</button>
-				</li>
-				`;
-			})
+			.map(this.listItem)
 			.join("");
 	}
 
+	// Selects a community by ID
 	selectID(id) {
 		this.community = this.communities.find((c) => c.id == id);
 
@@ -50,42 +54,79 @@ export default class extends Controller {
 		this.inputTarget.value = this.community.id;
 	}
 
+	// Selects a community by clicking on it
 	select(event) {
 		event.preventDefault();
 		const id = event.target.dataset.value;
 		this.selectID(id);
+		this.hide();
+		this.showAll();
 	}
 
+	// Selects the first filtered community in the list
+	selectFirst() {
+		this.listTarget.querySelector("li:not(.hidden) button")?.click(); // todo: refactor using classList
+	}
+
+	// Deselects the current community
 	deselect(event) {
 		event.preventDefault();
 		this.community = null;
 		this.selectedTarget.innerHTML = "";
 	}
 
+	// Toggles the visibility of the list
 	toggle() {
 		this.listTarget.classList.toggle("hidden");
 	}
 
-	search(event) {
+	// Shows the list
+	show() {
+		this.listTarget.classList.remove("hidden");
+	}
+
+	// Hides the list
+	hide() {
+		this.listTarget.classList.add("hidden");
+	}
+
+	// Filters the list of communities
+	filter(event) {
+		console.log(event);
+		console.log(event.target.value);
+		if (event.key === "Enter") {
+			this.confirm(event);
+			return;
+		}
+
+		const search = event.target.value.toLowerCase();
+		if (search.trim() === "") {
+			this.showAll();
+			return;
+		}
+
+		const filtered = this.communities.filter((c) => {
+			return (
+				c.name.toLowerCase().includes(search) ||
+				c.shortname.toLowerCase().includes(search)
+			);
+		});
+
+		this.listTarget.innerHTML = filtered.map(this.listItem).join("");
+	}
+
+	// Confirms the selection of the first filtered community
+	confirm(event) {
 		event.preventDefault();
-		const search = event.target.value;
-		const matches = this.communities.filter(
-			(c) =>
-				c.name.toLowerCase().includes(search.toLowerCase()) ||
-				c.shortname.toLowerCase().includes(search.toLowerCase())
-		);
-		this.listTarget.innerHTML = matches
-			.map((community) => {
-				return `
-				<li>
-					<button type="button" 
-					data-value="${community.id}" data-action="click->community-select#select">
-					<b>${community.shortname}</b><br>
-					<span>${community.posts_count} posts</span>
-					</button>
-				</li>
-				`;
-			})
+		this.selectFirst();
+		this.showAll();
+		this.toggle();
+	}
+
+	// Resets the list to show all communities
+	showAll() {
+		this.listTarget.innerHTML = this.communities
+			.map(this.listItem)
 			.join("");
 	}
 }
