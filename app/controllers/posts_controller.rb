@@ -104,7 +104,8 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
-    @comments = @post.comments.order(created_at: :desc)
+    @comments = @post.comments
+    @comments = @comments.sort_by { |c| c.parent_id || c.id }
   end
 
   def vote(upvote = true)

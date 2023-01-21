@@ -3,7 +3,7 @@ import { ajax } from "../application.js";
 
 // Connects to data-controller="comment"
 export default class extends Controller {
-	static targets = ["wrapper"];
+	static targets = ["wrapper", "replyBody"];
 
 	connect() {
 		this.commentID = this.wrapperTarget.dataset.id;
@@ -46,5 +46,47 @@ export default class extends Controller {
 			});
 	}
 
-	reply() {}
+	toggleReply() {
+		if (this.wrapperTarget.querySelector(".comment-reply")) {
+			this.wrapperTarget.querySelector(".comment-reply").remove();
+			return;
+		}
+
+		const replyForm = document.createElement("div");
+		replyForm.classList.add("comment-reply");
+		replyForm.innerHTML = `
+			<form action="/comments" method="post">
+				<input type="hidden" name="comment[parent_id]" value="${this.commentID}">
+				<textarea name="comment[body]" placeholder="Write a reply..." data-comment-target="replyBody" required></textarea>
+				<input type="submit" value="Reply" data-action="comment#reply">
+			</form>
+		`;
+		this.wrapperTarget.appendChild(replyForm);
+		this.replyBodyTarget.focus();
+	}
+
+	reply(event) {
+		event.preventDefault();
+		const body = this.replyBodyTarget.value;
+		ajax(`/comments/${this.commentID}/reply`, {
+			method: "POST",
+			body: {
+				comment: { parent_id: this.commentID, body },
+			},
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				if (data.error) alert(data.error);
+				else {
+					this.wrapperTarget.querySelector(".comment-reply").remove();
+					this.wrapperTarget.insertAdjacentHTML(
+						"afterend",
+						data.html
+					);
+				}
+			})
+			.catch((error) => {
+				console.log("Error:", error);
+			});
+	}
 }

@@ -13,4 +13,10 @@ module CommentsHelper
   def comment_save_button(comment)
     save_button(comment, 'comment')
   end
+
+  def comment_reply_button(_comment)
+    content_tag(:button, class: 'reply_btn', data: { action: 'comment#toggleReply' }) do
+      icon('fa-regular', 'comment').concat(' Reply')
+    end
+  end
 end

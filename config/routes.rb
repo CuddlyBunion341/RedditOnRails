@@ -20,8 +20,14 @@ Rails.application.routes.draw do
 
   match '/publish_post/:id', to: 'posts#publish', via: %i[get post], as: 'publish_post'
 
+  resources :comments do
+    member do
+      post :reply
+    end
+  end
+
   resources :posts do
-    resources :comments, only: [:create]
+    resources :comments, only: %i[create]
   end
 
   resources :users, param: :username, only: %i[show edit update] do

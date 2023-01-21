@@ -9,7 +9,7 @@
     <%= render "post", post: @post %>
     <div class="comments-wrapper">
       <%= render "comments/form" %>
-      <% unless @comments.exists? %>
+      <% unless @comments.count %>
         <p>No comments yet!</p>
       <% else %>
         <% @comments.each do |comment| %>

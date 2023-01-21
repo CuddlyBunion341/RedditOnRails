@@ -40,14 +40,26 @@ class CommentsController < ApplicationController
     render json: { html: render_comment(@comment) }
   end
 
+  def reply
+    @comment = Comment.find(params[:id])
+    new_params = comment_params.merge(user: Current.user, post: @comment.post)
+    @reply = @comment.replies.new(new_params)
+
+    if @reply.save
+      render json: { html: render_comment(@reply, true) }
+    else
+      render json: { error: 'Failed to save reply', errors: @reply.errors }, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def comment_params
-    params.require(:comment).permit(:body)
+    params.require(:comment).permit(:body, :parent_id)
   end
 
-  def render_comment(comment)
+  def render_comment(comment, reply = false)
     partial = 'comment'
-    render_to_string(partial: partial, locals: { comment: comment })
+    render_to_string(partial: partial, locals: { comment: comment, reply: reply })
   end
 end

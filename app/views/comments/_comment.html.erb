@@ -1,22 +1,29 @@
-<article class="comment" data-id="<%= comment.id %>" data-controller="comment" data-comment-target="wrapper">
-  <section class="comment__header">
-    <%= user_avatar(comment.user, "small") %>
-    <%= link_to comment.user.username, user_path(comment.user.username) %>
-    <span><%= time_ago_in_words comment.created_at %> ago</span>
-    <span class="id">COMMENT#<%= comment.id %></span>
-  </section>
-  <section class="comment__body">
-    <%= comment.body %>
-  </section>
-  <section class="comment__footer">
-    <div class="comment__vote">
-      <%= comment_upvote_button comment %>
-      <span class="comment__score">
-        <%= comment.score %>
-      </span>
-      <%= comment_downvote_button comment %>
-    </div>
-    <%= comment_reply_button comment %>
-    <%= comment_save_button comment %>
-  </section>
-</article>
+<% indentation_level = defined?(reply) && reply ? 1 : comment.indentations %>
+<% indentation_level.times do %>
+  <div class="comment__indent">
+  <% end %>
+  <article class="comment" data-id="<%= comment.id %>" data-controller="comment" data-comment-target="wrapper">
+    <section class="comment__header">
+      <%= user_avatar(comment.user, "small") %>
+      <%= link_to comment.user.username, user_path(comment.user.username) %>
+      <span><%= time_ago_in_words comment.created_at %> ago</span>
+      <span class="id">COMMENT#<%= comment.id %></span>
+    </section>
+    <section class="comment__body">
+      <%= comment.body %>
+    </section>
+    <section class="comment__footer">
+      <div class="comment__vote">
+        <%= comment_upvote_button comment %>
+        <span class="comment__score">
+          <%= comment.score %>
+        </span>
+        <%= comment_downvote_button comment %>
+      </div>
+      <%= comment_reply_button comment %>
+      <%= comment_save_button comment %>
+    </section>
+  </article>
+  <% indentation_level.times do %>
+  </div>
+<% end %>
