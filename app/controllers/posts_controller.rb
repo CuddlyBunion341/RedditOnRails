@@ -104,8 +104,19 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
-    @comments = @post.comments
-    @comments = @comments.sort_by { |c| c.parent_id || c.id }
+    @comments = @post.comments.filter { |c| c.parent_id.nil? }
+    @comments = order_comments(@comments)
+  end
+
+  def order_comments(comments)
+    ordered_comments = []
+
+    comments.sort_by(&:created_at).reverse.each do |comment|
+      ordered_comments << comment
+      ordered_comments += order_comments(comment.children)
+    end
+
+    ordered_comments
   end
 
   def vote(upvote = true)

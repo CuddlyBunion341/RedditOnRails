@@ -52,14 +52,14 @@ export default class extends Controller {
 			return;
 		}
 
-		const replyForm = document.createElement("div");
+		const replyForm = document.createElement("form");
 		replyForm.classList.add("comment-reply");
+		replyForm.action = "/comments";
+		replyForm.method = "post";
 		replyForm.innerHTML = `
-			<form action="/comments" method="post">
-				<input type="hidden" name="comment[parent_id]" value="${this.commentID}">
-				<textarea name="comment[body]" placeholder="Write a reply..." data-comment-target="replyBody" required></textarea>
-				<input type="submit" value="Reply" data-action="comment#reply">
-			</form>
+			<input type="hidden" name="comment[parent_id]" value="${this.commentID}">
+			<textarea name="comment[body]" placeholder="Write a reply..." data-comment-target="replyBody" required></textarea>
+			<input type="submit" value="Reply" data-action="comment#reply">
 		`;
 		this.wrapperTarget.appendChild(replyForm);
 		this.replyBodyTarget.focus();
