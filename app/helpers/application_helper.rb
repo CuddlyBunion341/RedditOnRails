@@ -45,4 +45,14 @@ module ApplicationHelper
   def attachment_identifier(attachment)
     attachment.filename.to_s + attachment.byte_size.to_s + attachment.created_at.to_i.to_s # won't work
   end
+
+  def sort_option(shortname, displayname, icon, default = false)
+    is_active = (default && params[:sort].blank?) || params[:sort] == shortname
+    active = is_active ? 'active' : ''
+    path = params.permit(:per_page).merge(sort: shortname)
+
+    link_to path, class: "sort sort-#{shortname} #{active}" do
+      icon('fa', icon).concat(" #{displayname}")
+    end
+  end
 end

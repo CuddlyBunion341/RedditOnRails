@@ -1,5 +1,11 @@
-<% indentation_level = defined?(reply) && reply ? 1 : comment.indentations %>
-<% indentation_level.times do %>
+<% 
+  if local_assigns[:indents].nil?
+    indents = comment.indentations
+  else
+    indents = local_assigns[:indents]
+  end
+%>
+<% indents.times do %>
   <div class="comment__indent">
   <% end %>
   <article class="comment" data-id="<%= comment.id %>" data-controller="comment" data-comment-target="wrapper">
@@ -8,6 +14,9 @@
       <%= link_to comment.user.username, user_path(comment.user.username) %>
       <span><%= time_ago_in_words comment.created_at %> ago</span>
       <span class="id">COMMENT#<%= comment.id %></span>
+      <% if comment.parent_id %>
+        <span class="id">PARENT#<%= comment.parent_id %></span>
+      <% end %>
     </section>
     <section class="comment__body">
       <%= comment.body %>
@@ -24,6 +33,6 @@
       <%= comment_save_button comment %>
     </section>
   </article>
-  <% indentation_level.times do %>
+  <% indents.times do %>
   </div>
 <% end %>
