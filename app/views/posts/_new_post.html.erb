@@ -1,10 +1,15 @@
 <% unless Current.user.nil? %>
+  <% 
+  community_id ||= nil 
+  post = {community_id: community_id} 
+  %>
   <article class="padded new-post">
     <%= user_avatar Current.user %>
-    <% community_id ||= nil %>
-    <%= link_to new_post_path(:community_id => community_id), class: "input" do %>
+    <%= link_to new_post_path(post: post), class: "input" do %>
       <%= icon("fa-regular","file-lines") %>
       Create Post
     <% end %>
+    <%= link_to icon('fa-regular','image'), new_post_path(post: post.merge!(post_type: 'media')), class:"post-type-button" %>
+    <%= link_to icon('fa','link'), new_post_path(post: post.merge!(post_type: 'link')), class:"post-type-button" %>
   </article>
 <% end %>

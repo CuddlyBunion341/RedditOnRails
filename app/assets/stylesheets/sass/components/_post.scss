@@ -141,6 +141,7 @@ section.show-post {
 		// border-radius: 5px;
 		border-bottom: 1px solid;
 		width: 100%;
+		margin-right: 10px;
 		&:hover {
 			// border-color: $bg-primary;
 			border-color: transparent;
@@ -155,6 +156,18 @@ section.show-post {
 		display: inline-flex;
 		&__wrapper {
 			margin-right: 15px;
+		}
+	}
+	.post-type-button {
+		margin-left: 5px;
+		color: gray;
+		padding: 5px;
+		border-radius: 5px;
+		width: 2em;
+		text-align: center;
+		&:hover {
+			color: black;
+			background-color: #e9e9e9;
 		}
 	}
 }
