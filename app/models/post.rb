@@ -1,6 +1,7 @@
 class Post < ApplicationRecord
   include Votable
   include Savable
+  include Pinable
 
   validate :url_must_exist, if: :will_save_change_to_url?
   before_save :create_link_preview, if: :will_save_change_to_url?
@@ -12,13 +13,14 @@ class Post < ApplicationRecord
   has_many :votes, class_name: 'PostVote', dependent: :destroy
   has_many :saves, class_name: 'PostSave', dependent: :destroy
   has_many :comments, dependent: :destroy
+  belongs_to :pin_owner, class_name: 'User', optional: true
 
   has_many_attached :media do |attachable|
     attachable.variant :thumb, resize_to_limit: [100, 100]
   end
 
   validates :title, presence: true, length: { maximum: 100 }
-  validates :url, format: { with: URI::regexp }, presence: true, if: :link_post?
+  validates :url, format: { with: URI::DEFAULT_PARSER.make_regexp }, presence: true, if: :link_post?
   validates :body, presence: true, if: :text_post?
   validates :media, presence: true, if: :media_post?
 

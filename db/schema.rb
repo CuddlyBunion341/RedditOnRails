@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_20_134935) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_23_115900) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -149,8 +149,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_20_134935) do
     t.string "post_type", default: "text"
     t.integer "link_id"
     t.integer "community_id"
+    t.integer "pin_owner_id"
     t.index ["community_id"], name: "index_posts_on_community_id"
     t.index ["link_id"], name: "index_posts_on_link_id"
+    t.index ["pin_owner_id"], name: "index_posts_on_pin_owner_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -180,4 +182,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_20_134935) do
   add_foreign_key "posts", "communities"
   add_foreign_key "posts", "links"
   add_foreign_key "posts", "users"
+  add_foreign_key "posts", "users", column: "pin_owner_id"
 end
