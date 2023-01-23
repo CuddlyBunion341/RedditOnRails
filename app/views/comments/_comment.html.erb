@@ -14,9 +14,6 @@
       <%= link_to comment.user.username, user_path(comment.user.username) %>
       <span><%= time_ago_in_words comment.created_at %> ago</span>
       <span class="id">COMMENT#<%= comment.id %></span>
-      <% if comment.parent_id %>
-        <span class="id">PARENT#<%= comment.parent_id %></span>
-      <% end %>
     </section>
     <section class="comment__body">
       <%= comment.body %>

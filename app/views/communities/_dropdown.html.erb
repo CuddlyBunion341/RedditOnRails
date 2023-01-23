@@ -1,7 +1,14 @@
 <div class="community-select" data-controller="community-select">
   <input type="hidden" name="post[community_id]" data-community-select-target="input" value="<%= params[:post][:community_id] if params[:post] %>">
   <div class="community-select__header">
-    <input type="text" class="text" class="community-select__search" placeholder="Select a Community" data-community-select-target="search" data-action="keyup->community-select#filter keydown->community-select#filter change->community-select#confirm blur->community-select#hide focus->community-select#show">
+    <% 
+      community_name = "Select a Community"
+      if params.dig(:post, :community_id)
+        community = Community.find_by_id(params[:post][:community_id])
+        community_name = community.name if community
+      end
+    %>
+    <input type="text" class="text" value="<%= community_name %>" class="community-select__search" placeholder="Select a Community" data-community-select-target="search" data-action="keyup->community-select#filter keydown->community-select#filter change->community-select#confirm blur->community-select#hide focus->community-select#show">
     <button class="community-select__button" type="button" tabindex="-1" data-action="community-select#toggle">
       <%= icon("fa","caret-down") %>
     </button>

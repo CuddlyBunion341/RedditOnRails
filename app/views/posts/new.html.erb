@@ -25,15 +25,17 @@
           <%= f.text_area :body, class: error_class(@post, :body), placeholder: "Text" %>
         </div>
         <div id="tab1" class="tab hidden">
-          <%= f.label :media, "Drag and drop media or click", class:"upload-region", data: {
+          <%= f.label :media, class:"upload-region", data: {
             "post-form-target": "dropzone",
             action: "
             drop->post-form#uploadDrop 
             dragover->post-form#uploadDragOver dragleave->post-form#uploadDragLeave"
-          } %>
-          <%= f.file_field :media, :multiple => true, class: "hidden", data: {
+          } do %>
+            Drag and drop media or click
+            <%= f.file_field :media, :multiple => true, class: "", data: {
             action: "change->post-form#upload", "post-form-target": "upload"
           } %>
+          <% end %>
           <div class="post-form__attachments" data-post-form-target="uploadList">
             <% if @post.media.attached? %>
               <%= @post.media.attachments.inspect %>

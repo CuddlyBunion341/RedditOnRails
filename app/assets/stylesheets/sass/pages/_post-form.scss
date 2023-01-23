@@ -48,6 +48,15 @@
 		margin-bottom: 10px;
 		border-radius: 2px;
 
+		input[type="file"] {
+			opacity: 0;
+			position: absolute;
+		}
+
+		&:has(input[type="file"]:focus) {
+			border-color: $bg-primary;
+		}
+
 		&.dragover {
 			border-color: $bg-primary;
 		}

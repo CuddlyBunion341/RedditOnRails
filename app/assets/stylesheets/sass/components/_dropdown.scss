@@ -9,9 +9,13 @@
 		top: 100%;
 		border-bottom-right-radius: 3px;
 		border-bottom-left-radius: 3px;
+		overflow: hidden;
 		li {
 			display: block;
 			padding: 5px 5px;
+			&:hover {
+				background: #800020;
+			}
 		}
 		i {
 			width: 20px;
