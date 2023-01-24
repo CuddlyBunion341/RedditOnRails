@@ -35,6 +35,9 @@
     <h1>Moderators</h1>
     <ul>
       <%= render "users/list_item", user: community.owner %>
+      <% community.moderators.each do |user| %>
+        <%= render "users/list_item", user: user %>
+      <% end %>
     </ul>
   </article>
 </aside>

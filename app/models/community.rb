@@ -19,6 +19,14 @@ class Community < ApplicationRecord
     end
   end
 
+  def moderators
+    members.where(role: 'moderator').map(&:user)
+  end
+
+  def moderator?(user)
+    moderators.find_by(user: user).present? || owner == user
+  end
+
   def posts_count
     posts.count
   end

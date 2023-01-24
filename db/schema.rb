@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_23_115900) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_24_213356) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -86,6 +86,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_23_115900) do
     t.integer "community_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "role", default: 0
     t.index ["community_id"], name: "index_community_members_on_community_id"
     t.index ["user_id"], name: "index_community_members_on_user_id"
   end
@@ -141,15 +142,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_23_115900) do
     t.string "title"
     t.text "body"
     t.integer "user_id", null: false
-    t.string "status", default: "public"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "score", default: 0
     t.string "url"
-    t.string "post_type", default: "text"
     t.integer "link_id"
     t.integer "community_id"
     t.integer "pin_owner_id"
+    t.integer "post_type", default: 0
+    t.integer "status", default: 0
     t.index ["community_id"], name: "index_posts_on_community_id"
     t.index ["link_id"], name: "index_posts_on_link_id"
     t.index ["pin_owner_id"], name: "index_posts_on_pin_owner_id"

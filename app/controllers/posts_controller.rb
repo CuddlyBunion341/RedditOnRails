@@ -3,9 +3,9 @@ class PostsController < ApplicationController
 
   def index
     @posts = if params[:sort] == 'top'
-               Post.public_posts.order(score: :desc)
+               Post.published.order(score: :desc)
              else
-               Post.public_posts.order(created_at: :desc)
+               Post.published.order(created_at: :desc)
              end
 
     @active_users = User.joins(:posts).group(:id).order('count(posts.id) desc').limit(10)
@@ -21,8 +21,8 @@ class PostsController < ApplicationController
     @communities = Community.all
     @post = Post.new(post_params)
     @post.user = Current.user
-    @post.status = 'public'
     @post.community = Community.find(params[:post][:community_id])
+    @post.status = 'published'
 
     if params[:draft]
       @post.status = 'draft'

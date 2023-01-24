@@ -10,7 +10,7 @@
       </article>
     <% end %>
     <% @posts.each do |post| %>
-      <%= render "posts/post", post: post %>
+      <%= render "posts/post", post: post, show_pins: true %>
     <% end %>
   </section>
 </main>

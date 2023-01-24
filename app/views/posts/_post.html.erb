@@ -6,11 +6,13 @@
   </div>
   <div class="post__content">
     <section class="post__head">
-      <% if local_assigns[:show_pins] && post.pinned? %>
-        <%= icon("fa-solid", "thumbtack") %>
-        by <%= link_to post.pin_owner.username, user_path(post.pin_owner.username) %>
-      <% end %>
       posted by <%= link_to post.user.username, user_path(post.user.username) %> <%= time_ago_in_words post.created_at %> ago
+      <% if local_assigns[:show_pins] && post.pinned? %>
+        <span class="pin">
+          <%= icon("fa-solid", "thumbtack") %>
+          Pinned by <%= link_to post.pin_owner.username, user_path(post.pin_owner.username) %>
+        </span>
+      <% end %>
       <span class="id"><%= link_to "POST##{post.id}", post %></span>
     </section>
     <h3><%= post.title %></h3>

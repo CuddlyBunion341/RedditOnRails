@@ -44,9 +44,7 @@
       <p>There are no posts yet.</p>
     <% end %>
     <% @posts.each do |post| %>
-      <% if post.public? %>
-        <%= render "post", post: post %>
-      <% end%>
+      <%= render "post", post: post %>
     <% end %>
   </section>
 </main>

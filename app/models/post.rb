@@ -20,18 +20,12 @@ class Post < ApplicationRecord
   end
 
   validates :title, presence: true, length: { maximum: 100 }
-  validates :url, format: { with: URI::DEFAULT_PARSER.make_regexp }, presence: true, if: :link_post?
-  validates :body, presence: true, if: :text_post?
-  validates :media, presence: true, if: :media_post?
+  validates :url, format: { with: URI::DEFAULT_PARSER.make_regexp }, presence: true, if: :type_link?
+  validates :body, presence: true, if: :type_text?
+  validates :media, presence: true, if: :type_media?
 
-  VALID_STATUSES = %w[public private draft archived].freeze
-  VALID_TYPES = %w[text media link].freeze
-
-  validates :status, inclusion: { in: VALID_STATUSES }
-  validates :post_type, inclusion: { in: VALID_TYPES }
-
-  # --- scopes ---
-  scope :public_posts, -> { where(status: 'public') }
+  enum :status, { draft: 0, published: 1, archived: 2 }
+  enum :post_type, { text: 0, media: 1, link: 2 }, prefix: 'type'
 
   # -- static methods ---
   def self.update_link_previews
@@ -41,7 +35,7 @@ class Post < ApplicationRecord
   # -- callbacks ---
 
   def url_must_exist
-    return unless link_post?
+    return unless type_link?
 
     begin
       LinkThumbnailer.generate(url)
@@ -89,47 +83,13 @@ class Post < ApplicationRecord
     end
   end
 
-  # --- predicates ---
-  def public?
-    status == 'public'
-  end
-
-  def archived?
-    status == 'archived'
-  end
-
-  def draft?
-    status == 'draft'
-  end
-
-  def text_post?
-    post_type == 'text'
-  end
-
-  def media_post?
-    post_type == 'media'
-  end
-
-  def link_post?
-    post_type == 'link'
-  end
-
-  # -- instance methods ---
-  # def bookmark(user)
-  #   if user.saved?(self)
-  #     user.post_saves.find_by(post: self).destroy
-  #   else
-  #     user.post_saves.create(post: self)
-  #   end
-  # end
-
   def archive
     update(status: 'archived')
   end
 
   def publish
-    return unless save # check if draft is valid
+    return unless save
 
-    update(status: 'public', created_at: Time.now)
+    update(status: 'published', created_at: Time.now)
   end
 end

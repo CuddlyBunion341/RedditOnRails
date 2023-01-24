@@ -1,4 +1,4 @@
-<% if post.public? %>
+<% if post.published? %>
   <article class="post-compact" data-id="<%= post.id %>" data-controller="post" data-post-target="wrapper" data-variant="compact">
     <div class="post__vote">
       <%= post_upvote_button post %>
