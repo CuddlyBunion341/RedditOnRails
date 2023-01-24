@@ -49,7 +49,7 @@ class Post < ApplicationRecord
   end
 
   def create_link_preview(save = false)
-    return unless link_post?
+    return unless type_link?
 
     link_obj = Link.find_or_create_by(url: url)
     if save
@@ -60,7 +60,7 @@ class Post < ApplicationRecord
   end
 
   def update_link_preview
-    return unless link_post?
+    return unless type_link?
 
     link = Link.find_or_create_by(url: url) if link.nil?
     link.create_link_preview

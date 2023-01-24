@@ -16,9 +16,9 @@
       <span class="id"><%= link_to "POST##{post.id}", post %></span>
     </section>
     <h3><%= post.title %></h3>
-    <% if post.media_post? && !post.archived? %>
+    <% if post.type_media? && !post.archived? %>
       <%= render "posts/lightbox", media: post.media %>
-    <% elsif post.link_post? && !post.archived? %>
+    <% elsif post.type_link? && !post.archived? %>
       <a href="<%= post.url %>"><%= post.url %></a>
       <a href="<%= post.url %>" class="no-underline link-preview">
         <div class="link-preview__thumb">

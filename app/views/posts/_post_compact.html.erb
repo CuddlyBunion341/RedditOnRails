@@ -7,14 +7,14 @@
     </div>
     <div class="post__thumb">
       <div class="icon_wrapper">
-        <% if post.media_post? %>
+        <% if post.type_media? %>
           <%= image_tag post.media[0].variant(:thumb), alt: post.media[0].name %>
           <% if post.media.count > 1 %>
             <span class="count">
               +<%= post.media.count - 1 %>
             </span>
           <% end %>
-        <% elsif post.link_post? %>
+        <% elsif post.type_link? %>
           <%= icon("fa","link") %>
         <% else %>
           <%= icon("fa","bars")%>
