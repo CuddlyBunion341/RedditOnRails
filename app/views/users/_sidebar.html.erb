@@ -1,0 +1,70 @@
+<aside>
+  <article class="user-profile">
+    <div class="user-profile__banner">
+      <% if @user.editable? %>
+        <div class="user-avatar__wrapper" data-target="user.avatarWrapper">
+          <%= user_avatar_img @user, "medium", { target: "user.avatar" } %>
+        </div>
+      <% else %>
+        <%= user_avatar(@user,"medium") %>
+      <% end %>
+    </div>
+    <div class="user-profile__username">
+      <h2><%= @user.display_name %></h2>
+      <%= link_to "u/#{user.username}", user_path(@user.username) %>
+      <p class="online <%= 'green' if @user.is_online %>">
+        <% if @user.is_online %>
+          • online
+        <% else %>
+          Last seen <%= time_ago_in_words(@user.last_online) %> ago
+        <% end %>
+      </p>
+    </div>
+    <% unless @user.bio.blank? %>
+      <p><%= @user.bio %></p>
+    <% end %>
+    <div class="user-profile__stats">
+      <p>
+        <b>Joined</b>
+        <i class="fa-solid fa-right-to-bracket"></i>
+        <%= time_ago_in_words(@user.created_at) %> ago
+      </p>
+      <p>
+        <b>Posts</b>
+        <%= icon("fa-regular","file-lines") %> <%= @user.posts.count %>
+      </p>
+      <p>
+        <b>Comments</b>
+        <%= icon("fa-regular","comment") %> <%= @user.comments.count %>
+      </p>
+    </div>
+    <%= follow_button @user %>
+    <% if @user.editable? %>
+      <%= link_to edit_user_path(@user.username), class:"edit-profile" do %>
+        <%= icon("fa","pen") %> Edit Profile
+      <% end %>
+    <% end %>
+  </article>
+  <article class="titled">
+    <h1>Followers</h1>
+    <% unless @user.followers.exists? %>
+      <p>No followers yet!</p>
+    <% else %>
+      <ul>
+        <% @followers.each do |follower| %>
+          <%= render "users/list_item", user: follower %>
+        <% end %>
+      </ul>
+    <% end %>
+  </article>
+  <% if @user.owned_communities %>
+    <article class="titled">
+      <h1>Created Communities</h1>
+      <ul>
+        <% @user.owned_communities.each do |community| %>
+          <%= render "communities/list_item", community: community %>
+        <% end %>
+      </ul>
+    </article>
+  <% end %>
+</aside>

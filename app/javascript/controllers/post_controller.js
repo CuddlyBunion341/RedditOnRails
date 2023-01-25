@@ -7,13 +7,14 @@ export default class extends Controller {
 	connect() {
 		this.postID = this.wrapperTarget.dataset.id;
 		this.varname = this.wrapperTarget.dataset.variant;
+		this.showPin = this.wrapperTarget.dataset.showPin;
 	}
 
 	vote(upvote) {
 		const root = upvote ? `upvote` : `downvote`;
 		ajax(`/${root}_post/${this.postID}`, {
 			method: "POST",
-			body: { variant: this.varname },
+			body: { variant: this.varname, showPin: this.showPin },
 		})
 			.then((response) => response.json())
 			.then((data) => {
@@ -36,7 +37,7 @@ export default class extends Controller {
 	save() {
 		ajax(`/save_post/${this.postID}`, {
 			method: "POST",
-			body: { variant: this.varname },
+			body: { variant: this.varname, showPin: this.showPin },
 		})
 			.then((response) => response.json())
 			.then((data) => {
@@ -54,7 +55,7 @@ export default class extends Controller {
 
 		ajax(`/archive_post/${this.postID}`, {
 			method: "POST",
-			body: { variant: this.varname },
+			body: { variant: this.varname, showPin: this.showPin },
 		})
 			.then((response) => response.json())
 			.then((data) => {

@@ -2,59 +2,11 @@
   <% content_for :header do %>
     <%= render "nav", user: @user %>
   <% end %>
-  <aside>
-    <article class="user-profile">
-      <div class="user-profile__banner">
-        <%= user_avatar(@user,"medium") %>
-      </div>
-      <div class="user-profile__username">
-        <h2><%= @user.username %></h2>
-        <%= link_to "u/#{@user.username}", user_path(@user.username) %>
-      </div>
-      <span class="online">
-        <% if @user.is_online %>
-          <span class="green">online</span>
-        <% else %>
-          Last seen <%= time_ago_in_words(@user.last_online) %> ago
-        <% end %>
-      </span>
-      <% unless @user.bio.blank? %>
-        <p><%= @user.bio %></p>
-      <% end %>
-      <div class="user-profile__stats">
-        <span>
-          <b>Joined</b><br>
-          <%= time_ago_in_words(@user.created_at) %> ago
-        </span>
-        <span>
-          <b>Posts</b><br>
-          <%= icon("fa-regular","file-lines") %> <%= @user.posts.count %>
-        </span>
-        <span>
-          <b>Comments</b><br>
-          <%= icon("fa-regular","comment") %> <%= @user.comments.count %>
-        </span>
-      </div>
-      <%= follow_button @user %>
-      <% if Current.user && @user == Current.user %>
-        <%= link_to edit_user_path(@user.username), class:"edit-profile" do %>
-          <%= icon("fa","pen") %> Edit Profile
-        <% end %>
-      <% end %>
-    </article>
-    <article class="titled">
-      <h1>Followers</h1>
-      <% unless @user.followers.exists? %>
-        <p>No followers yet!</p>
-      <% else %>
-        <ul>
-          <% @followers.each do |follower| %>
-            <%= render "users/list_item", user: follower %>
-          <% end %>
-        </ul>
-      <% end %>
-    </article>
-  </aside>
+  <% if local_assigns[:editable] %>
+    <%= render "edit_sidebar", user: @user %>
+  <% else %>
+    <%= render "sidebar", user: @user %>
+  <% end %>
   <section class="<%= "fullwidth" if @fullwidth %>">
     <%= render @tab %>
   </section>

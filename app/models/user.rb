@@ -3,6 +3,7 @@ class User < ApplicationRecord
 
   validates :username, presence: true, uniqueness: true,
                        format: { with: /[a-zA-Z0-9_]{1,20}/, message: 'Invalid Username' }
+  validates :display_name, presence: true, length: { maximum: 40 }
   validates :email, presence: true, uniqueness: true,
                     format: { with: URI::MailTo::EMAIL_REGEXP, message: 'Invalid Email' }
   validates :bio, length: { maximum: 200 }
@@ -17,6 +18,8 @@ class User < ApplicationRecord
   has_many :following, class_name: 'Follower', foreign_key: :follower_id
   has_many :joined_communities, class_name: 'CommunityMember', foreign_key: :user_id
   has_many :pinned_posts, class_name: 'Post', foreign_key: :pin_owner_id
+
+  has_many :owned_communities, class_name: 'Community', foreign_key: :owner_id
 
   has_one_attached :avatar do |attachable|
     attachable.variant :thumb, resize_to_limit: [100, 100]
@@ -36,6 +39,10 @@ class User < ApplicationRecord
 
   def drafts
     posts.where(status: 'draft')
+  end
+
+  def editable?
+    Current.user == self
   end
 
   def saved_posts

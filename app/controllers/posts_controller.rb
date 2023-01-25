@@ -167,7 +167,7 @@ class PostsController < ApplicationController
     partial = 'post'
     params[:variant] && partial += "_#{params[:variant]}"
 
-    render_to_string(partial: partial, locals: { post: post })
+    render_to_string(partial: partial, locals: { post: post, show_pins: params[:showPin] })
   end
 
   private

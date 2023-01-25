@@ -1,0 +1,35 @@
+<aside>
+  <%= form_with model: user do |f| %>
+    <article class="user-profile" data-controller="user">
+      <div class="user-profile__banner">
+        <div class="user-avatar__wrapper" data-target="user.avatarWrapper">
+          <%= f.label :avatar do %>
+            <%= user_avatar_img @user, "medium", { target: "user.avatar" } %>
+            <%= f.file_field :avatar, data: { action: 'user#updateAvatar', target: 'user.avatarInput' } %>
+          <% end %>
+        </div>
+      </div>
+      <div class="user-profile__username">
+        <%= f.label :display_name %><br>
+        <%= f.text_field :display_name %><br>
+        <%= f.label :username %><br>
+        u/<%= f.text_field :username %><br>
+      </div>
+      <%= f.label :bio %>
+      <%= f.text_area :bio %>
+      <%= f.submit 'Save Changes' %>
+    </article>
+  <% end %>
+  <article class="titled">
+    <h1>Followers</h1>
+    <% unless user.followers.exists? %>
+      <p>No followers yet!</p>
+    <% else %>
+      <ul>
+        <% @followers.each do |follower| %>
+          <%= render "users/list_item", user: follower %>
+        <% end %>
+      </ul>
+    <% end %>
+  </article>
+</aside>

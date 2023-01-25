@@ -1,42 +1,5 @@
 <main>
-  <aside>
-    <article class="titled">
-      <h1>About RedditOnRails</h1>
-      <p>
-        RedditOnRails is a clone of the popular social news website
-        <a href="http://www.reddit.com">Reddit</a>. It was built using
-        <a href="http://rubyonrails.org">Ruby on Rails</a> and
-        <a href="http://www.mysql.com">MySQL</a>.
-        The source code is available on
-        <a href="https://github.com/CuddlyBunion341/RedditOnRails">GitHub</a>
-        under the MIT license.
-      </p>
-    </article>
-    <article class="titled">
-      <h1>Active Users</h1>
-      <% unless @active_users.exists? %>
-        <p>There are no active users.</p>
-      <% else %>
-        <ul>
-          <% @active_users.each do |user| %>
-            <%= render "users/list_item", user: user%>
-          <% end %>
-        </ul>
-      <% end %>
-    </article>
-    <article class="titled">
-      <h1>Popular Communities!</h1>
-      <% unless @active_communities.exists? %>
-        <p>There are no active communities. </p>
-      <% else %>
-        <ul>
-          <% @active_communities.each do |community| %>
-            <%= render "communities/list_item", community: community %>
-          <% end %>
-        </ul>
-      <% end %>
-    </article>
-  </aside>
+  <%= render "sidebar" %>
   <section id="feed">
     <%= render "new_post" %>
     <%= render "sort" %>

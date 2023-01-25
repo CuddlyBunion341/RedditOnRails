@@ -30,11 +30,7 @@ Rails.application.routes.draw do
     resources :comments, only: %i[create]
   end
 
-  resources :users, param: :username, only: %i[show edit update] do
-    member do
-      get :show_tab
-    end
-  end
+  resources :users, param: :username, only: %i[show edit update]
 
   get '/communities/list', to: 'communities#list'
 

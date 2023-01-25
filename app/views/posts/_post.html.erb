@@ -1,4 +1,4 @@
-<article class="post" data-id="<%= post.id %>" data-controller="post" data-post-target="wrapper">
+<article class="post" data-id="<%= post.id %>" data-controller="post" data-post-target="wrapper" data-show-pin="<%= local_assigns[:show_pins] %>">
   <div class="post__vote">
     <%= post_upvote_button post %>
     <span class="post__score"><%= post.score %></span>

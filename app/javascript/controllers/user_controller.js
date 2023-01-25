@@ -4,11 +4,7 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
 	static targets = ["avatar", "avatarWrapper", "avatarInput"];
 
-	connect() {
-		this.avatarWrapperTarget.addEventListener("click", () => {
-			this.avatarInputTarget.click();
-		});
-	}
+	connect() {}
 
 	updateAvatar(event) {
 		const file = event.target.files[0];

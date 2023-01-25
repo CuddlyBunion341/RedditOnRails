@@ -31,11 +31,20 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find_by(username: params[:username])
-    return if @user == Current.user
+    @followers = @user.followers.pluck(:follower_id).map { |id| User.find(id) }
+    @tab = params[:tab]
+    valid_tabs = %w[overview posts comments saved drafts]
+    fullwidth_tabs = %w[posts comments]
+    @tab = 'overview' unless valid_tabs.include?(@tab)
+    @fullwidth = fullwidth_tabs.include?(@tab)
 
-    # TODO: Add JSON response
-    redirect_to user_path(@user.username), alert: 'You are not
+    unless @user.editable?
+      redirect_to user_path(@user.username), alert: 'You are not
       authorized to view this page'
+      return
+    end
+
+    render :show, locals: { editable: true }
   end
 
   def update
@@ -58,7 +67,7 @@ class UsersController < ApplicationController
       redirect_to user_path(@user.username), notice: 'User updated
       successfully'
     else
-      render :edit, status: :unprocessable_entity
+      render :show, status: :unprocessable_entity
     end
   end
 
@@ -82,6 +91,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :username, :email, :password, :password_confirmation, :bio, :avatar)
+    params.require(:user).permit(:name, :username, :display_name, :email, :password, :password_confirmation, :bio,
+                                 :avatar)
   end
 end
