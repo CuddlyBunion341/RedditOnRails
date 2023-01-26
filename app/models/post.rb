@@ -20,7 +20,8 @@ class Post < ApplicationRecord
   end
 
   validates :title, presence: true, length: { maximum: 100 }
-  validates :url, format: { with: URI::DEFAULT_PARSER.make_regexp }, presence: true, if: :type_link?
+  validates :url, format: URI::DEFAULT_PARSER.make_regexp(%w[http https]), presence: true, if: :type_link?
+
   validates :body, presence: true, if: :type_text?
   validates :media, presence: true, if: :type_media?
 
@@ -39,8 +40,8 @@ class Post < ApplicationRecord
 
     begin
       LinkThumbnailer.generate(url)
-    rescue LinkThumbnailer::BadUriFormat
-      errors.add(:url, 'is not a valid URL')
+    rescue URI::InvalidURIError, LinkThumbnailer::BadUriFormat
+      # errors.add(:url, 'is not a valid URL')
     rescue OpenSSL::SSL::SSLError
       errors.add(:url, 'is not a valid URL')
     rescue LinkThumbnailer::HTTPError

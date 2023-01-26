@@ -11,19 +11,17 @@
 		flex: 1;
 	}
 	&__list {
-		background: white;
-		border: 1px solid gray;
 		width: 100%;
-		border-radius: 2px;
-		padding: 0;
+		max-height: 5 * 28px;
 		margin: 5px 0;
-		list-style-type: none;
+		padding: 0;
+		position: absolute;
+		border: 1px solid gray;
+		border-radius: 2px;
+		background: white;
 		overflow-x: hidden;
 		overflow-y: scroll;
-		max-height: 143px;
-		position: absolute;
 		li {
-			padding: 0;
 			cursor: pointer;
 			&:hover {
 				background-color: #eee;

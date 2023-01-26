@@ -1,20 +1,19 @@
 .dropdown {
 	& > &__content {
 		display: none;
+		width: max-content;
+		@include border-radius-bottom(3px);
+		background: darken($bg-primary, 25%);
 		position: absolute;
 		z-index: 999;
-		background: #5d0000;
 		right: 0;
-		width: max-content;
 		top: 100%;
-		border-bottom-right-radius: 3px;
-		border-bottom-left-radius: 3px;
 		overflow: hidden;
 		li {
 			display: block;
-			padding: 5px 5px;
+			padding: 5px;
 			&:hover {
-				background: #800020;
+				background: $bg-secondary;
 			}
 		}
 		i {

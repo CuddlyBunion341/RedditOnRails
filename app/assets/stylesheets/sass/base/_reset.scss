@@ -1,8 +1,7 @@
 html,
 body {
-	margin: 0;
-	padding: 0;
 	height: 100%;
+	background-color: #f7f7f7;
 }
 
 hr {
@@ -11,8 +10,22 @@ hr {
 	height: 1px;
 }
 
-body {
-	background-color: #f7f7f7;
+html,
+body,
+ul,
+ol,
+li {
+	margin: 0;
+	padding: 0;
+}
+
+ul,
+ol {
+	list-style: none;
+}
+
+p {
+	padding: 0;
 }
 
 * {
@@ -27,6 +40,9 @@ img {
 	border: 0;
 }
 
-button i {
-	pointer-events: none;
+button {
+	cursor: pointer;
+	i {
+		pointer-events: none;
+	}
 }

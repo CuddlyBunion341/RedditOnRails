@@ -1,9 +1,6 @@
 aside {
 	width: 300px;
-
 	margin-left: 20px;
-
-	/* TODO REFACTOR */
 	display: inline-block;
 	justify-self: flex-end;
 	order: 1;
@@ -17,9 +14,8 @@ article.titled {
 	& > h1 {
 		margin: -1px;
 		padding: 5px;
-		border-top-left-radius: 2px;
-		border-top-right-radius: 2px;
-		color: #fff;
+		@include border-radius-top(2px);
+		color: white;
 		background-color: $bg-primary;
 	}
 

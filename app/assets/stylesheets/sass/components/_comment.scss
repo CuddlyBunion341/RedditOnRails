@@ -5,11 +5,11 @@
 		display: flex;
 
 		input[type="text"] {
+			flex: 1;
 			padding: 7px;
 			border: 1px solid #e9e9e9;
 			border-radius: 3px;
 			margin: 0 10px;
-			flex: 1;
 			font-size: 16px;
 		}
 		input[type="submit"] {
@@ -43,16 +43,11 @@
 		font-size: 13px;
 		width: 100%;
 		color: dimgray;
-		display: flex;
-		align-items: center;
+		@include flex();
 
 		a:not(.user-avatar) {
 			margin: 0 5px;
-			color: black;
-			text-decoration: none;
-			&:hover {
-				text-decoration: underline;
-			}
+			@include link-no-underline(black);
 		}
 	}
 	&__body,
@@ -63,16 +58,14 @@
 	&__footer {
 		margin: 0 0 0 27px;
 		padding-top: 5px;
-		display: flex;
-		align-items: center;
+		@include flex();
 		border-top: 1px solid #bfbfbf;
 		& > button {
-			cursor: pointer;
-			background: none;
-			border: none;
-			padding: 5px;
-			border-radius: 3px;
 			margin: 0;
+			padding: 5px;
+			border: none;
+			background: none;
+			border-radius: 3px;
 			&:hover {
 				background-color: #e9e9e9;
 			}
@@ -89,7 +82,7 @@
 		align-items: center;
 
 		.vote-arrow {
-			scale: 0.8;
+			scale: 0.8; // TODO: use a better way to scale the icon (maybe a mixin)
 		}
 	}
 

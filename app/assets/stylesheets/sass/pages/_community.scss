@@ -5,8 +5,7 @@
 		background: white;
 
 		&__content {
-			padding: 10px;
-			padding-left: 20px;
+			padding: 10px 20px 10px 10px;
 			.shortname {
 				font-size: 1.2em;
 				margin: 5px;
@@ -29,8 +28,7 @@
 			);
 			img {
 				display: none;
-				width: 100%;
-				height: 100%;
+				@include square(100%);
 				object-fit: cover;
 			}
 		}

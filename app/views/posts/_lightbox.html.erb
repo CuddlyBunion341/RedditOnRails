@@ -9,10 +9,10 @@
           1 of <%= media.count %>
         </span>
         <div class="lightbox__overlay__controls">
-          <button class="lightbox__button hidden" data-action="click->lightbox#previous" data-lightbox-target="previous">
+          <button class="lightbox__button hidden" data-action="click->lightbox#previous" data-lightbox-target="previous" aria-label"previous">
             <%= icon("fa-solid", "chevron-left") %>
           </button>
-          <button class="lightbox__button" data-action="click->lightbox#next" data-lightbox-target="next">
+          <button class="lightbox__button" data-action="click->lightbox#next" data-lightbox-target="next" aria-label="next">
             <%= icon("fa-solid", "chevron-right") %>
           </button>
         </div>

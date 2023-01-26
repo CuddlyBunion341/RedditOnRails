@@ -1,41 +1,7 @@
-.follow-btn,
-.join-btn {
-	padding: 5px;
-	background-color: orange;
-	border: 1px solid orange;
-	border-radius: 5px;
-	margin-left: 10px;
-	text-decoration: none;
-	color: black;
-	display: block;
-	max-width: max-content;
-	margin-bottom: 10px;
-
-	&.active {
-		background-color: white;
-		color: orange;
-		border-color: orange;
-	}
-
-	&.disabled {
-		background-color: grey;
-		color: white;
-		border-color: grey;
-		opacity: 0.5;
-	}
+.follow-btn {
+	@include outline-button(orange);
 }
 
 .join-btn {
-	background-color: $bg-primary;
-	border-color: $bg-primary;
-	color: white;
-	display: inline;
-	border-radius: 10px;
-	padding: 3px 10px;
-
-	&.active {
-		background-color: white;
-		color: $bg-primary;
-		border-color: $bg-primary;
-	}
+	@include outline-button($bg-primary);
 }
