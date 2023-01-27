@@ -18,9 +18,9 @@ class CommunitiesController < ApplicationController
     @community = Community.find_by(shortname: params[:name])
 
     @posts = if params[:sort] == 'top'
-               @community.posts.published.order('pin_owner_id DESC, score DESC')
+               @community.posts.order('pin_owner_id DESC, score DESC')
              else
-               @community.posts.published.order('pin_owner_id DESC, created_at DESC')
+               @community.posts.order('pin_owner_id DESC, created_at DESC')
              end
   end
 

@@ -28,9 +28,16 @@ class Post < ApplicationRecord
   enum :status, { draft: 0, published: 1, archived: 2 }
   enum :post_type, { text: 0, media: 1, link: 2 }, prefix: 'type'
 
+  # -- scopes ---
+  default_scope { published.order(created_at: :desc) }
+
   # -- static methods ---
   def self.update_link_previews
     Post.where(post_type: 'link').each(&:update_link_preview)
+  end
+
+  def self.search(query)
+    where('title LIKE ?', "%#{query}%")
   end
 
   # -- callbacks ---

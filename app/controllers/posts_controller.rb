@@ -3,9 +3,9 @@ class PostsController < ApplicationController
 
   def index
     @posts = if params[:sort] == 'top'
-               Post.published.order(score: :desc)
+               Post.order(score: :desc)
              else
-               Post.published.order(created_at: :desc)
+               Post.order(created_at: :desc)
              end
 
     @active_users = User.joins(:posts).group(:id).order('count(posts.id) desc').limit(10)

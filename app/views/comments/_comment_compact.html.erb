@@ -1,0 +1,11 @@
+<article class="comment comment-compact">
+  <section class="comment__header">
+    <%= icon('fa-regular','message') %>
+    <%= link_to comment.user.username, user_path(comment.user.username) %> commented on <%= link_to comment.post.title, comment.post %> in {COMMUNITYNAME} posted by <%= link_to comment.post.user.username, user_path(comment.post.user.username) %>
+  </section>
+  <section class="comment__body">
+    <div class="comment__indent">
+      <p><%= comment.body %></p>
+    </div>
+  </section>
+</article>

@@ -32,6 +32,8 @@ Rails.application.routes.draw do
 
   resources :users, param: :username, only: %i[show edit update]
 
+  get '/search', to: 'search#index'
+
   get '/communities/list', to: 'communities#list'
 
   resources :communities, param: :name, only: %i[show index create]

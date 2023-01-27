@@ -1,0 +1,15 @@
+<% content_for :header do %>
+  <%= render "nav" %>
+<% end %>
+<main>
+  <section id="feed">
+    <% @objects.each do |object| %>
+      <% if object.class == Comment %>
+        <% puts object.inspect %>
+        <%= render "comments/comment_compact", comment: object %>
+      <% else %>
+        <%= render object %>
+      <% end %>
+    <% end %>
+  </section>
+</main>

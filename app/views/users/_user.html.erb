@@ -1,0 +1,5 @@
+<div class="user">
+  <%= user_avatar user %>
+  <%= user.display_name %>
+  <%= link_to "u/#{user.username}", user_path(user.username) %>
+</div>

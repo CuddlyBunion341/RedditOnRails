@@ -29,6 +29,10 @@ class User < ApplicationRecord
     self.display_name = username
   end
 
+  def self.search(query)
+    where('username LIKE ? OR display_name LIKE ?', "%#{query}%", "%#{query}%")
+  end
+
   def login
     update(last_online: Time.now, is_online: true)
   end

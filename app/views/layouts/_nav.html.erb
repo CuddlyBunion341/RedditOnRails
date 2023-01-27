@@ -1,13 +1,21 @@
 <nav class="nav-main">
   <ul>
     <%= nav_link image_tag( "logo.svg"), root_path, "logo" %>
+    <li>
+      <form action="/search" method="get" class="search-form">
+        <input type="text" name="q" placeholder="Search" class="search-form__input" value="<%= params[:q] %>">
+        <button type="submit" class="search-form__button">
+          <%= icon("fa", "search") %>
+        </button>
+      </form>
+    </li>
     <% if Current.user %>
       <%= nav_link "Create Post", new_post_path %>
       <li class="dropdown">
-          <button type="button" class="dropdown__title" href="#">
-            <%= @username %>
-            <%= icon("fa","chevron-down") %>
-          </button>
+        <button type="button" class="dropdown__title" href="#">
+          <%= @username %>
+          <%= icon("fa","chevron-down") %>
+        </button>
         <ul class="dropdown__content">
           <%= nav_link "Profile", user_path(@username), '', icon('fa','user') %>
           <%= nav_link "New Community", new_community_path, '',icon('fa','users-line') %>
@@ -20,4 +28,3 @@
     <% end %>
   </ul>
 </nav>
-

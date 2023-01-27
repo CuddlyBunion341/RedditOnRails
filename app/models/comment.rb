@@ -12,6 +12,10 @@ class Comment < ApplicationRecord
 
   validates :body, presence: true
 
+  def self.search(query)
+    where('body LIKE ?', "%#{query}%")
+  end
+
   def indentations
     parent ? parent.indentations + 1 : 0
   end

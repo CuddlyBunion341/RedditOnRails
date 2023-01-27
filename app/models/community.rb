@@ -7,6 +7,10 @@ class Community < ApplicationRecord
   validates :name, presence: true, length: { in: 3..40 }
   validates :shortname, presence: true, length: { in: 3..20 }, format: { with: /\w+/ }
 
+  def self.search(query)
+    where('name LIKE ? OR shortname LIKE ?', "%#{query}%", "%#{query}%")
+  end
+
   def active_users
     User.joins(:posts).where(posts: { community_id: id }).group(:id).order('count(posts.id) desc').limit(10)
   end

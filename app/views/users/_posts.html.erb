@@ -1,6 +1,6 @@
 <% unless @user.posts.exists? %>
   <p>There are no posts yet.</p>
 <% end %>
-<% @user.posts.published.order(created_at: :desc).each do |post| %>
+<% @user.posts.order(created_at: :desc).each do |post| %>
   <%= render "posts/post_compact", post: post %>
 <% end %>
