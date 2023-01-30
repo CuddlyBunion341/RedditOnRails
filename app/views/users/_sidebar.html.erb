@@ -40,7 +40,7 @@
     </div>
     <%= follow_button @user %>
     <% if @user.editable? %>
-      <%= link_to edit_user_path(@user.username), class:"edit-profile" do %>
+      <%= link_to edit_user_path(@user.username), class:"edit-profile-link" do %>
         <%= icon("fa","pen") %> Edit Profile
       <% end %>
     <% end %>

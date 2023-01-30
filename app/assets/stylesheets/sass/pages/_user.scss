@@ -60,7 +60,27 @@
 	.follow-btn {
 		margin: 10px 0;
 	}
-	.edit-profile {
+	&.edit-profile {
+		.field-wrapper {
+			padding: 0 10px;
+		}
+		input[type="text"],
+		textarea {
+			width: 100%;
+			padding: 5px;
+			border: 1px solid #bfbfbf;
+			border-radius: 3px;
+			display: block;
+			resize: vertical;
+			margin-bottom: 10px;
+		}
+		input[type="submit"] {
+			width: 100%;
+			@include outline-button($bg-primary);
+			margin: 10px 0;
+		}
+	}
+	.edit-profile-link {
 		margin: 20px 0 10px 0;
 		@include link-no-underline();
 	}

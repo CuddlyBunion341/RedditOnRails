@@ -1,6 +1,6 @@
 <aside>
   <%= form_with model: user do |f| %>
-    <article class="user-profile" data-controller="user">
+    <article class="user-profile edit-profile" data-controller="user">
       <div class="user-profile__banner">
         <div class="user-avatar__wrapper" data-target="user.avatarWrapper">
           <%= f.label :avatar do %>
@@ -9,15 +9,15 @@
           <% end %>
         </div>
       </div>
-      <div class="user-profile__username">
-        <%= f.label :display_name %><br>
-        <%= f.text_field :display_name %><br>
-        <%= f.label :username %><br>
-        u/<%= f.text_field :username %><br>
+      <div class="field-wrapper">
+        <%= f.label :display_name %>
+        <%= f.text_field :display_name %>
+        <%= f.label :username %>
+        <%= f.text_field :username %>
+        <%= f.label :bio %>
+        <%= f.text_area :bio %>
+        <%= f.submit 'Save Changes' %>
       </div>
-      <%= f.label :bio %>
-      <%= f.text_area :bio %>
-      <%= f.submit 'Save Changes' %>
     </article>
   <% end %>
   <article class="titled">

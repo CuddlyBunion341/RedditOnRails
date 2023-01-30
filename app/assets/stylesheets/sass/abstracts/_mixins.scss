@@ -64,6 +64,7 @@
 	border-radius: 5px;
 	padding: 3px 10px;
 	text-decoration: none;
+	cursor: pointer;
 }
 
 @mixin outline-button($bg: purple, $color: white) {
