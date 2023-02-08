@@ -43,7 +43,7 @@
 		font-size: 13px;
 		width: 100%;
 		color: dimgray;
-		@include flex();
+		@include flex(flex-start);
 
 		a:not(.user-avatar) {
 			margin: 0 5px;
@@ -95,5 +95,27 @@
 	.id {
 		flex: 1;
 		text-align: right;
+	}
+}
+
+.comment-compact {
+	.comment__header {
+		border-bottom: 1px solid #bfbfbf;
+		padding-bottom: 5px;
+	}
+	.comment__body {
+		padding: 5px 0;
+		margin: 0 5px;
+		&__header {
+			margin: 0 0 5px 0;
+			display: block;
+			color: gray;
+		}
+		p {
+			margin: 0;
+			background-color: #ededed;
+			border-radius: 5px;
+			padding: 5px 10px;
+		}
 	}
 }

@@ -3,6 +3,7 @@
 <% end %>
 <main>
   <section id="feed">
+    <h1><%= @tab_name %></h1>
     <% @objects.each do |object| %>
       <% if object.class == Comment %>
         <% puts object.inspect %>

@@ -4,8 +4,9 @@
     <%= link_to comment.user.username, user_path(comment.user.username) %> commented on <%= link_to comment.post.title, comment.post %> in {COMMUNITYNAME} posted by <%= link_to comment.post.user.username, user_path(comment.post.user.username) %>
   </section>
   <section class="comment__body">
-    <div class="comment__indent">
-      <p><%= comment.body %></p>
-    </div>
+    <span class="comment__body__header">
+      <%= time_ago_in_words comment.created_at %> ago
+    </span>
+    <p><%= comment.body %></p>
   </section>
 </article>

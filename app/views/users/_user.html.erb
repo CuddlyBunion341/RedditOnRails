@@ -1,5 +1,7 @@
-<div class="user">
-  <%= user_avatar user %>
-  <%= user.display_name %>
-  <%= link_to "u/#{user.username}", user_path(user.username) %>
-</div>
+<%= render 'shared/list_item', 
+  class_name: 'user',
+  avatar: user_avatar(user),
+  top_text: user.display_name,
+  bottom_text: link_to("u/#{user.username}", user_path(user.username)),
+  button: follow_button(user)
+ %>

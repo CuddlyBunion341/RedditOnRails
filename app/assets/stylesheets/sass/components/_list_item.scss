@@ -1,0 +1,18 @@
+.list-item {
+	display: flex;
+	background-color: white;
+	border-radius: 5px;
+	padding: 10px;
+	margin-top: 10px;
+	box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+	border: 1px solid #bfbfbf;
+	align-items: center;
+
+	& .right {
+		padding-left: 10px;
+		flex: 1;
+		.bottom a {
+			@include link-no-underline();
+		}
+	}
+}

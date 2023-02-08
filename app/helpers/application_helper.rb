@@ -55,4 +55,16 @@ module ApplicationHelper
       icon('fa', icon).concat(" #{displayname}")
     end
   end
+
+  def follow_button(user)
+    return if user == Current.user
+
+    if Current.user.nil?
+      link_to 'Follow', follower_path(user.username), class: 'follow-btn disabled'
+    elsif user.followed_by?(Current.user)
+      link_to 'Unfollow', follower_path(user.username), method: :post, class: 'follow-btn active'
+    else
+      link_to 'Follow', follower_path(user.username), method: :post, class: 'follow-btn'
+    end
+  end
 end

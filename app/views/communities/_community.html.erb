@@ -1,1 +1,7 @@
-<p><%= community.name %></p>
+<%= render 'shared/list_item',
+    class_name: 'community',
+    avatar: user_avatar(User.first),
+    top_text: community.name,
+    bottom_text: link_to("c/#{community.name}", community_path(community.name)),
+    button: follow_button(User.first)
+%>

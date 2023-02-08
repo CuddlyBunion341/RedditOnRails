@@ -26,13 +26,14 @@ class SearchController < ApplicationController
       'comments' => Comment
     }
 
-    if models[type]
-      @objects << models[type].search(query)
-    else
-      models.each do |_key, model|
-        @objects << model.search(query)
-      end
-    end
+    @tab_name = models[type] ? type : 'posts'
+    @tab_name = @tab_name.titleize
+
+    @objects << if models[type]
+                  models[type].search(query)
+                else
+                  models['posts'].search(query)
+                end
 
     @objects.flatten!
     @objects.sort_by!(&:created_at).reverse!
