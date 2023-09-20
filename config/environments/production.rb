@@ -85,7 +85,7 @@ Rails.application.configure do
   # Sass config
   # config.assets.css_compressor = :yui
   config.assets.css_compressor = :sass
-  config.assets.js_compressor = :terser
+  # config.assets.js_compressor = :terser
 
   if ENV["RAILS_LOG_TO_STDOUT"].present?
     logger = ActiveSupport::Logger.new(STDOUT)
